@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "title": "复旦基础医学跨学科知识图谱（MedGraph Flow）",
-  "generated_at": "2026-11-16T21:53:00+08:00",
+  "generated_at": "2026-11-16T22:30:07+08:00",
   "syllabus": [
     {
       "id": "syl_histology_001",
@@ -9328,6 +9328,840 @@
         }
       },
       "added_at": "2026-11-16T21:53:00+08:00"
+    },
+    {
+      "id": "biochem_glycolysis_hk_vs_gk",
+      "title": "己糖激酶 vs 葡萄糖激酶调控",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_009"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "葡萄糖进胞后靠磷酸化生成带负电荷的G-6-P锁定胞内；肝葡萄糖激酶高Km且不受G-6-P抑制，专司餐后血糖缓冲。",
+      "source_slides": [
+        "糖代谢2026.pdf#P30-P31,P198"
+      ],
+      "payload": {
+        "columns": [
+          "比较维度",
+          "己糖激酶 (HK I–III型)",
+          "葡萄糖激酶 (GK / HK IV型)"
+        ],
+        "rows": [
+          [
+            "组织分布与底物专一性",
+            "全身绝大多数细胞（如脑、骨骼肌）；专一性弱（可磷酸化多种己糖）",
+            "仅肝细胞（与胰岛β细胞）；专一性强（仅催化葡萄糖）"
+          ],
+          [
+            "对葡萄糖亲和力 (Km)",
+            "Km很低（亲和力极高）：空腹低血糖时仍可饱和高效摄糖供能",
+            "Km很高（亲和力低，Vmax大）：仅餐后门静脉高血糖时迅速启动合成糖原"
+          ],
+          [
+            "产物与激素调节机制",
+            "受产物 G-6-P 强烈反馈抑制，不受胰岛素诱导表达",
+            "不受 G-6-P 抑制；受葡糖激酶调节蛋白(GKRP)抑制，胰岛素诱导其基因表达"
+          ],
+          [
+            "磷酸化的共同生理意义",
+            "① G-6-P带负电不能出膜；② 消耗胞内游离糖维持浓度梯度促GLUT内流；③ 活化己糖",
+            "三点意义相同，使肝脏充当“血糖高低缓冲器”而不致在空腹时抢夺脑组织葡萄糖"
+          ]
+        ],
+        "quiz": {
+          "stem": "饱餐后门静脉血糖骤升至 15 mmol/L 时，肝细胞能持续大量将葡萄糖转为 G-6-P 储存糖原而不受积聚的 G-6-P 阻断，而空腹血糖降至 3.5 mmol/L 时肝细胞又几乎停止截留葡萄糖让位给大脑。决定肝脏这一“缓冲器”行为的核心酶学机制是：",
+          "options": [
+            "肝葡萄糖激酶(GK) Km 高且不受产物 G-6-P 反馈抑制，仅高糖时高通量激活",
+            "肝细胞仅表达 Km 极低的己糖激酶 I 型并受果糖-2,6-双磷酸直接抑制",
+            "G-6-P 可经肝细胞膜 GLUT2 逆向主动泵回门静脉",
+            "胰岛素直接使己糖激酶磷酸化以解除 G-6-P 抑制"
+          ],
+          "answer_idx": 0,
+          "explain": "肝 GK (IV型) 对葡萄糖 Km 很高（约 10 mmol/L 级）且不受产物 G-6-P 抑制，因此空腹低糖时几乎不工作、餐后高糖时大通量磷酸化；而脑/肌细胞依赖低 Km 的 GLUT3/HK 保证低血糖时仍优先供能。",
+          "remedial_node_id": "physio_membrane_transport"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_glycolysis_pathway_atp",
+      "title": "糖酵解全流程、底物磷酸化与产能",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_009"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "胞质十步反应含1步氧化还原、2步底物水平磷酸化与3步不可逆限速开关，净产2 ATP(糖原起点3 ATP)并靠LDH再生NAD⁺。",
+      "source_slides": [
+        "糖代谢2026.pdf#P28-P56"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_glycolysis_pathway_p52.webp",
+          "caption": "糖酵解途径全览：E1/E2/E3三步不可逆酶、GAPDH与LDH之间的NADH/NAD⁺胞质闭环及四大特征归纳",
+          "source_page": 52
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "投资耗能与六碳裂解：为何要先把醛糖(G-6-P)异构为酮糖(F-6-P)再二次磷酸化？",
+            "reveal": "己糖激酶(E1)耗1 ATP；磷酸己糖异构酶将羰基移至C2使C3-C4键易断裂；PFK-1(E2)再耗1 ATP生成F-1,6-BP，醛缩酶将其对称裂解为DHAP与3-磷酸甘油醛(G3P，经TPI互变使2分子均进入下游)。",
+            "mechanism_tag": "耗2 ATP·两次活化裂解"
+          },
+          {
+            "cue": "唯一氧化还原与第一底物磷酸化：GAPDH如何把氧化自由能直接铸成高能磷酸键？",
+            "reveal": "3-磷酸甘油醛脱氢酶(GAPDH)以活性中心Cys-SH亲核攻击醛基成硫半缩醛，NAD⁺氧化成高能硫酯并产生NADH+H⁺，再经无机磷酸Pi磷酸解生成1,3-二磷酸甘油酸(1,3-BPG)；随后磷酸甘油酸激酶将其高能酰基磷酸转移给ADP生成2×1=2 ATP（碘代乙酸烷化Cys-SH可彻底阻断此步）。",
+            "mechanism_tag": "Cys-SH硫酯·首次底物磷酸化"
+          },
+          {
+            "cue": "脱水聚能与第二底物磷酸化：2-磷酸甘油酸如何再次产出ATP并被NaF阻断？",
+            "reveal": "变位酶将磷酸基从C3移至C2，烯醇化酶催化脱水重排能量形成高能磷酸烯醇式丙酮酸(PEP，NaF可抑制烯醇化酶故用作血糖管抗酵解剂)；丙酮酸激酶(E3, 需Mg²⁺/K⁺)不可逆生成丙酮酸及2×1=2 ATP。",
+            "mechanism_tag": "烯醇化酶/NaF·二次底物磷酸化"
+          },
+          {
+            "cue": "缺氧闭环与净ATP核算：为何无线粒体红细胞或剧烈运动肌必须将丙酮酸还原为乳酸？",
+            "reveal": "胞质NAD⁺总量极有限，无氧条件下线粒体无法氧化NADH，必须由乳酸脱氢酶(LDH)用丙酮酸接受GAPDH产生的NADH还原为乳酸以再生NAD⁺（否则糖酵解停摆）。净产出：游离葡萄糖起点 2×2-2 = 2 ATP；糖原(Gn)起点省去HK步故净产 2×2-1 = 3 ATP。",
+            "mechanism_tag": "LDH再生NAD⁺·净2/3 ATP"
+          }
+        ],
+        "takeaway": "糖酵解全部反应在胞质完成，“1氧化、2磷酸化、3不可逆、4激酶”；GAPDH与LDH形成NADH↔NAD⁺胞质闭环，使红细胞、骨髓及缺氧骨骼肌无需氧气也能持续产ATP。",
+        "quiz": {
+          "stem": "向正在进行无氧酵解的红细胞悬液中加入碘代乙酸（不可逆烷化半胱氨酸-SH基团）后，下列代谢指标变化组合最准确的是：",
+          "options": [
+            "GAPDH受阻导致F-1,6-BP与磷酸丙糖堆积，下游1,3-BPG、乳酸与ATP生成同时锐减",
+            "己糖激酶完全失活，细胞内游离葡萄糖无法磷酸化，F-1,6-BP立刻降为零",
+            "烯醇化酶受阻导致3-磷酸甘油酸大量堆积，但GAPDH仍持续产生NADH和乳酸",
+            "丙酮酸激酶被共价激活，乳酸生成翻倍但细胞净消耗ATP"
+          ],
+          "answer_idx": 0,
+          "explain": "如图P41机制所示，碘代乙酸共价修饰GAPDH活性中心关键Cys-SH使之失活，导致其底物3-磷酸甘油醛（及上游DHAP、F-1,6-BP）堆积，而下游两步底物水平磷酸化与NADH→乳酸全部断流，红细胞ATP迅速枯竭。",
+          "remedial_node_id": "biochem_glycolysis_hk_vs_gk"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_pfk1_pfk2_switch",
+      "title": "PFK-1变构与F-2,6-BP开关",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_009"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "PFK-1是糖酵解最核心限速酶，既受ATP双位点与柠檬酸反馈抑制，更受胰高血糖素/PKA磷酸化PFK-2/FBP-2调节的F-2,6-BP最强控制。",
+      "source_slides": [
+        "糖代谢2026.pdf#P33-P37,P48-P49,P102"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_pfk1_pfk2_regulation_p37.webp",
+          "caption": "PFK-1变构效应物网络与PFK-2/FBP-2双功能酶共价磷酸化反转2,6-双磷酸果糖水平机制图",
+          "source_page": 37
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "ATP双位点悖论：生理浓度4–5 mM的ATP平时为何会自己踩下PFK-1刹车，AMP又如何放大信号？",
+            "reveal": "ATP既是PFK-1活性中心的底物，高浓度时又结合其别构抑制位点使酶活性骤降；当细胞耗能使ATP微降、ADP升高时，腺苷酸激酶(2ADP ↔ ATP+AMP)因体内[ATP]≈50×[AMP]而把AMP浓度百分比放大数倍，AMP与F-2,6-BP共同解除ATP和柠檬酸的抑制。",
+            "mechanism_tag": "ATP双位点·AMP信号放大"
+          },
+          {
+            "cue": "F-2,6-BP双功能酶开关：饱餐 vs 饥饿时肝脏如何借同一条多肽链倒转PFK-1活性？",
+            "reveal": "PFK-2与FBP-2位于同一双功能酶蛋白上：空腹胰高血糖素↑ → cAMP → PKA磷酸化该酶，使其PFK-2活性失活、FBP-2活性激活，快速水解F-2,6-BP为F-6-P；F-2,6-BP作为PFK-1最强变构激活剂一旦下降，ATP/柠檬酸抑制效应即占主导，糖酵解刹车。",
+            "mechanism_tag": "PKA磷酸化·PFK-2/FBP-2反转"
+          },
+          {
+            "cue": "胰岛素反转与下游PK协同：血糖升高时F-2,6-BP与丙酮酸激酶如何联动放行？",
+            "reveal": "进食胰岛素↑激活磷蛋白磷酸酶去磷酸化双功能酶（PFK-2恢复活性）→ F-2,6-BP↑强力激活PFK-1；产生的F-1,6-BP再作为前馈别构激活剂激活下游丙酮酸激酶(PK)，而PK同时受高ATP/丙氨酸变构抑制及胰高血糖素/PKA磷酸化失活，防止中间物死锁。",
+            "mechanism_tag": "F-1,6-BP前馈PK·上下游协同"
+          }
+        ],
+        "takeaway": "PFK-1整合了局部能荷（ATP/柠檬酸⊖ vs AMP/ADP⊕）与全身激素信号（PKA磷酸化双功能酶使F-2,6-BP↓），并与F-1,6-BP前馈激活丙酮酸激酶构成糖酵解主阀门。",
+        "quiz": {
+          "stem": "若通过基因定点突变把肝细胞双功能酶 PFK-2/FBP-2 上被 PKA 磷酸化的丝氨酸突变为丙氨酸（无法被磷酸化），在空腹高胰高血糖素状态下该肝细胞最可能出现什么反常代谢改变？",
+          "options": [
+            "胰高血糖素无法关闭PFK-2并激活FBP-2，胞内F-2,6-BP维持高位并持续强力激活PFK-1，阻碍糖异生",
+            "丙酮酸激酶失去F-1,6-BP前馈激活而完全停摆，细胞立刻转为无氧酮症",
+            "高浓度ATP不再能够结合PFK-1的活性中心导致F-6-P彻底耗竭",
+            "肝葡萄糖激酶立即受G-6-P强烈反馈抑制并关闭GLUT2"
+          ],
+          "answer_idx": 0,
+          "explain": "正常空腹时胰高血糖素经cAMP-PKA磷酸化双功能酶（关PFK-2、开FBP-2），令F-2,6-BP骤降以撤除对PFK-1的激活；若磷酸化位点突变失效，F-2,6-BP持续高企将把糖流死锁在PFK-1正向酵解方向。",
+          "remedial_node_id": "biochem_glycolysis_pathway_atp"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_pdh_complex_mechanism",
+      "title": "丙酮酸脱氢酶复合体与砷/B1阻断",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_009"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "线粒体基质PDH复合体(E1/E2/E3配5种辅酶)不可逆将丙酮酸氧化脱羧为乙酰CoA，受产物比值与磷酸化修饰双重锁控。",
+      "source_slides": [
+        "糖代谢2026.pdf#P61-P69,P96-P97"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_pdh_complex_p63.webp",
+          "caption": "丙酮酸脱氢酶复合体E1/E2/E3与TPP、硫辛酸、HSCoA、FAD、NAD⁺五步接力及脚气病/砒霜抑制位点",
+          "source_page": 63
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "3酶5辅酶接力机制：乙酰基与氢原子如何从丙酮酸依次转移到乙酰CoA和NADH？",
+            "reveal": "① E1(丙酮酸脱氢酶，辅酶TPP/Vit B1)催化脱羧成羟乙基-TPP；② E2(二氢硫辛酰胺转乙酰酶)将乙酰基转给氧化型硫辛酸后，再移交给HSCoA(泛酸)生成乙酰CoA，自身留两个-SH；③ E3(二氢硫辛酰胺脱氢酶)依次借FAD(Vit B2)与NAD⁺(Vit PP)氧化双巯基再生二硫键，产出NADH+H⁺。",
+            "mechanism_tag": "E1-TPP → E2-硫辛酸 → E3-FAD/NAD⁺"
+          },
+          {
+            "cue": "双轨调控锁：脂肪动员或胰岛素刺激下，PDH如何决定碳流是否放行进入TCA？",
+            "reveal": "① 别构反馈：高乙酰CoA/HSCoA与高NADH/NAD⁺及ATP直接抑制PDH，AMP/ADP/NAD⁺激活；② 共价磷酸化：PDH激酶磷酸化E1使PDH失活（受乙酰CoA、NADH、ATP激活，ADP、NAD⁺抑制）；PDH磷酸酶去磷酸化激活PDH（受胰岛素与Ca²⁺激活）。",
+            "mechanism_tag": "磷酸化失活·胰岛素/Ca²⁺去磷酸化"
+          },
+          {
+            "cue": "临床与毒理断点：为何Vit B1缺乏、砒霜中毒与先天PDH缺陷都会引发乳酸性酸中毒？",
+            "reveal": "Vit B1缺乏（脚气病）缺TPP使E1卡死；砒霜/有机砷螯合二氢硫辛酰胺的双-SH使E2停摆；先天E1缺陷（P67 PBL患儿）使丙酮酸无法生成乙酰CoA，在胞质被迫还原为乳酸、转氨为丙氨酸并伴脑ATP危机（视神经萎缩、共济失调、HCO₃⁻↓）。",
+            "mechanism_tag": "B1/砷剂/先天PDH缺陷→乳酸↑"
+          }
+        ],
+        "takeaway": "PDH复合体是连接胞质糖酵解与线粒体TCA的不可逆单行门，集齐TPP(B1)、硫辛酸、CoA、FAD(B2)和NAD⁺(PP)五大辅酶，任何一环断裂都会令丙酮酸倒灌成乳酸与丙氨酸。",
+        "quiz": {
+          "stem": "PBL临床案例：3岁患儿出现小颅畸形、视神经萎缩、共济失调，血丙酮酸、乳酸与丙氨酸均显著升高伴血清HCO₃⁻↓（确诊先天性PDH E1亚基缺陷）。若对患儿改用“高脂生酮饮食+低碳水化合物”方案可明显减轻乳酸酸中毒，其根本生化原理是：",
+          "options": [
+            "脂肪酸β-氧化可直接在线粒体绕过PDH复合体生成乙酰CoA供外周及部分组织氧化与生酮供脑，减少丙酮酸堆积",
+            "高脂饮食能直接将血中乳酸通过PDH E2/E3逆向还原为葡萄糖",
+            "酮体在胞质无需线粒体即可经糖酵解生成2分子ATP并降低NADH",
+            "乙酰CoA大量积累后可强力激活PDH激酶并修复E1亚基缺陷"
+          ],
+          "answer_idx": 0,
+          "explain": "PDH缺陷使葡萄糖走糖酵解后止步于丙酮酸（被迫转成乳酸和丙氨酸），高碳水反而加重乳酸酸中毒；低碳高脂生酮饮食使脂肪直接生成乙酰CoA与酮体绕开PDH断点供能。",
+          "remedial_node_id": "biochem_pfk1_pfk2_switch"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_cytosolic_nadh_shuttles",
+      "title": "胞质NADH双穿梭与有氧ATP核算",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_009"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "胞质GAPDH产生的NADH无法直接穿透线粒体内膜，须经α-磷酸甘油穿梭(产1.5 ATP)或苹果酸-天冬氨酸穿梭(产2.5 ATP)送入呼吸链，决定1葡萄糖总产30或32 ATP。",
+      "source_slides": [
+        "糖代谢2026.pdf#P42,P90-P94"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_malate_aspartate_shuttle_p93.webp",
+          "caption": "苹果酸-天冬氨酸穿梭：苹果酸脱氢酶(MDH)与天冬氨酸转氨酶(AST)配合两大膜载体无损耗转运胞质NADH至线粒体基质",
+          "source_page": 93
+        }
+      ],
+      "payload": {
+        "columns": [
+          "对比维度",
+          "α-磷酸甘油穿梭",
+          "苹果酸-天冬氨酸穿梭"
+        ],
+        "rows": [
+          [
+            "主要分布与反应特点",
+            "骨骼肌、脑；速度快、单向不可逆（受限粒体内膜外侧酶控制）",
+            "肝、心肌；速度较慢、全程可逆，同时平衡草酰乙酸出入"
+          ],
+          [
+            "跨膜载体与关键催化酶",
+            "胞质NADH还原DHAP→α-磷酸甘油（可透外膜）→线粒体内膜FAD依赖α-磷酸甘油脱氢酶氧化",
+            "胞质OAA+NADH→苹果酸→经苹果酸-α-KG载体入基质→基质MDH再生NADH；OAA借AST转Asp经Glu-Asp载体出膜"
+          ],
+          [
+            "呼吸链受氢体与单分子ATP",
+            "进入线粒体后变为 FADH₂ → 仅获 1.5 ATP（P/O损耗1 ATP）",
+            "进入基质仍为 NADH+H⁺ → 完整获 2.5 ATP（零能量损耗）"
+          ],
+          [
+            "1分子葡萄糖有氧总ATP账本",
+            "酵解(-2 + 4 + 2×1.5) + PDH(5) + 2×TCA(20) = 30 ATP",
+            "酵解(-2 + 4 + 2×2.5) + PDH(5) + 2×TCA(20) = 32 ATP"
+          ]
+        ],
+        "quiz": {
+          "stem": "若用氨基氧乙酸（AST转氨酶特异性抑制剂）处理心肌细胞，阻断草酰乙酸与天冬氨酸在胞质-线粒体间的氨基互换，1分子葡萄糖经糖酵解完全有氧氧化时总ATP净产量最可能如何变化？",
+          "options": [
+            "苹果酸-天冬氨酸穿梭停摆，胞质2 NADH改走α-磷酸甘油穿梭或受限，单糖最高总ATP由32降至30",
+            "线粒体内丙酮酸脱氢酶产生的2 NADH也无法进入呼吸链，总ATP降至25",
+            "底物水平磷酸化与TCA内3 NADH受阻，总ATP仅剩2",
+            "苹果酸可直接顺浓度梯度与天冬氨酸自由扩散穿过内膜，ATP维持32不变"
+          ],
+          "answer_idx": 0,
+          "explain": "心肌主要依赖苹果酸-天冬氨酸穿梭（产32 ATP）。抑制AST会破坏OAA→Asp出线粒体回环，使胞质2分子GAPDH产生的NADH无法以NADH(2.5 ATP)形式入基质，只能改走产FADH₂(1.5 ATP)的α-磷酸甘油穿梭，损失2×1=2 ATP而降至30 ATP。",
+          "remedial_node_id": "biochem_pdh_complex_mechanism"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_tca_cycle_steps_energy",
+      "title": "三羧酸循环八步反应与产能计数",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_010"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "线粒体基质8步不可逆循环：1次底物磷酸化、2次脱羧、3个关键酶、4次脱氢（3 NADH+1 FADH₂+1 GTP = 10 ATP/乙酰CoA）。",
+      "source_slides": [
+        "糖代谢2026.pdf#P70-P85"
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "缩合与异构化：草酰乙酸浓度极低为何仍能启动TCA，顺乌头酸酶为何能把叔醇变成易氧化仲醇？",
+            "reveal": "① 柠檬酸合酶（第一关键酶，高亲和力且断高能硫酯键放能不可逆）将乙酰CoA(2C)+草酰乙酸(4C)缩合为柠檬酸(6C)；② 顺乌头酸酶催化脱水再水合将难氧化叔醇柠檬酸异构化为仲醇异柠檬酸（灭鼠药氟乙酸→氟代乙酰CoA→氟代柠檬酸强力抑制该酶）。",
+            "mechanism_tag": "CS不可逆·氟柠檬酸阻断"
+          },
+          {
+            "cue": "两次不可逆氧化脱羧：哪两步释放2分子CO₂并产生前2分子NADH？",
+            "reveal": "③ 异柠檬酸脱氢酶（第二关键酶，Mg²⁺）：先脱氢生草酰琥珀酸(β-酮酸)再β-脱羧成α-酮戊二酸(5C)+CO₂+NADH；④ α-酮戊二酸脱氢酶复合体（第三关键酶，组成与PDH相似且E3完全相同）：氧化脱羧生成高能硫酯琥珀酰CoA(4C)+CO₂+NADH。",
+            "mechanism_tag": "IDH + α-KGDH(同E3)·2脱羧"
+          },
+          {
+            "cue": "唯一底物水平磷酸化：琥珀酰CoA的高能硫酯键如何转变为高能磷酸键？",
+            "reveal": "⑤ 琥珀酰CoA合成酶将硫酯键能量保存为GTP（哺乳动物分ADP特异性[高耗能细胞]与GDP特异性[合成旺盛细胞]同工酶，经核苷二磷酸激酶GTP+ADP↔GDP+ATP），这是TCA循环中唯一的底物水平磷酸化步骤。",
+            "mechanism_tag": "1次底物水平磷酸化(GTP/ATP)"
+          },
+          {
+            "cue": "四步再生草酰乙酸与计数口诀：TCA中唯一嵌在线粒体内膜的酶是谁？每圈共几ATP？",
+            "reveal": "⑥ 琥珀酸脱氢酶(SDH，辅酶FAD+铁硫中心，唯一结合于线粒体内膜且兼属呼吸链复合体II)→FADH₂+延胡索酸；⑦ 延胡索酸酶加水→苹果酸；⑧ 苹果酸脱氢酶→NADH+草酰乙酸（因OAA不断被CS消耗而拉动正向）。口诀：1底磷、2脱羧、3关键酶、4脱氢 → 3×2.5+1×1.5+1 = 10 ATP/圈。",
+            "mechanism_tag": "SDH内膜·1-2-3-4口诀·10 ATP"
+          }
+        ],
+        "takeaway": "TCA循环每转一圈消耗1乙酰CoA、再生1草酰乙酸，输出“2 CO₂ + 3 NADH + 1 FADH₂ + 1 GTP（=10 ATP）”，因CS、IDH、α-KGDH三步放能不可逆而成为单向旋转引擎。",
+        "quiz": {
+          "stem": "小鼠误食含氟乙酸的毒饵后在体内转化为氟代柠檬酸并特异性抑制顺乌头酸酶。此时检测心肌细胞线粒体，下列推演错误的是：",
+          "options": [
+            "柠檬酸大量堆积，其后游离α-酮戊二酸及草酰乙酸再生均停滞",
+            "线粒体3次NAD⁺脱氢与1次FAD脱氢断流，ATP迅速崩溃",
+            "通过静脉追加大量丙酮酸生成乙酰CoA即可绕过顺乌头酸酶恢复每圈10 ATP产出",
+            "顺乌头酸酶受阻是因为氟代柠檬酸占据活性中心阻断柠檬酸向仲醇异柠檬酸转化"
+          ],
+          "answer_idx": 2,
+          "explain": "TCA循环是串联闭环：氟代柠檬酸阻断第2步顺乌头酸酶后，上游乙酰CoA无论再多也只会继续积压成柠檬酸，完全无法跨过第3–8步产生还原当量或再生草酰乙酸。",
+          "remedial_node_id": "biochem_cytosolic_nadh_shuttles"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_tca_regulation_hub",
+      "title": "TCA循环调控与三大代谢枢纽",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_010"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "structure_cloze",
+      "anchor_summary": "TCA三关键酶受能荷(ATP/ADP)与产物反馈精密调控；中间产物只作催化剂无净增加，并作为三大营养素互变总枢纽。",
+      "source_slides": [
+        "糖代谢2026.pdf#P86-P89,P98-P100,P106"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_tca_hub_p89.webp",
+          "caption": "TCA循环代谢枢纽图：丙酮酸羧化回补OAA，柠檬酸输出合成脂酸胆固醇，α-KG/延胡索酸/琥珀酰CoA衔接氨基酸与卟啉",
+          "source_page": 89
+        }
+      ],
+      "payload": {
+        "bullets": [
+          "三大限速酶别构规则：{{柠檬酸合酶}}受ATP/柠檬酸/NADH/琥珀酰CoA抑制、ADP激活；{{异柠檬酸脱氢酶}}受ATP抑制、ADP/Ca²⁺激活；{{α-酮戊二酸脱氢酶复合体}}受琥珀酰CoA/NADH抑制、Ca²⁺激活。",
+          "催化剂与不可净合成铁律（同位素追踪）：TCA中间产物（含草酰乙酸）只起{{催化剂}}作用本身无净增量——进入的2碳乙酰CoA等价于脱出的2 CO₂，故{{不能通过TCA从乙酰CoA净合成草酰乙酸或葡萄糖}}。",
+          "草酰乙酸回补(Anaplerosis)：当TCA中间产物被抽走用于合成代谢时，草酰乙酸主要靠{{丙酮酸羧化酶}}（丙酮酸+CO₂→OAA）或苹果酸脱氢回补，其终极碳源仍是葡萄糖。",
+          "三大营养素合成/分解总枢纽：柠檬酸出线粒体合成{{脂肪酸与胆固醇}}（并涉足非经典TCA ACLY路径调控干细胞分化）；α-KG与OAA经转氨双向连{{氨基酸}}；琥珀酰CoA承接{{奇数碳脂酸及Val/Ile/Met}}并合成{{卟啉(血红素)}}；延胡索酸承接Asp/Phe/Tyr。",
+          "上下游呼吸链偶联：TCA脱氢生成的NADH/FADH₂必须及时经氧化磷酸化消耗以再生NAD⁺/FAD，一旦{{NADH/NAD⁺}}升高即反向掐断全部TCA脱氢酶。"
+        ],
+        "trap_note": "典型考试陷阱：偶碳链脂肪酸β-氧化全变成乙酰CoA，在TCA转一圈释放2 CO₂，故偶碳脂肪“不能净转变为糖”；只有奇数碳脂肪酸尾端生成的丙酰CoA→琥珀酰CoA才可微量净生糖！",
+        "quiz": {
+          "stem": "将[1,2-¹⁴C]标记的乙酰CoA注入处于饥饿糖异生状态的肝细胞匀浆中，很快在生成的葡萄糖分子中检测到了¹⁴C放射性；但生化定量却发现肝细胞葡萄糖与TCA中间产物的“净摩尔总量”并未因为乙酰CoA氧化而增加。能完美解释这一同位素悖论的机理是：",
+          "options": [
+            "标记碳经柠檬酸→琥珀酸随机分布于部分草酰乙酸分子中进入糖异生，但TCA每进入2碳乙酰CoA必同时以2分子CO₂形式排出2碳，中间体无净增量",
+            "乙酰CoA在胞质直接逆转丙酮酸脱氢酶反应，无需经过TCA循环即生成¹⁴C-丙酮酸",
+            "顺乌头酸酶将乙酰CoA的两个碳直接插入6-磷酸葡萄糖而不消耗草酰乙酸",
+            "草酰乙酸本身在柠檬酸合酶催化下每圈增殖一倍并释放出半数进入糖异生"
+          ],
+          "answer_idx": 0,
+          "explain": "同位素交换与化学计量净合成必须严格区分：乙酰CoA的2个碳虽能在琥珀酸对称分子洗牌后部分混入OAA骨架，但整个TCA每进2碳必出2碳(2 CO₂)，OAA只是催化剂，无法凭空净增长出碳骨架变成糖。",
+          "remedial_node_id": "biochem_tca_cycle_steps_energy"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_pasteur_warburg_coordination",
+      "title": "巴斯德效应、能量协调与沃伯格效应",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_009"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "有氧时TCA产生的柠檬酸与ATP抑制PFK-1且NADH入线粒体从而抑制无氧酵解（巴斯德效应）；肿瘤细胞却在富氧下仍高通量糖酵解排乳酸（沃伯格效应）。",
+      "source_slides": [
+        "糖代谢2026.pdf#P101-P105"
+      ],
+      "payload": {
+        "columns": [
+          "调控现象",
+          "巴斯德效应 (Pasteur Effect)",
+          "沃伯格效应 (Warburg Effect)"
+        ],
+        "rows": [
+          [
+            "发生场景与表型特征",
+            "正常细胞由缺氧转为氧供充足时：葡萄糖消耗急剧下降，乳酸生成停止",
+            "多数实体肿瘤细胞即使在氧供充足条件下，仍优先进行高通量糖酵解并排出大量乳酸"
+          ],
+          [
+            "核心酶学与还原当量机制",
+            "① O₂足→NADH改走双穿梭入线粒体不再还原丙酮酸；② 丙酮酸入线粒体走TCA→高ATP与柠檬酸强力变构抑制PFK-1",
+            "糖酵解速率大增以满足快速增殖肿瘤对碳骨架、PPP核糖/NADPH及微环境酸化的需求（尽管单糖产ATP少）"
+          ],
+          [
+            "上下游协调信号放大器",
+            "腺苷酸激酶(2ADP↔ATP+AMP)借50倍[ATP]/[AMP]基差把ATP微跌放大为AMP飙升，精密匹配酵解与氧化磷酸化速率",
+            "肿瘤细胞打破正常柠檬酸/ATP反馈刹车，高表达GLUT与糖酵解酶系，是临床PET-CT显像(¹⁸F-FDG高摄取)的生化基础"
+          ]
+        ],
+        "quiz": {
+          "stem": "将处于剧烈无氧酵解的骨骼肌或酵母悬浮液突然通入充足氧气后，葡萄糖摄入速率与乳酸排出量迅速下降（巴斯德效应）。下列哪项最准确解释了为什么有氧反而“省糖”并抑制糖酵解？",
+          "options": [
+            "单分子葡萄糖有氧产30–32 ATP是无氧(2 ATP)的15倍以上，升高的ATP与线粒体溢出的柠檬酸共同别构抑制PFK-1，且胞质NADH改入线粒体",
+            "氧气直接共价氧化失活己糖激酶的活性中心Cys残基",
+            "有氧氧化使肝细胞迅速激活PFK-2并大幅提升F-2,6-BP浓度",
+            "氧气阻断了3-磷酸甘油醛脱氢酶对NAD⁺的结合"
+          ],
+          "answer_idx": 0,
+          "explain": "巴斯德效应是经典的能量效率反馈：有氧供能效率剧增使ATP↑、AMP↓且TCA产生的柠檬酸累积反馈抑制PFK-1，同时穿梭抢走胞质NADH，双重关闭乳酸酵解。",
+          "remedial_node_id": "biochem_pfk1_pfk2_switch"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_pentose_phosphate_pathway",
+      "title": "磷酸戊糖途径、NADPH与蚕豆病",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_011"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "胞质分流途径不产ATP；限速酶G6PD受NADPH/NADP⁺比值调控，专门产出合成供氢体NADPH（维持红细胞GSH防溶血）与5-磷酸核糖。",
+      "source_slides": [
+        "糖代谢2026.pdf#P109-P121"
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "第一阶段（不可逆氧化）：G-6-P如何产出两分子NADPH，谁是限速总阀门？",
+            "reveal": "6-磷酸葡萄糖脱氢酶(G6PD，核心限速酶)催化G-6-P脱氢成6-磷酸葡萄糖酸内酯（产第1个NADPH+H⁺），水解后再经6-磷酸葡萄糖酸脱氢酶氧化脱羧生成5-磷酸核酮糖+CO₂（产第2个NADPH+H⁺）。G6PD严格受胞质NADPH/NADP⁺比值负反馈调控（NADPH需求↑→比值↓→激活PPP）。",
+            "mechanism_tag": "G6PD限速·NADPH/NADP⁺调控"
+          },
+          {
+            "cue": "第二阶段（可逆基团转移）：为何又称磷酸戊糖旁路，转酮酶与转醛酶各需要什么条件？",
+            "reveal": "3×C5（5-磷酸核酮糖异构为1分子5-磷酸核糖+2分子5-磷酸木酮糖）经转酮醇酶（转2C单位，辅酶为TPP/Vit B1）与转醛醇酶（转3C单位）经历C5+C5↔C7+C3↔C6+C4再与C5重组为2×F-6-P(C6)+1×G3P(C3)回流糖酵解，实现只产NADPH而不积聚多余戊糖。",
+            "mechanism_tag": "转酮(TPP)/转醛·重返糖酵解"
+          },
+          {
+            "cue": "两大生理意义与蚕豆病机制：NADPH与5-磷酸核糖分别挽救了什么关键生理需求？",
+            "reveal": "① 5-磷酸核糖是体内合成核酸(RNA/DNA)核糖的唯一直接来源；② NADPH不进呼吸链产能，而是用于脂肪酸/胆固醇合成、肝CYP羟化解毒，以及在红细胞内使氧化型谷胱甘肽(GSSG)还原为2 GSH——G6PD遗传缺乏者遇蚕豆或氧化药物后无法维持GSH，导致红细胞膜蛋白巯基氧化破裂引发急性溶血（蚕豆病）。",
+            "mechanism_tag": "核糖唯一来源·GSH护膜防蚕豆病"
+          }
+        ],
+        "takeaway": "PPP总式“3 G-6-P + 6 NADP⁺ → 2 F-6-P + G3P + 6 NADPH+6H⁺ + 3 CO₂”，核心输出不在ATP而在NADPH抗氧化/合成还原力与核酸原料5-磷酸核糖。",
+        "quiz": {
+          "stem": "一名广东男性儿童食用新鲜蚕豆数小时后突发寒战、酱油色血红蛋白尿及黄疸（G6PD缺乏症/蚕豆病）。红细胞发生急性血管内溶血的直接生化断裂链条是：",
+          "options": [
+            "G6PD缺乏→红细胞无法通过PPP生成足够NADPH→GSSG不能还原为GSH→膜蛋白-SH与脂质遭过氧化物氧化破坏",
+            "G6PD缺乏→红细胞失去糖酵解唯一产ATP途径→Na⁺-K⁺泵停摆水肿胀破",
+            "G6PD缺乏→红细胞线粒体TCA循环失去5-磷酸核糖而停止氧化磷酸化",
+            "蚕豆毒素不可逆抑制转酮醇酶TPP辅酶→5-磷酸木酮糖结晶刺破红细胞膜"
+          ],
+          "answer_idx": 0,
+          "explain": "成熟红细胞无线粒体且无其他高效NADPH来源，完全依赖G6PD启动PPP产生NADPH以维持还原型谷胱甘肽(GSH)池；G6PD缺乏遇强氧化剂(蚕豆/伯氨喹等)时GSH耗竭，红细胞膜氧化破裂溶血。",
+          "remedial_node_id": "biochem_glycolysis_hk_vs_gk"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_glycogen_synthesis_breakdown",
+      "title": "糖原合成与分解双轨及肝肌差异",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_012"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "胞质糖原合成以UDPG为活性供体、糖原合酶促α-1,4延长与分支酶造α-1,6支链；分解靠磷酸化酶磷酸解出G-1-P，仅肝肾含G6Pase能直接补充血糖。",
+      "source_slides": [
+        "糖代谢2026.pdf#P123-P145"
+      ],
+      "payload": {
+        "columns": [
+          "对比维度",
+          "糖原合成 (Glycogenesis)",
+          "糖原分解 (Glycogenolysis)"
+        ],
+        "rows": [
+          [
+            "定位与核心活化工序",
+            "肝/肌胞质：G→G-6-P→G-1-P，再与UTP经UDPG焦磷酸化酶生成活性供体 UDPG（耗2高能键，PPi水解拉动不可逆）",
+            "肝/肌胞质磷酸解为主（少部分溶酶体酸性α-苷酶自噬水解）：磷酸化酶直接利用胞内高浓度Pi切下非还原端→G-1-P"
+          ],
+          [
+            "限速酶与糖苷键延长/切断",
+            "糖原合酶（限速酶）：只能把UDPG接在原有“糖原引物”非还原端，形成 α-1,4-糖苷键",
+            "糖原磷酸化酶（限速酶）：仅能切断 α-1,4-糖苷键，至分支点前4个葡萄糖残基即受阻"
+          ],
+          [
+            "分支点处理与结构优势",
+            "分支酶转移约6–7糖链以 α-1,6-糖苷键接支（每12–18G一分支）→ 提高溶解度且倍增非还原端以利快速动员",
+            "脱支酶双重活性：先α-1,4-糖基转移酶移走3G暴露分支点，再α-1,6-糖苷酶水解放出1分子“游离葡萄糖”"
+          ],
+          [
+            "肝糖原 vs 肌糖原归宿(G6Pase)",
+            "肝糖原(90–100g, ≤5%)可用单糖或非糖物质异生合成；肌糖原(200–500g, 1–2%)主要靠葡萄糖合成",
+            "肝/肾有葡萄糖-6-磷酸酶(G6Pase)→G-6-P水解为血糖（维持空腹12–18h）；肌肉无G6Pase→G-6-P只能进酵解供肌收缩(出乳酸)"
+          ]
+        ],
+        "quiz": {
+          "stem": "一名健壮大学生完成400米全力冲刺后检测血乳酸飙升而血糖并未因大量肌糖原分解而直接升高；相反，在禁食14小时安静状态下其血糖仍基本稳定。造成肝、肌糖原分解代谢归宿截然不同的关键酶差异是：",
+          "options": [
+            "骨骼肌细胞缺乏葡萄糖-6-磷酸酶(G6Pase)，肌糖原分解出的G-6-P无法脱磷酸透膜入血，只能经酵解产出ATP与乳酸",
+            "骨骼肌缺乏磷酸葡萄糖变位酶，无法将G-1-P转变为G-6-P",
+            "肌糖原只有α-1,4糖苷键没有α-1,6分支，因此不能经脱支酶生成葡萄糖",
+            "肝脏缺乏糖原磷酸化酶，仅能靠溶酶体酸性糖苷酶缓慢水解维持血糖"
+          ],
+          "answer_idx": 0,
+          "explain": "G-6-P带磷酸基团无法跨膜。肝、肾独有内质网葡萄糖-6-磷酸酶(G6Pase)能把G-6-P水解成游离葡萄糖入血；骨骼肌缺G6Pase，故肌糖原只能“自产自销”经酵解或有氧氧化供肌肉收缩。",
+          "remedial_node_id": "biochem_glycolysis_hk_vs_gk"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_glycogen_covalent_allosteric",
+      "title": "糖原共价反向级联与糖原累积症",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_012"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "胰高血糖素/肾上腺素经cAMP-PKA同步磷酸化关闭糖原合酶、激活磷酸化酶并锁定PP-1抑制剂；G6Pase等遗传缺陷则致糖原累积症。",
+      "source_slides": [
+        "糖代谢2026.pdf#P146-P153"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_glycogen_cascade_p149.webp",
+          "caption": "糖原合成与分解共价修饰级联：PKA同时磷酸化糖原合酶、磷酸化酶b激酶与磷蛋白磷酸酶抑制剂(抑制PP-1)",
+          "source_page": 149
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "激素上游分工：为何低血糖时胰高血糖素主攻肝糖原，而应激时肾上腺素还能动员肌糖原？",
+            "reveal": "肝细胞膜高表达胰高血糖素受体与肾上腺素受体，而骨骼肌细胞膜缺乏胰高血糖素受体、仅对肾上腺素响应；两者均偶联腺苷酸环化酶(AC)生成第二信使cAMP并激活PKA，但信号放大人海战术使微摩尔激素迅速撬动毫摩尔级糖原分解。",
+            "mechanism_tag": "肝(胰高+肾上) vs 肌(仅肾上)"
+          },
+          {
+            "cue": "PKA三靶点共价锁定：磷酸化修饰如何做到“加强分解时绝对关死合成”？",
+            "reveal": "有活性PKA同时磷酸化三组靶点：① 糖原合酶a(活性)→b-P(无活性)；② 磷酸化酶b激酶→-P(活性)→再将磷酸化酶b(低活)磷酸化成a-P(高活)；③ 磷蛋白磷酸酶抑制剂→-P(激活)从而抑制PP-1去磷酸化，彻底锁死反向空耗。",
+            "mechanism_tag": "PKA三连击·共价逆向锁"
+          },
+          {
+            "cue": "胰岛素与葡萄糖的协同解锁：餐后血糖升高如何一举逆转磷酸化级联？",
+            "reveal": "胰岛素激活PDE降cAMP并激活磷蛋白磷酸酶-1(PP-1)，使糖原合酶去磷酸化恢复a型(开)、磷酸化酶a-P去磷酸化变b型(关)；同时肝内高浓度葡萄糖作为磷酸化酶a的别构抑制剂，诱导其由R(疏松)转为T(紧密)构象暴露Ser-14-P，极大加速PP-1去磷酸化复位。",
+            "mechanism_tag": "胰岛素PP-1·葡萄糖R→T构象"
+          },
+          {
+            "cue": "糖原累积症断点：为何不同酶缺陷分别出现“低血糖+酸中毒”或“运动痛无乳酸”？",
+            "reveal": "I型(Von Gierke)缺G6Pase→肝肾糖原堆积、空腹严重低血糖抽搐（喂糖即缓解）且堆积的G-6-P溢流糖酵解致乳酸性酸中毒；II型(Pompe)缺溶酶体酸性α-1,4/1,6糖苷酶累及全组织心肌；V型(McArdle)缺肌磷酸化酶致运动肌痉挛且血乳酸不升；另有脱支酶(外周短链多分支)/分支酶(外周长链少分支)异常。",
+            "mechanism_tag": "GSD I/II/V型临床断点"
+          }
+        ],
+        "takeaway": "记住糖原调节极简律：“磷酸化激活分解、抑制合成（胰高/肾上腺素驱动）；去磷酸化激活合成、抑制分解（胰岛素+高葡萄糖R→T协同驱动）”。",
+        "quiz": {
+          "stem": "一名6个月婴儿表现为严重空腹低血糖抽搐（静注葡萄糖迅速苏醒）、肝脏显著肿大伴高乳酸血症与呼吸深快酸中毒（糖原累积症I型，葡萄糖-6-磷酸酶缺陷）。下列为何同时合并“空腹低血糖”与“乳酸性酸中毒”？",
+          "options": [
+            "G6Pase缺失使肝糖原分解及糖异生生成的G-6-P均无法水解成血糖释放，大量潴留的G-6-P被迫反向溢流入肝糖酵解生成过多乳酸",
+            "G6Pase缺失使骨骼肌无法进行任何糖酵解从而积聚丙酮酸",
+            "G6Pase缺失直接阻断肝脏糖原合酶使其永久保持去磷酸化状态",
+            "肝内无法合成UDPG导致游离葡萄糖在血中结晶触发代谢性酸中毒"
+          ],
+          "answer_idx": 0,
+          "explain": "G6Pase是肝糖原分解与糖异生输出游离葡萄糖的共同最终出口。该酶缺失令肝内G-6-P只进不出，一方面无法维持空腹血糖，另一方面高浓度G-6-P推高糖原合成致肝大并溢出进入糖酵解产出大量乳酸引发酸中毒。",
+          "remedial_node_id": "biochem_glycogen_synthesis_breakdown"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_gluconeogenesis_bypasses",
+      "title": "糖异生三步绕行、穿梭与底物循环",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_012"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "肝肾线粒体与胞质协同以4种关键酶绕过糖酵解3个不可逆步，须匹配丙酮酸羧化支路中的草酰乙酸双穿梭与NADH供给平衡。",
+      "source_slides": [
+        "糖代谢2026.pdf#P155-P173"
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "第一绕行（丙酮酸→PEP）：为何必须先入线粒体羧化成草酰乙酸，如何受乙酰CoA激活？",
+            "reveal": "① 线粒体丙酮酸羧化酶（辅酶生物素，受乙酰CoA强力变构激活、ADP抑制）耗ATP将丙酮酸+CO₂羧化为草酰乙酸(OAA)；② 磷酸烯醇式丙酮酸羧激酶(PEPCK，线粒体与胞质均有分布，耗GTP)将OAA脱羧磷酸化生成PEP。",
+            "mechanism_tag": "PC(生物素/乙酰CoA⁺) + PEPCK"
+          },
+          {
+            "cue": "草酰乙酸双穿梭与乙醇低血糖：为何氨基酸糖异生走苹果酸出线粒体，而乳酸原料走天冬氨酸？",
+            "reveal": "糖异生在胞质1,3-BPG→G3P步需消耗NADH+H⁺：以氨基酸为原料时胞质缺NADH，故线粒体OAA先还原为苹果酸运出再氧化回OAA顺带运出NADH；以乳酸为原料时LDH(乳酸→丙酮酸)已在胞质产足NADH，故OAA可经AST转为天冬氨酸出膜或直接在线粒体生成PEP出膜。大量饮酒时乙醇脱氢酶产生海量胞质NADH耗竭NAD⁺，直接扼死乳酸→丙酮酸转化引发空腹低血糖！",
+            "mechanism_tag": "苹果酸带NADH vs 天冬氨酸·乙醇中毒"
+          },
+          {
+            "cue": "第二、三绕行与四大原料边界：哪些非糖物可转糖，哪些绝对不能？",
+            "reveal": "绕过PFK-1的是胞质果糖双磷酸酶-1(FBPase-1：F-1,6-BP→F-6-P)；绕过HK的是内质网葡萄糖-6-磷酸酶(G6Pase，仅肝/肾有)。生糖原料包括乳酸、生糖氨基酸（转α-酮酸入TCA→OAA）、甘油（甘油激酶→α-磷酸甘油→DHAP）；乙酰CoA（偶碳脂肪）不能净生糖！",
+            "mechanism_tag": "FBPase-1 + G6Pase·原料边界"
+          },
+          {
+            "cue": "两大底物循环协同：如何避免糖酵解与糖异生同时空转成耗ATP的无效循环？",
+            "reveal": "① F-6-P/F-1,6-BP循环：F-2,6-BP与AMP激活PFK-1同时抑制FBPase-1（柠檬酸反之）；胰高血糖素/PKA降F-2,6-BP使流向翻转为糖异生；② PEP/丙酮酸循环：胰高血糖素/PKA抑制L型丙酮酸激酶、诱导PEPCK转录，加上乙酰CoA抑制PDH同时激活PC，彻底将丙酮酸推向糖异生。",
+            "mechanism_tag": "F-2,6-BP + 乙酰CoA双底物开关"
+          }
+        ],
+        "takeaway": "糖异生并非糖酵解简单倒转：必须动用PC+PEPCK（耗1 ATP+1 GTP，共耗6 ATP/Glc）、FBPase-1、G6Pase四关键酶，并在F-2,6-BP与乙酰CoA协同下与糖酵解严密互斥。",
+        "quiz": {
+          "stem": "P164临床生化题：一名饥饿24小时（肝糖原几乎耗竭）后大量饮酒（乙醇）的青年被送急诊，表现为严重低血糖昏迷伴血乳酸显著升高。肝脏乙醇氧化反应(CH₃CH₂OH + NAD⁺ → CH₃CHO + NADH+H⁺)直接卡断糖异生的哪一关键耦合？",
+          "options": [
+            "胞质NADH/NAD⁺比值飙升抑制LDH将乳酸氧化为丙酮酸，不仅令乳酸堆积，更切断了糖异生最核心的丙酮酸底物来源（甚至将丙酮酸推回乳酸）",
+            "乙醇直接共价破坏线粒体丙酮酸羧化酶的生物素辅基使其无法结合CO₂",
+            "产生的乙酰CoA强力激活丙酮酸激酶与PFK-1加速耗糖",
+            "乙醛直接诱导肝葡萄糖-6-磷酸酶大量分泌入血"
+          ],
+          "answer_idx": 0,
+          "explain": "饥饿超过12–18h后维持血糖几乎全靠肝糖异生。肝胞质乙醇脱氢酶海量消耗NAD⁺产生NADH+H⁺，逆向阻断乳酸+NAD⁺→丙酮酸+NADH+H⁺（并把苹果酸↔OAA也推向苹果酸），使丙酮酸与OAA枯竭、糖异生崩溃且乳酸飙升。",
+          "remedial_node_id": "biochem_pdh_complex_mechanism"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_cori_cycle_physiological",
+      "title": "Cori乳酸循环与肾糖异生泌氨",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_012"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "structure_cloze",
+      "anchor_summary": "肝具G6Pase与高Km GK而肌缺G6Pase，造就肝-肌Cori乳酸循环(耗6 ATP)；饥饿酸中毒时肾糖异生PEPCK上升则驱动泌NH₃排H⁺。",
+      "source_slides": [
+        "糖代谢2026.pdf#P174-P181"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_cori_cycle_p180.webp",
+          "caption": "乳酸循环(Cori Cycle)：肌肉无G6Pase排乳酸入血，肝脏有G6Pase且GK Km高负责回收乳酸异生为血糖再输肌",
+          "source_page": 180
+        }
+      ],
+      "payload": {
+        "bullets": [
+          "Cori循环的酶分布不对称基石：骨骼肌无{{葡萄糖-6-磷酸酶}}只能把肌糖原酵解为乳酸入血；肝脏同时拥有高Km葡萄糖激酶与{{葡萄糖-6-磷酸酶}}，专门回收乳酸异生为葡萄糖送回肌肉。",
+          "能量代价与防酸中毒意义：肝内2分子乳酸异生为1分子葡萄糖净耗{{6分子ATP}}（PC 2 ATP + PEPCK 2 GTP + PGK逆反应2 ATP），既防止剧烈运动后乳酸堆积酸中毒，又完成碳骨架二次回收。",
+          "餐后三碳途径（肝糖原间接合成）：进食2–3小时内因肝葡萄糖激酶{{Km高}}对游离葡萄糖亲和力低，大部分葡萄糖先在肝外分解为乳酸/丙酮酸等三碳物，再回肝经糖异生高效补充{{肝糖原}}。",
+          "长期饥饿防低血糖接力：肝糖原最多维持血糖{{12–18小时}}；饥饿早期靠肌蛋白分解经丙氨酸-葡萄糖循环与脂肪甘油异生供脑与红细胞，长期禁食后外周改用酮体省糖。",
+          "肾糖异生与酸碱平衡：长期饥饿伴代谢性酸中毒时，体液pH↓直接诱导肾小管{{PEPCK}}合成，增强肾糖异生消耗{{α-酮戊二酸}}，拉动谷氨酰胺脱氨分泌{{NH₃}}入管腔中和原尿H⁺（保钠排氢）。"
+        ],
+        "trap_note": "不要把乳酸循环的能量账算错：肌糖酵解产2 ATP（或从肌糖原产3 ATP），肝异生回1葡萄糖消耗6 ATP，整个器官间闭环净耗能（以肝脏代价换取肌肉快速爆发力与防酸中毒）。",
+        "quiz": {
+          "stem": "长期饥饿诱发酮症代谢性酸中毒时，肾皮质糖异生流量显著跃升且尿液中铵盐(NH₄⁺)排泄同步倍增。以下准确连接“肾糖异生”与“肾小管泌氨排酸”因果桥梁的机制是：",
+          "options": [
+            "酸中毒诱导肾小管PEPCK表达增强糖异生，加速消耗α-酮戊二酸，从而拉动谷氨酰胺与谷氨酸脱氨释放NH₃入肾小管腔结合H⁺排出",
+            "肾小管直接将血液中的尿素通过逆转鸟氨酸循环水解为葡萄糖和游离NH₃",
+            "升高的原尿H⁺直接激活肾葡萄糖-6-磷酸酶把乳酸转化为NH₄⁺",
+            "肾糖异生通过α-磷酸甘油穿梭把胞质H⁺直接泵入肾小球滤过液"
+          ],
+          "answer_idx": 0,
+          "explain": "如图P178所示，酸中毒诱导肾小管PEPCK增强糖异生后，作为糖异生中转的α-酮戊二酸被快速抽走变成草酰乙酸→PEP→糖，进而按质量作用定律拉动谷氨酰胺→谷氨酸→α-KG脱氨生成大量NH₃泌入管腔缓冲H⁺。",
+          "remedial_node_id": "biochem_gluconeogenesis_bypasses"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_carb_digestion_glut",
+      "title": "糖消化吸收、SGLT与GLUT分布",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_008"
+      ],
+      "syllabus_tier": "understand",
+      "node_type": "structure_cloze",
+      "anchor_summary": "淀粉经α-淀粉酶与刷状缘双糖酶(阿卡波糖抑制)变为单糖，借SGLT主动吸收经门静脉入肝，再依GLUT1–5不同Km梯度分配至各器官。",
+      "source_slides": [
+        "糖代谢2026.pdf#P18-P24,P194"
+      ],
+      "payload": {
+        "bullets": [
+          "淀粉两阶段水解：唾液与胰液{{α-淀粉酶}}（切α-1,4键）产麦芽糖、麦芽三糖、α-临界糊精与异麦芽糖；小肠刷状缘{{α-葡萄糖苷酶}}（被降糖药{{阿卡波糖}}抑制）、α-临界糊精酶、蔗糖酶与乳糖酶终解为单糖（人缺β-糖苷酶故不消化纤维素）。",
+          "SGLT-1 vs SGLT-2继发性主动转运：均依赖Na⁺-K⁺泵建立的Na⁺梯度。{{SGLT-1}}位于小肠纹状缘与肾近曲小管S3段（高亲和力、低转运量，占肾重吸收10%）；{{SGLT-2}}位于肾S1段（低亲和力、高转运量，占90%，达格列净等SGLT-2抑制剂靶点）。",
+          "门静脉首过与GLUT家族亲和力阶梯：吸收入血的单糖经{{肝门静脉}}首先入肝；各组织摄取取决于不耗能GLUT载体，对葡萄糖亲和力排序为 {{GLUT3(Km 1.8mM, 脑/神经元) > GLUT4(4.6mM, 胰岛素依赖性肌/脂肪) > GLUT1(6.9mM, 红细胞/血脑屏障) > GLUT2(17.1mM, 肝/胰岛β细胞)}}。",
+          "特化转运分工：{{GLUT5}}专司小肠果糖转运；{{GLUT4}}平时储于胞内囊泡，仅在胰岛素或肌收缩刺激下移位至质膜完成餐后大宗降糖摄取。"
+        ],
+        "trap_note": "Km越小亲和力越高！因此饥饿低血糖时脑神经元GLUT3 (1.8 mM) 与红细胞/BBB GLUT1仍接近饱和持续供能，而肝/胰岛β细胞GLUT2 (17.1 mM) 忠实随血糖高低线性感知并调节代谢。",
+        "quiz": {
+          "stem": "比较临床两类口服降糖药——刷状缘α-葡萄糖苷酶抑制剂（阿卡波糖）与肾小管SGLT-2抑制剂（达格列净），患者服用前者常出现腹胀排气甚至渗透性腹泻，而后者主要表现为无明显低血糖风险的治疗性糖尿。决定二者机制差异的生理与转运定位根因是：",
+          "options": [
+            "阿卡波糖阻断小肠寡糖水解令未消化糖进入结肠被菌群发酵产气产酸；SGLT-2抑制剂仅阻断肾近曲小管S1段90%滤过糖重吸收而不干扰小肠SGLT-1吸收",
+            "阿卡波糖直接阻断心肌与脑神经元的GLUT3转运；达格列净同时抑制小肠与肾脏所有GLUT2",
+            "达格列净强力刺激胰岛β细胞大量释放胰岛素引起餐后低血糖",
+            "阿卡波糖抑制胰液α-淀粉酶分泌导致脂肪泻"
+          ],
+          "answer_idx": 0,
+          "explain": "阿卡波糖作用于小肠刷状缘α-葡萄糖苷酶，未水解寡糖入结肠经细菌发酵导致腹胀腹泻；达格列净高度选择性抑制肾近曲小管S1段SGLT-2（不抑制小肠SGLT-1），直接排糖出尿且因SGLT-1仍保底10%重吸收及不促胰岛素释放而极少诱发低血糖。",
+          "remedial_node_id": "physio_membrane_transport"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_fructose_galactose_disorders",
+      "title": "果糖与半乳糖代谢旁路及不耐受",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_008"
+      ],
+      "syllabus_tier": "understand",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "肝果糖激酶绕开PFK-1快速产F-1-P，缺乏醛缩酶B致耗Pi低血糖果糖不耐受；半乳糖依赖Gal-1-P尿苷酰转移酶与UDPG互换入糖代谢。",
+      "source_slides": [
+        "糖代谢2026.pdf#P54,P183-P189"
+      ],
+      "payload": {
+        "columns": [
+          "比较维度",
+          "果糖代谢与果糖不耐受",
+          "半乳糖代谢与半乳糖血症"
+        ],
+        "rows": [
+          [
+            "组织分工与入口酶",
+            "肌/脂肪由己糖激酶→F-6-P；肝脏主要经果糖激酶(Fructokinase)→1-磷酸果糖(F-1-P)",
+            "牛乳乳糖水解产物；主要在肝脏先由半乳糖激酶(耗ATP)→1-磷酸半乳糖(Gal-1-P)"
+          ],
+          [
+            "核心接轨糖酵解步骤",
+            "F-1-P经醛缩酶B(Aldolase B)裂解为DHAP + 甘油醛（丙糖激酶→G3P），完全绕开己糖激酶与PFK-1限速步",
+            "Gal-1-P与UDPG经“半乳糖-1-磷酸尿苷酰转移酶”交换生成UDP-Gal + G-1-P→变位酶→G-6-P；UDP-Gal 4-差向异构酶可逆转UDP-Gal↔UDPG"
+          ],
+          [
+            "遗传缺陷与病理反转结局",
+            "遗传性缺乏醛缩酶B→进食蔗糖/果糖后F-1-P海量堆积耗竭肝内Pi与ATP→加速酵解与尿酸生成，突发乳酸性酸中毒与餐后低血糖",
+            "缺乏Gal-1-P尿苷酰转移酶→Gal-1-P蓄积毒害肝脑并致半乳糖醇沉积诱发白内障、肝肿大；正常时UDPG可借差向异构酶内源供UDP-Gal合成糖脂糖蛋白"
+          ]
+        ],
+        "quiz": {
+          "stem": "一名遗传性果糖不耐受症（肝醛缩酶B缺乏）患者误饮含蔗糖饮料后，出现肝内ATP骤降、餐后低血糖与严重乳酸性酸中毒。为什么肝果糖激酶不发生自我反馈刹车而导致肝脏无机磷(Pi)与ATP被“掏空”？",
+          "options": [
+            "肝果糖激酶绕开PFK-1限速阀门且不受ATP与底物反馈抑制，持续消耗ATP把大量无机磷锁死在F-1-P中，使ATP再生衰竭并阻断糖原分解/糖异生",
+            "F-1-P强力激活PFK-2并大量合成F-2,6-BP导致糖异生暴增",
+            "缺乏醛缩酶B使肌细胞GLUT4彻底失活引发高血糖昏迷",
+            "果糖在肝脏必须先经过半乳糖-1-磷酸尿苷酰转移酶耗尽UTP"
+          ],
+          "answer_idx": 0,
+          "explain": "如P186–P187所示，肝果糖激酶持续激活且不受高ATP或能量充足抑制；当下游醛缩酶B缺失时，果糖被不断磷酸化成无法出路的F-1-P，海绵般吸干肝胞质Pi与ATP库，继而瘫痪依赖ATP的糖异生与破坏糖原磷酸化酶所需Pi供给引发严重低血糖。",
+          "remedial_node_id": "biochem_pfk1_pfk2_switch"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
+    },
+    {
+      "id": "biochem_blood_glucose_hormones_dm",
+      "title": "血糖激素稳态、OGTT与糖尿病分型",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_013"
+      ],
+      "syllabus_tier": "understand",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "正常血糖3.89–6.11 mmol/L受胰岛素(唯一降糖)与胰高/肾上/糖皮质激素精密拮抗；其失调引发低血糖休克或1型/2型糖尿病急性/慢性病变。",
+      "source_slides": [
+        "糖代谢2026.pdf#P191-P222"
+      ],
+      "payload": {
+        "columns": [
+          "比较维度",
+          "1型糖尿病 (胰岛素依赖型)",
+          "2型糖尿病 (非胰岛素依赖型，占95%)"
+        ],
+        "rows": [
+          [
+            "发病根因与胰岛素/C肽",
+            "自身免疫炎症破坏胰岛β细胞→胰岛素绝对缺乏，血胰岛素及C肽释放试验低下或缺乏",
+            "遗传+肥胖致胰岛素抵抗(效应器敏感性↓)+相对分泌不足（峰值延迟）；长期高糖终致β细胞衰竭"
+          ],
+          [
+            "激素稳态破坏机制（靶点对比）",
+            "失去胰岛素5大作用(GLUT4↑/PDE↓cAMP/PDH磷酸酶↑/PEPCK↓/HSL↓)→胰高血糖素无拮抗，脂肪动员暴增",
+            "正常餐后血糖(3.89–6.11)及OGTT被打破，空腹≥7.0或2h≥11.1 mmol/L；超肾糖阈(8.88–10)出现渗透性利尿与糖尿"
+          ],
+          [
+            "临床特征与急慢性并发症",
+            "青少起病急、消瘦、“三多一少”典型；酮症酸中毒(DKA)倾向大；肾病(30–45%)为主死因，对胰岛素敏感",
+            "中老超重起病隐匿；易发高渗性昏迷；心血管(>70%)及微血管(视网膜/周围神经/糖足坏疽)为主要死因；早期胰岛素抵抗"
+          ],
+          [
+            "对立紊乱：低血糖休克警戒",
+            "空腹血糖<2.8 mmol/L因脑无法用脂酸供能即出现头晕心悸直至昏迷死亡，须立即静注葡萄糖",
+            "区别于高血糖，胰岛β细胞瘤、糖原累积病(如GSD-I)、腺垂体/肾上腺皮质功能低下及乙醇中毒均诱发低血糖"
+          ]
+        ],
+        "quiz": {
+          "stem": "临床长期大剂量使用糖皮质激素（或库欣综合征患者）极易并发“类固醇性高血糖/糖尿病”。根据糖皮质激素调控糖代谢的两大直接生化位点（P207），其致病机制是：",
+          "options": [
+            "① 促进骨骼肌蛋白分解供氨基酸入肝增强糖异生；② 抑制肝外组织丙酮酸氧化脱羧并协助脂肪动员间接阻断葡萄糖摄取",
+            "① 不可逆破坏胰岛β细胞触发自身免疫炎症；② 直接关闭肝细胞葡萄糖-6-磷酸酶",
+            "① 强力激活胞质PDE使cAMP清零；② 大幅上调肌细胞膜GLUT4数量",
+            "① 促进小肠刷状缘果糖激酶磷酸化；② 抑制胰高血糖素分泌使肾糖阈降至2.8 mmol/L"
+          ],
+          "answer_idx": 0,
+          "explain": "糖皮质激素一端推高肝糖输出（促肌蛋白分解供生糖氨基酸+诱导PEPCK增强糖异生），另一端直接抑制外周组织丙酮酸氧化脱羧并发挥对脂肪动员的允许作用以拮抗胰岛素降糖，从而诱发高血糖与胰岛素抵抗。",
+          "remedial_node_id": "biochem_gluconeogenesis_bypasses"
+        }
+      },
+      "added_at": "2026-11-16T22:30:07+08:00"
     }
   ],
   "edges": [
@@ -10122,6 +10956,294 @@
       "relation_type": "clinical_manifestation",
       "strength": 0.88,
       "bridge_text": "高热 >40℃ 致中枢惊厥脑损伤以及心率骤增加重心肌负荷诱发心衰等器官失代偿风险，直接界定了必须立即干预的三类高危解热人群。"
+    },
+    {
+      "id": "e_transport_to_hk_gk",
+      "source": "physio_membrane_transport",
+      "target": "biochem_glycolysis_hk_vs_gk",
+      "relation_type": "prerequisite",
+      "strength": 0.92,
+      "bridge_text": "胞外葡萄糖依赖生理学膜转运蛋白(GLUT)易化扩散进入胞质后，必须立即经己糖激酶或葡萄糖激酶磷酸化生成带负电的G-6-P锁在胞内，才能维持跨膜浓度梯度驱动持续摄糖。"
+    },
+    {
+      "id": "e_transport_to_digestion_glut",
+      "source": "physio_membrane_transport",
+      "target": "biochem_carb_digestion_glut",
+      "relation_type": "cross_discipline",
+      "strength": 0.9,
+      "bridge_text": "小肠与肾近曲小管上皮吸收/重吸收葡萄糖的SGLT-1/2属于依赖Na⁺-K⁺泵梯度的继发性主动转运，而各组织细胞按Km梯度摄糖的GLUT1–5则是典型的经载体易化扩散。"
+    },
+    {
+      "id": "e_portal_to_digestion_glut",
+      "source": "anat_portal_vein_system",
+      "target": "biochem_carb_digestion_glut",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "小肠绒毛吸收的单糖汇入肠系膜上静脉经肝门静脉首过入肝，使肝脏最先接触餐后高浓度葡萄糖并经低亲和力GLUT2与葡萄糖激酶完成第一道血糖缓冲。"
+    },
+    {
+      "id": "e_hk_to_digestion_glut",
+      "source": "biochem_glycolysis_hk_vs_gk",
+      "target": "biochem_carb_digestion_glut",
+      "relation_type": "contrast_with",
+      "strength": 0.82,
+      "bridge_text": "高Km葡萄糖激酶(GK)的血糖感知阈值必须与高Km跨膜载体GLUT2及小肠SGLT吸收动力学紧密匹配，方能在餐后血糖骤升时精准分流碳源。"
+    },
+    {
+      "id": "e_hk_to_glycolysis_pathway",
+      "source": "biochem_glycolysis_hk_vs_gk",
+      "target": "biochem_glycolysis_pathway_atp",
+      "relation_type": "causal_next",
+      "strength": 0.95,
+      "bridge_text": "己糖激酶与葡萄糖激酶消耗1分子ATP将葡萄糖锁定为G-6-P后，碳流随即沿磷酸己糖异构化、裂解、GAPDH氧化及两步底物水平磷酸化推进完成产能闭环。"
+    },
+    {
+      "id": "e_glycolysis_to_pfk1_switch",
+      "source": "biochem_glycolysis_pathway_atp",
+      "target": "biochem_pfk1_pfk2_switch",
+      "relation_type": "causal_next",
+      "strength": 0.94,
+      "bridge_text": "正因为糖酵解先耗2 ATP后产4 ATP并高度依赖细胞能荷平衡，第3步不可逆限速酶PFK-1及其上游双功能酶PFK-2/FBP-2演化为决定糖流放行或刹车的最高阀门。"
+    },
+    {
+      "id": "e_glycolysis_to_hydropic",
+      "source": "biochem_glycolysis_pathway_atp",
+      "target": "patho_hydropic_degeneration",
+      "relation_type": "cross_discipline",
+      "strength": 0.88,
+      "bridge_text": "机体缺氧时线粒体氧化磷酸化瘫痪，仅靠糖酵解单糖净产2 ATP远不足以维持细胞膜Na⁺-K⁺泵运转，Na⁺与水大量潴留胞内即直接诱发病理学细胞水肿（颗粒变性）。"
+    },
+    {
+      "id": "e_pfk1_to_pdh",
+      "source": "biochem_pfk1_pfk2_switch",
+      "target": "biochem_pdh_complex_mechanism",
+      "relation_type": "causal_next",
+      "strength": 0.94,
+      "bridge_text": "当PFK-1与丙酮酸激酶阀门在富氧高能需求下放行糖酵解通量后，终产物丙酮酸进入线粒体基质接受PDH复合体不可逆氧化脱羧生成乙酰CoA，正式跨入有氧氧化阶段。"
+    },
+    {
+      "id": "e_pdh_to_shuttles",
+      "source": "biochem_pdh_complex_mechanism",
+      "target": "biochem_cytosolic_nadh_shuttles",
+      "relation_type": "causal_next",
+      "strength": 0.92,
+      "bridge_text": "有氧条件下丙酮酸进入线粒体由PDH脱羧而非在胞质还原成乳酸，导致胞质GAPDH生成的NADH必须寻找α-磷酸甘油或苹果酸-天冬氨酸两条穿梭通道跨越线粒体内膜。"
+    },
+    {
+      "id": "e_transam_to_shuttles",
+      "source": "biochem_transamination_deamination",
+      "target": "biochem_cytosolic_nadh_shuttles",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "苹果酸-天冬氨酸穿梭之所以能零损耗运送NADH，全赖胞质与基质内的天冬氨酸转氨酶(AST，辅酶PLP)将不能透内膜的草酰乙酸可逆转化为天冬氨酸完成闭环。"
+    },
+    {
+      "id": "e_shuttles_to_tca",
+      "source": "biochem_cytosolic_nadh_shuttles",
+      "target": "biochem_tca_cycle_steps_energy",
+      "relation_type": "causal_next",
+      "strength": 0.94,
+      "bridge_text": "胞质穿梭送入线粒体的还原当量与PDH生成的乙酰CoA在线粒体汇合，推动乙酰CoA与草酰乙酸缩合启动三羧酸循环八步脱氢脱羧，产出单糖有氧30或32 ATP中的20 ATP主力。"
+    },
+    {
+      "id": "e_tca_steps_to_hub",
+      "source": "biochem_tca_cycle_steps_energy",
+      "target": "biochem_tca_regulation_hub",
+      "relation_type": "causal_next",
+      "strength": 0.94,
+      "bridge_text": "三羧酸循环三步不可逆放能反应与四次脱氢奠定了产能主轴，也使三大限速酶必须接收能荷/产物反馈并借回补机制统筹糖、脂、氨基酸之间的碳骨架互换。"
+    },
+    {
+      "id": "e_tca_steps_to_hyperammonemia",
+      "source": "biochem_tca_cycle_steps_energy",
+      "target": "biochem_hyperammonemia_he",
+      "relation_type": "cross_discipline",
+      "strength": 0.9,
+      "bridge_text": "TCA循环中间产物α-酮戊二酸既是关键氧化脱羧节点，也是脑星形胶质细胞中和游离NH₃合成谷氨酰胺的必经受体，高血氨持续抽空α-酮戊二酸将直接引发脑TCA能量衰竭。"
+    },
+    {
+      "id": "e_tca_steps_to_bat",
+      "source": "biochem_tca_cycle_steps_energy",
+      "target": "pathophys_fever_metabolism_bat",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "TCA四次脱氢产生的NADH/FADH₂在棕色脂肪组织(BAT)中遇到UCP1质子漏解偶联时，质子势能直接化为热能而非ATP，解除ATP抑制从而高速拉动TCA产热。"
+    },
+    {
+      "id": "e_tca_hub_to_transam",
+      "source": "biochem_tca_regulation_hub",
+      "target": "biochem_transamination_deamination",
+      "relation_type": "cross_discipline",
+      "strength": 0.88,
+      "bridge_text": "TCA循环中的α-酮戊二酸与草酰乙酸构成人体转氨基作用最重要的氨基受体碳骨架池，直接把糖代谢中枢串联到氨基酸联合脱氨基反应。"
+    },
+    {
+      "id": "e_tca_hub_to_fatty_change",
+      "source": "biochem_tca_regulation_hub",
+      "target": "patho_fatty_change",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "长期高糖高脂或乙醇过量致线粒体NADH积聚抑制TCA循环时，过多柠檬酸溢出线粒体转化为甘油三酯并超出肝VLDL输出极限，即演变为肝细胞脂肪变。"
+    },
+    {
+      "id": "e_tca_hub_to_pasteur",
+      "source": "biochem_tca_regulation_hub",
+      "target": "biochem_pasteur_warburg_coordination",
+      "relation_type": "causal_next",
+      "strength": 0.92,
+      "bridge_text": "TCA循环高效率输出ATP及溢出柠檬酸反向变构刹车胞质PFK-1，同时穿梭抢走NADH，直接构成了有氧抑制糖酵解的巴斯德效应及肿瘤反常绕行的沃伯格效应对照。"
+    },
+    {
+      "id": "e_pfk1_to_pasteur_prereq",
+      "source": "biochem_pfk1_pfk2_switch",
+      "target": "biochem_pasteur_warburg_coordination",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "只有先掌握柠檬酸与高ATP对PFK-1的抑制以及AMP放大效应，才能看透氧气恢复后如何通过PFK-1关闸引发巴斯德效应，以及癌细胞如何突破该闸门。"
+    },
+    {
+      "id": "e_pasteur_to_ppp",
+      "source": "biochem_pasteur_warburg_coordination",
+      "target": "biochem_pentose_phosphate_pathway",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "巴斯德效应与沃伯格效应讨论G-6-P是走向无氧产乳酸还是有氧产能，而在相同胞质G-6-P分岔口上，磷酸戊糖途径(PPP)另辟蹊径以不产ATP为代价换取NADPH还原力与核酸核糖。"
+    },
+    {
+      "id": "e_hk_to_ppp_prereq",
+      "source": "biochem_glycolysis_hk_vs_gk",
+      "target": "biochem_pentose_phosphate_pathway",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "葡萄糖经己糖激酶或葡萄糖激酶磷酸化生成G-6-P后，不仅能进糖酵解，更是磷酸戊糖途径限速酶G6PD的唯一上游起点底物。"
+    },
+    {
+      "id": "e_ppp_to_glycogen",
+      "source": "biochem_pentose_phosphate_pathway",
+      "target": "biochem_glycogen_synthesis_breakdown",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "G-6-P在胞质氧化供能与磷酸戊糖分流之外还有第三条大宗去路：当进食后能量与NADPH充足时，G-6-P异构为G-1-P并经UDPG聚合为糖原储库，空腹时再由肝肾G6Pase逆向释放补充血糖。"
+    },
+    {
+      "id": "e_hk_to_glycogen_prereq",
+      "source": "biochem_glycolysis_hk_vs_gk",
+      "target": "biochem_glycogen_synthesis_breakdown",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "餐后肝脏依赖高Km、不受G-6-P抑制的葡萄糖激酶海量生成G-6-P，才使得肝细胞能够经变位酶与UDPG焦磷酸化酶持续压入糖原合成而不致中途堵死。"
+    },
+    {
+      "id": "e_glycogen_to_covalent",
+      "source": "biochem_glycogen_synthesis_breakdown",
+      "target": "biochem_glycogen_covalent_allosteric",
+      "relation_type": "causal_next",
+      "strength": 0.94,
+      "bridge_text": "糖原合成(糖原合酶)与分解(磷酸化酶)沿两条独立不可逆途径并行，因此必须靠cAMP-PKA共价磷酸化级联与PP-1抑制剂实现精准的双向互锁开关。"
+    },
+    {
+      "id": "e_glycogen_covalent_to_stress",
+      "source": "biochem_glycogen_covalent_allosteric",
+      "target": "pathophys_stress_axes",
+      "relation_type": "cross_discipline",
+      "strength": 0.88,
+      "bridge_text": "病生应激中蓝斑-交感-肾上腺髓质(SAM)轴释放的肾上腺素通过cAMP-PKA同时激活肝与肌糖原分解，配合HPA轴糖皮质激素诱导糖异生，共同构成应激性高血糖的生化基础。"
+    },
+    {
+      "id": "e_glycogen_covalent_to_gluconeogenesis",
+      "source": "biochem_glycogen_covalent_allosteric",
+      "target": "biochem_gluconeogenesis_bypasses",
+      "relation_type": "causal_next",
+      "strength": 0.94,
+      "bridge_text": "肝糖原储量仅能维持血糖12–18小时；随着空腹延续，升高的胰高血糖素与PKA在关死糖原合成并耗尽肝糖原的同时，压低F-2,6-BP并转录诱导PEPCK将肝碳流全面切入糖异生。"
+    },
+    {
+      "id": "e_pdh_to_gluconeogenesis_prereq",
+      "source": "biochem_pdh_complex_mechanism",
+      "target": "biochem_gluconeogenesis_bypasses",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "因为PDH复合体催化丙酮酸→乙酰CoA完全不可逆，且乙酰CoA抑制PDH同时激活丙酮酸羧化酶，糖异生才必须绕道线粒体丙酮酸羧化支路(PC+PEPCK)及草酰乙酸穿梭。"
+    },
+    {
+      "id": "e_gluconeogenesis_to_ammonia_transport",
+      "source": "biochem_gluconeogenesis_bypasses",
+      "target": "biochem_ammonia_transport",
+      "relation_type": "cross_discipline",
+      "strength": 0.9,
+      "bridge_text": "空腹时肌肉蛋白分解产生的氨基与糖酵解丙酮酸合成丙氨酸运往肝脏：肝脏脱去氨基进鸟氨酸循环的同时，把丙酮酸碳骨架经三步绕行糖异生回葡萄糖再返肌肉，构成丙氨酸-葡萄糖循环。"
+    },
+    {
+      "id": "e_gluconeogenesis_to_cori",
+      "source": "biochem_gluconeogenesis_bypasses",
+      "target": "biochem_cori_cycle_physiological",
+      "relation_type": "causal_next",
+      "strength": 0.94,
+      "bridge_text": "肝脏与肾脏打通三步绕行糖异生后，在整体生理层面直接承接骨骼肌无氧酵解输出的乳酸构成Cori乳酸循环，并在酸中毒时依靠肾糖异生PEPCK激活驱动泌氨排氢。"
+    },
+    {
+      "id": "e_cori_contrast_ammonia",
+      "source": "biochem_cori_cycle_physiological",
+      "target": "biochem_ammonia_transport",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "肌-肝之间并存两大代谢循环：Cori循环经血液把无氧糖酵解乳酸回肝异生为糖以防酸中毒；丙氨酸-葡萄糖循环则顺带把肌肉氨毒安全载往肝脏合成尿素。"
+    },
+    {
+      "id": "e_lobule_to_cori",
+      "source": "histo_liver_lobule",
+      "target": "biochem_cori_cycle_physiological",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "肝小叶门管区至肝窦的血供分带配合肝细胞内质网独具的葡萄糖-6-磷酸酶与高Km葡萄糖激酶，从组织结构上支撑肝脏成为乳酸循环、三碳途径及血糖缓冲的绝对中枢。"
+    },
+    {
+      "id": "e_glycolysis_to_fructose_galactose",
+      "source": "biochem_glycolysis_pathway_atp",
+      "target": "biochem_fructose_galactose_disorders",
+      "relation_type": "causal_next",
+      "strength": 0.78,
+      "bridge_text": "食物中的果糖和半乳糖均先经肝内特异磷酸化旁路转变为磷酸丙糖或G-6-P再并入糖酵解主链，故果糖激酶绕过PFK-1失控或醛缩酶B缺失会直接引发Pi耗竭与低血糖。"
+    },
+    {
+      "id": "e_glycogen_to_fructose_galactose",
+      "source": "biochem_glycogen_synthesis_breakdown",
+      "target": "biochem_fructose_galactose_disorders",
+      "relation_type": "causal_next",
+      "strength": 0.78,
+      "bridge_text": "半乳糖代谢必须借助UDPG焦磷酸化酶生成的UDPG通过尿苷酰转移酶互换进入G-1-P，其产物UDP-半乳糖又经4-差向异构酶与糖原供体UDPG自由互通。"
+    },
+    {
+      "id": "e_covalent_to_dm",
+      "source": "biochem_glycogen_covalent_allosteric",
+      "target": "biochem_blood_glucose_hormones_dm",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.85,
+      "bridge_text": "胰岛素降低cAMP促糖原合成与胰高血糖素升高cAMP促糖原分解的精细拮抗一旦因β细胞毁损或胰岛素抵抗失衡，临床即表现为糖尿病持续高血糖、DKA与高渗性昏迷。"
+    },
+    {
+      "id": "e_gluconeogenesis_to_dm",
+      "source": "biochem_gluconeogenesis_bypasses",
+      "target": "biochem_blood_glucose_hormones_dm",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.85,
+      "bridge_text": "胰岛素原本抑制PEPCK转录并压低肝糖异生输出；糖尿病时胰岛素缺失或抵抗导致肝糖异生昼夜失控并协同脂肪动员酮症，成为空腹高血糖的核心推手。"
+    },
+    {
+      "id": "e_digestion_to_dm",
+      "source": "biochem_carb_digestion_glut",
+      "target": "biochem_blood_glucose_hormones_dm",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.82,
+      "bridge_text": "当高血糖突破肾近曲小管SGLT-2/SGLT-1重吸收能力（肾糖阈8.88–10 mmol/L）即出现糖尿与渗透性利尿脱水；阿卡波糖与达格列净正是分别阻断肠糖苷酶与肾SGLT-2来平抑血糖。"
+    },
+    {
+      "id": "e_dm_to_stress",
+      "source": "biochem_blood_glucose_hormones_dm",
+      "target": "pathophys_stress_axes",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "慢性应激时HPA轴糖皮质激素长期升高可促进肌蛋白分解供糖异生原料并抑制丙酮酸氧化脱羧、拮抗胰岛素，从而诱发胰岛素抵抗与继发性糖尿病。"
     }
   ],
   "threads": [
@@ -10414,6 +11536,64 @@
         {
           "node_id": "pathophys_fever_organ_dysfunction",
           "incoming_edge_id": "e_metabolism_to_organs"
+        }
+      ]
+    },
+    {
+      "id": "thread_glucose_metabolism",
+      "title": "生物化学主线 ③：糖酵解与PFK双开关 → PDH/穿梭 → TCA枢纽 → PPP与糖原/糖异生稳态",
+      "ordered_steps": [
+        {
+          "node_id": "biochem_glycolysis_hk_vs_gk",
+          "incoming_edge_id": null
+        },
+        {
+          "node_id": "biochem_glycolysis_pathway_atp",
+          "incoming_edge_id": "e_hk_to_glycolysis_pathway"
+        },
+        {
+          "node_id": "biochem_pfk1_pfk2_switch",
+          "incoming_edge_id": "e_glycolysis_to_pfk1_switch"
+        },
+        {
+          "node_id": "biochem_pdh_complex_mechanism",
+          "incoming_edge_id": "e_pfk1_to_pdh"
+        },
+        {
+          "node_id": "biochem_cytosolic_nadh_shuttles",
+          "incoming_edge_id": "e_pdh_to_shuttles"
+        },
+        {
+          "node_id": "biochem_tca_cycle_steps_energy",
+          "incoming_edge_id": "e_shuttles_to_tca"
+        },
+        {
+          "node_id": "biochem_tca_regulation_hub",
+          "incoming_edge_id": "e_tca_steps_to_hub"
+        },
+        {
+          "node_id": "biochem_pasteur_warburg_coordination",
+          "incoming_edge_id": "e_tca_hub_to_pasteur"
+        },
+        {
+          "node_id": "biochem_pentose_phosphate_pathway",
+          "incoming_edge_id": "e_pasteur_to_ppp"
+        },
+        {
+          "node_id": "biochem_glycogen_synthesis_breakdown",
+          "incoming_edge_id": "e_ppp_to_glycogen"
+        },
+        {
+          "node_id": "biochem_glycogen_covalent_allosteric",
+          "incoming_edge_id": "e_glycogen_to_covalent"
+        },
+        {
+          "node_id": "biochem_gluconeogenesis_bypasses",
+          "incoming_edge_id": "e_glycogen_covalent_to_gluconeogenesis"
+        },
+        {
+          "node_id": "biochem_cori_cycle_physiological",
+          "incoming_edge_id": "e_gluconeogenesis_to_cori"
         }
       ]
     }

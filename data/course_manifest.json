@@ -360,7 +360,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\糖代谢2026.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",

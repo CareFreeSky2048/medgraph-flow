@@ -8,6 +8,8 @@ Supports:
 5. Losslessly merging delta JSON into data/graph.json while validating schema & never touching progress
 """
 import argparse
+import hashlib
+import io
 import json
 import os
 import re
@@ -75,16 +77,85 @@ def _iter_pptx_shapes(shapes):
             yield from _iter_pptx_shapes(shape.shapes)
 
 
+def _inspect_image_blob(raw_bytes: bytes) -> tuple[str, bool]:
+    """Return (short_md5, is_nontrivial_size) filtering tiny <120px decorative icons/logos."""
+    digest = hashlib.md5(raw_bytes).hexdigest()[:12]
+    try:
+        from PIL import Image
+
+        with Image.open(io.BytesIO(raw_bytes)) as im:
+            w, h = im.size
+        return digest, (max(w, h) >= 120 and min(w, h) >= 32)
+    except Exception:
+        # Unknown vector/WMF or undecodable stream: keep conservatively if >4 KB
+        return digest, len(raw_bytes) >= 4096
+
+
+def _finalize_slide_pages(raw_pages: list[dict], visual_dir: Path | None = None, prefix: str = "s") -> list[dict]:
+    """Deduplicate master-template watermarks appearing on >=40% of slides before flagging MUST_VIEW."""
+    total_pages = len(raw_pages)
+    hash_page_freq: dict[str, int] = defaultdict(int)
+    for rec in raw_pages:
+        for h in {img["hash"] for img in rec.get("_images", [])}:
+            hash_page_freq[h] += 1
+
+    template_hashes: set[str] = set()
+    if total_pages >= 5:
+        repeat_thresh = max(3, int(total_pages * 0.40))
+        template_hashes = {h for h, cnt in hash_page_freq.items() if cnt >= repeat_thresh}
+
+    pages = []
+    for rec in raw_pages:
+        text = rec["text"]
+        lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+        sig_imgs = [img for img in rec.get("_images", []) if img["hash"] not in template_hashes]
+        img_count = len(sig_imgs)
+        group_count = rec.get("_group_count", 0)
+        short_lines = sum(1 for ln in lines if len(ln) <= 6)
+        short_ratio = (short_lines / len(lines)) if lines else 0.0
+
+        reasons = []
+        if len(text) < 45:
+            reasons.append("sparse_or_image_only")
+        if img_count > 0:
+            reasons.append(f"embedded_images:{img_count}")
+        if group_count >= 2:
+            reasons.append(f"grouped_diagrams:{group_count}")
+        if len(lines) >= 10 and short_ratio >= 0.45:
+            reasons.append(f"fragmented_diagram:{short_ratio:.0%}")
+
+        img_paths = []
+        if visual_dir is not None and sig_imgs:
+            visual_dir.mkdir(parents=True, exist_ok=True)
+            for k, img in enumerate(sig_imgs, 1):
+                if img.get("blob"):
+                    out_img = visual_dir / f"{prefix}{rec['page']:03d}_img{k}.{img.get('ext', 'png')}"
+                    out_img.write_bytes(img["blob"])
+                    img_paths.append(str(out_img))
+
+        pages.append({
+            "page": rec["page"],
+            "text": text,
+            "char_count": len(text),
+            "heading": lines[0][:60] if lines else rec.get("_empty_heading", "[纯图/无提取文本页]"),
+            "embedded_images": img_count,
+            "ignored_template_images": len(rec.get("_images", [])) - img_count,
+            "needs_vision": bool(reasons),
+            "vision_reasons": reasons,
+            "visual_files": img_paths,
+        })
+    return pages
+
+
 def extract_pptx(path: Path, visual_dir: Path | None = None) -> list[dict]:
     from pptx import Presentation
     from pptx.enum.shapes import MSO_SHAPE_TYPE
 
     prs = Presentation(str(path))
-    pages = []
+    raw_pages = []
     for idx, slide in enumerate(prs.slides, 1):
         chunks = []
-        img_paths = []
-        img_count = 0
+        sig_images = []
         group_count = 0
         for shape in slide.shapes:
             if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
@@ -103,17 +174,17 @@ def extract_pptx(path: Path, visual_dir: Path | None = None) -> list[dict]:
                 if rows:
                     chunks.append("\n".join(rows))
             elif shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
-                img_count += 1
-                if visual_dir is not None:
-                    try:
-                        img = shape.image
-                        ext = (img.ext or "png").lower()
-                        visual_dir.mkdir(parents=True, exist_ok=True)
-                        out_img = visual_dir / f"s{idx:03d}_img{img_count}.{ext}"
-                        out_img.write_bytes(img.blob)
-                        img_paths.append(str(out_img))
-                    except Exception:
-                        pass
+                try:
+                    img = shape.image
+                    digest, nontrivial = _inspect_image_blob(img.blob)
+                    if nontrivial:
+                        sig_images.append({
+                            "hash": digest,
+                            "ext": (img.ext or "png").lower(),
+                            "blob": img.blob if visual_dir is not None else None,
+                        })
+                except Exception:
+                    pass
 
         notes = ""
         if slide.has_notes_slide and slide.notes_slide.notes_text_frame:
@@ -122,62 +193,39 @@ def extract_pptx(path: Path, visual_dir: Path | None = None) -> list[dict]:
         if notes:
             text = f"{text}\n[讲义备注] {notes}".strip()
 
-        lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-        reasons = []
-        if len(text) < 45:
-            reasons.append("sparse_or_image_only")
-        if img_count > 0:
-            reasons.append(f"embedded_images:{img_count}")
-        if group_count >= 2:
-            reasons.append(f"grouped_diagrams:{group_count}")
-
-        pages.append({
+        raw_pages.append({
             "page": idx,
             "text": text,
-            "char_count": len(text),
-            "heading": lines[0][:60] if lines else "[纯图/无文本页]",
-            "embedded_images": img_count,
-            "needs_vision": bool(reasons),
-            "vision_reasons": reasons,
-            "visual_files": img_paths,
+            "_images": sig_images,
+            "_group_count": group_count,
+            "_empty_heading": "[纯图/无文本页]",
         })
-    return pages
+    return _finalize_slide_pages(raw_pages, visual_dir=visual_dir, prefix="s")
 
 
 def extract_pdf(path: Path) -> list[dict]:
     from pypdf import PdfReader
 
     reader = PdfReader(str(path))
-    pages = []
+    raw_pages = []
     for idx, page in enumerate(reader.pages, 1):
         text = (page.extract_text() or "").strip()
-        lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+        sig_images = []
         try:
-            img_count = len(page.images)
+            for im in page.images:
+                digest, nontrivial = _inspect_image_blob(im.data)
+                if nontrivial:
+                    sig_images.append({"hash": digest})
         except Exception:
-            img_count = 0
-        short_lines = sum(1 for ln in lines if len(ln) <= 6)
-        short_ratio = (short_lines / len(lines)) if lines else 0.0
-
-        reasons = []
-        if len(text) < 45:
-            reasons.append("sparse_or_image_only")
-        if img_count > 0:
-            reasons.append(f"embedded_images:{img_count}")
-        if len(lines) >= 10 and short_ratio >= 0.45:
-            reasons.append(f"fragmented_diagram:{short_ratio:.0%}")
-
-        pages.append({
+            pass
+        raw_pages.append({
             "page": idx,
             "text": text,
-            "char_count": len(text),
-            "heading": lines[0][:60] if lines else "[纯图/无提取文本页]",
-            "embedded_images": img_count,
-            "needs_vision": bool(reasons),
-            "vision_reasons": reasons,
-            "visual_files": [],
+            "_images": sig_images,
+            "_group_count": 0,
+            "_empty_heading": "[纯图/无提取文本页]",
         })
-    return pages
+    return _finalize_slide_pages(raw_pages, visual_dir=None)
 
 
 def render_pdf_visual_pages(pdf_path: Path, pages: list[dict], visual_dir: Path, dpi: int = 150) -> int:
@@ -573,58 +621,21 @@ def build_prompt_text(
     graph_or_nodes: dict | list[dict],
     primary_subject: str | None = None,
     curriculum_name: str | None = None,
+    include_atlas: bool = True,
+    chunk_idx: int = 1,
+    total_chunks: int = 1,
+    all_pages_for_index: list[dict] | None = None,
 ) -> str:
     graph = graph_or_nodes if isinstance(graph_or_nodes, dict) else {"nodes": graph_or_nodes, "edges": [], "threads": []}
-    picked_nodes, relevant_edges = select_relevant_nodes_and_edges(pages, graph, limit=120)
-
-    node_deg = {}
-    for e in graph.get("edges", []):
-        node_deg[e["source"]] = node_deg.get(e["source"], 0) + 1
-        node_deg[e["target"]] = node_deg.get(e["target"], 0) + 1
-
-    existing_index = "\n".join(
-        f"- `{n['id']}` [{n['subject']} | {n.get('syllabus_tier', 'master')} | deg={node_deg.get(n['id'], 0)}] {n['title']} — {n['anchor_summary']}"
-        for n in picked_nodes
-    )
-    existing_threads = "\n".join(
-        f"- `{t['id']}` {t['title']}: {' -> '.join(s['node_id'] for s in t.get('ordered_steps', []))}"
-        for t in graph.get("threads", [])
-    )
-    existing_edges = "\n".join(
-        f"- `{e['id']}`: `{e['source']}` --[{e['relation_type']}]--> `{e['target']}` ({e['bridge_text'][:70]}...)"
-        for e in relevant_edges[:45]
-    )
-
+    index_pages = all_pages_for_index or pages
     if primary_subject and primary_subject in SUBJECT_LOGIC_PROFILES:
-        heuristic_subjs = [s for s in detect_slide_subjects(pages, syllabus_candidates, slide_name) if s != primary_subject]
+        heuristic_subjs = [s for s in detect_slide_subjects(index_pages, syllabus_candidates, slide_name) if s != primary_subject]
         detected_subjs = [primary_subject] + heuristic_subjs[:2]
         subject_source = "显式指定 / 课程清单锁定"
     else:
-        detected_subjs = detect_slide_subjects(pages, syllabus_candidates, slide_name)
+        detected_subjs = detect_slide_subjects(index_pages, syllabus_candidates, slide_name)
         subject_source = "启发式回退识别"
     primary_subj = detected_subjs[0]
-
-    covered_syl_map: dict[str, list[str]] = {}
-    for n in graph.get("nodes", []):
-        for ref in n.get("syllabus_refs", []):
-            covered_syl_map.setdefault(ref, []).append(n["id"])
-
-    primary_syl_block, cross_syl_block = format_full_syllabus_locator(
-        graph, primary_subj, syllabus_candidates, covered_syl_map
-    )
-
-    playbook_blocks = []
-    for subj in detected_subjs:
-        prof = SUBJECT_LOGIC_PROFILES.get(subj)
-        if prof:
-            playbook_blocks.append(
-                f"### 【{prof['label']} (`{subj}`) 专属拆解语法】\n"
-                f"- 逻辑主脊：{prof['spine']}\n"
-                f"- 优先卡型：{prof['card_bias']}\n"
-                f"- 地基锚点要求：{prof['foundation_rule']}\n"
-                f"- `bridge_text` 写法：{prof['bridge_rule']}"
-            )
-    playbook_text = "\n\n".join(playbook_blocks)
 
     skeleton_lines = []
     page_blocks = []
@@ -647,6 +658,62 @@ def build_prompt_text(
     skeleton_txt = "\n".join(skeleton_lines)
     pages_txt = "\n".join(page_blocks)
     cur_label = curriculum_name or "按大纲与文件属性定位"
+
+    if not include_atlas:
+        p_start = pages[0]["page"] if pages else "?"
+        p_end = pages[-1]["page"] if pages else "?"
+        return f"""# 继续编译 `{slide_name}` · 第 {chunk_idx}/{total_chunks} 分块（P{p_start}–P{p_end}）
+> 主学科：`{primary_subj}`（{subject_source}） · 课程：{cur_label}
+> **公共头部已省略（防重复占用上下文）**：完整 `Phase 0.5` 原始大纲坐标、子学科拆解语法、已有图谱节点/主线/边参考及 JSON 严格规范请直接查看同目录下 `part1_context.md`。
+
+## Phase 1 · 本分块逐页骨架与视觉待检清单
+{skeleton_txt}
+
+## 原始课件正文与页面标引
+{pages_txt}
+"""
+
+    picked_nodes, relevant_edges = select_relevant_nodes_and_edges(index_pages, graph, limit=120)
+
+    node_deg = {}
+    for e in graph.get("edges", []):
+        node_deg[e["source"]] = node_deg.get(e["source"], 0) + 1
+        node_deg[e["target"]] = node_deg.get(e["target"], 0) + 1
+
+    existing_index = "\n".join(
+        f"- `{n['id']}` [{n['subject']} | {n.get('syllabus_tier', 'master')} | deg={node_deg.get(n['id'], 0)}] {n['title']} — {n['anchor_summary']}"
+        for n in picked_nodes
+    )
+    existing_threads = "\n".join(
+        f"- `{t['id']}` {t['title']}: {' -> '.join(s['node_id'] for s in t.get('ordered_steps', []))}"
+        for t in graph.get("threads", [])
+    )
+    existing_edges = "\n".join(
+        f"- `{e['id']}`: `{e['source']}` --[{e['relation_type']}]--> `{e['target']}` ({e['bridge_text'][:70]}...)"
+        for e in relevant_edges[:45]
+    )
+
+    covered_syl_map: dict[str, list[str]] = {}
+    for n in graph.get("nodes", []):
+        for ref in n.get("syllabus_refs", []):
+            covered_syl_map.setdefault(ref, []).append(n["id"])
+
+    primary_syl_block, cross_syl_block = format_full_syllabus_locator(
+        graph, primary_subj, syllabus_candidates, covered_syl_map
+    )
+
+    playbook_blocks = []
+    for subj in detected_subjs:
+        prof = SUBJECT_LOGIC_PROFILES.get(subj)
+        if prof:
+            playbook_blocks.append(
+                f"### 【{prof['label']} (`{subj}`) 专属拆解语法】\n"
+                f"- 逻辑主脊：{prof['spine']}\n"
+                f"- 优先卡型：{prof['card_bias']}\n"
+                f"- 地基锚点要求：{prof['foundation_rule']}\n"
+                f"- `bridge_text` 写法：{prof['bridge_rule']}"
+            )
+    playbook_text = "\n\n".join(playbook_blocks)
 
     return f"""你是复旦基础医学跨学科知识图谱的**逻辑架构师与多模态编译器**。
 严禁直接按 PPT 幻灯片目录逐页转写成“内容清单卡”，也**严禁用同一种模板去硬套所有医学学科**！
@@ -1109,6 +1176,7 @@ def main():
         generated_files = []
         suffix_tag = "context" if args.mode == "extract-context" else "prompt_pack"
         for idx, chunk in enumerate(chunks, 1):
+            is_context_cont = (args.mode == "extract-context" and idx > 1)
             prompt = build_prompt_text(
                 slide_path.name,
                 chunk,
@@ -1116,6 +1184,10 @@ def main():
                 graph,
                 primary_subject=primary_subj,
                 curriculum_name=meta.get("curriculum_name"),
+                include_atlas=not is_context_cont,
+                chunk_idx=idx,
+                total_chunks=len(chunks),
+                all_pages_for_index=pages,
             )
             out_file = out_dir / f"{slide_path.stem}_part{idx}_{suffix_tag}.md"
             out_file.write_text(prompt, encoding="utf-8")

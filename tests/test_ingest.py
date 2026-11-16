@@ -259,6 +259,38 @@ def main():
     assert "体温调节的方式及发热的时相" in full_prompt, "Full raw_text must not be truncated in V2 prompt"
     assert "Phase 0.5" in full_prompt and "crop-asset" in full_prompt
 
+    # 5. Test continuation chunk omits redundant header + template watermark image dedup in multi-slide deck
+    cont_prompt = build_prompt_text(
+        "糖代谢2026.pdf",
+        [{"page": 26, "text": "PFK-1 别构激活", "char_count": 10, "embedded_images": 0, "needs_vision": False, "vision_reasons": [], "heading": "PFK-1"}],
+        [],
+        graph,
+        primary_subject="biochem",
+        include_atlas=False,
+        chunk_idx=2,
+        total_chunks=4,
+    )
+    assert "公共头部已省略" in cont_prompt and "## Phase 0.5" not in cont_prompt
+
+    with tempfile.TemporaryDirectory() as tmp3:
+        wm_pptx = Path(tmp3) / "watermark_dedup.pptx"
+        wm_img = Path(tmp3) / "crest_watermark.png"
+        uniq_img = Path(tmp3) / "unique_pathway.png"
+        Image.new("RGB", (200, 200), color=(220, 220, 220)).save(wm_img)
+        Image.new("RGB", (600, 400), color=(20, 110, 160)).save(uniq_img)
+        prs_wm = Presentation()
+        blank_layout = prs_wm.slide_layouts[1]
+        for s_idx in range(1, 6):
+            sl = prs_wm.slides.add_slide(blank_layout)
+            sl.shapes.title.text = f"Slide {s_idx} Metabolic Step {s_idx}"
+            sl.placeholders[1].text = "催化限速酶调控底物磷酸化与能量偶联生成充足ATP驱动代谢通量向前推进" * 2
+            sl.shapes.add_picture(str(wm_img), 0, 0)
+            if s_idx == 3:
+                sl.shapes.add_picture(str(uniq_img), 100000, 100000)
+        prs_wm.save(str(wm_pptx))
+        wm_pages = extract_courseware(wm_pptx)
+        assert [p["embedded_images"] for p in wm_pages] == [0, 0, 1, 0, 0], f"Repeated master logo must be filtered: {[p['embedded_images'] for p in wm_pages]}"
+
     print("PASS test_ingest: logic-first context, thread grafting, V2 visual/syllabus/quiz audit, and lossless merge verified.")
 
 

@@ -32,6 +32,11 @@ def build() -> None:
         raise FileNotFoundError(f"Missing {graph_path}; run seed_builder.py first.")
 
     graph = validate_graph(json.loads(graph_path.read_text(encoding="utf-8")))
+    for node in graph["nodes"]:
+        for da in node.get("diagram_assets", []) or []:
+            rel = str(da.get("path", "")).replace("\\", "/")
+            if not (DATA_DIR / rel).exists():
+                raise FileNotFoundError(f"Missing referenced diagram asset for {node['id']}: {DATA_DIR / rel}")
     shell = (WEB_DIR / "shell.html").read_text(encoding="utf-8")
     css = (WEB_DIR / "style.css").read_text(encoding="utf-8")
     router_js = (WEB_DIR / "router.js").read_text(encoding="utf-8")
