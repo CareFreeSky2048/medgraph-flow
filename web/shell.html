@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>MedGraph Flow · 复旦基础医学碎片图谱</title>
+  __PWA_HEAD__
+  <style>__STYLE__</style>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div class="brand-row">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-title">MedGraph</span>
+        <button id="btn-mode-pill" class="mode-pill" data-act="open-modes" aria-label="切换学习路线">加载中…</button>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" data-act="open-atlas" aria-label="大纲与局部星系图">🗺️ 图谱</button>
+        <button class="icon-btn" data-act="open-sync" aria-label="云同步与数据管理">☁️ 同步</button>
+      </div>
+    </header>
+
+    <div id="detour-banner" class="detour-banner hidden" role="region" aria-label="岔路探索返回条">
+      <span id="detour-label" class="detour-text"></span>
+      <button id="btn-pop-detour" class="detour-return-btn" data-act="pop-detour">↩️ 返回主线断点</button>
+    </div>
+
+    <main id="stage-wrap" class="stage-wrap">
+      <section id="reconnect-strip" class="reconnect-strip" aria-label="逻辑断点与过渡桥接"></section>
+      <article id="card-stage" class="card-stage" aria-live="polite"></article>
+      <section id="inline-galaxy-section" class="galaxy-card-section" aria-label="邻近节点星系导航"></section>
+    </main>
+
+    <footer class="thumb-dock" aria-label="邻域直达与掌握打卡">
+      <div class="neighbor-bar-head">
+        <button id="btn-jump-galaxy" type="button" class="mini-galaxy-btn" data-act="focus-galaxy">🧭 邻域星系 (0)</button>
+        <span id="queue-progress" class="queue-progress"></span>
+      </div>
+      <div id="rating-bar" class="rating-bar">
+        <button class="rate-btn rate-again" data-act="rate" data-rating="again">
+          <span class="rate-emoji">🔴</span>
+          <span class="rate-text">陌路 / 重来</span>
+        </button>
+        <button class="rate-btn rate-fuzzy" data-act="rate" data-rating="fuzzy">
+          <span class="rate-emoji">🟡</span>
+          <span class="rate-text">模糊 / 巩固</span>
+        </button>
+        <button class="rate-btn rate-mastered" data-act="rate" data-rating="mastered">
+          <span class="rate-emoji">🟢</span>
+          <span class="rate-text">通透 / 下一站</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="modal" class="sheet-modal" aria-labelledby="modal-title">
+    <div class="modal-head">
+      <h2 id="modal-title"></h2>
+      <button class="modal-close" data-act="close-modal" aria-label="关闭弹窗">✕</button>
+    </div>
+    <div id="modal-body" class="modal-body"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  __SCRIPTS__
+</body>
+</html>
