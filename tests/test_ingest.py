@@ -1,4 +1,4 @@
-"""Automated tests for syllabus backbone and slide ingestion/merge pipeline."""
+"""Automated tests for syllabus backbone, logic context export, audit checks, and lossless merge."""
 import json
 import sys
 import tempfile
@@ -10,7 +10,12 @@ sys.stdout.reconfigure(encoding="utf-8")
 APP_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(APP_DIR))
 
-from ingest_slides import build_prompt_text, extract_courseware, match_syllabus_candidates, merge_delta_into_graph  # noqa: E402
+from ingest_slides import (  # noqa: E402
+    build_prompt_text,
+    extract_courseware,
+    match_syllabus_candidates,
+    merge_delta_into_graph,
+)
 from schema import validate_graph  # noqa: E402
 
 
@@ -20,13 +25,13 @@ def main():
     validate_graph(graph)
     assert len(graph["syllabus"]) > 600, "Expected full Fudan syllabus backbone"
 
-    # 1. Create a realistic synthetic PPTX inside a temp dir to test extraction & syllabus matching
+    # 1. Context export must include relevant nodes, existing threads, and logic edges (not blind [:120] slice)
     with tempfile.TemporaryDirectory() as tmp:
         pptx_path = Path(tmp) / "炎症反应复习测试.pptx"
         prs = Presentation()
         slide1 = prs.slides.add_slide(prs.slide_layouts[1])
         slide1.shapes.title.text = "急性炎症与白细胞渗出"
-        slide1.placeholders[1].text = "变质、渗出、增生三种基本病变；白细胞边集、附壁、游出、趋化、吞噬。"
+        slide1.placeholders[1].text = "变质、渗出、增生三种基本病变；白细胞边集、附壁、游出、趋化、吞噬；与水肿漏出液鉴别。"
         prs.save(str(pptx_path))
 
         pages = extract_courseware(pptx_path)
@@ -35,10 +40,22 @@ def main():
         cands = match_syllabus_candidates(pages, graph["syllabus"], top_k=5)
         assert any(c["subject"] == "pathology" for c in cands), "Expected pathology syllabus match"
 
-        prompt = build_prompt_text(pptx_path.name, pages, cands, graph["nodes"])
-        assert "bridge_text" in prompt and "anat_portal_vein_system" in prompt
+        prompt = build_prompt_text(pptx_path.name, pages, cands, graph)
+        assert "thread_congestion_portal" in prompt, "Context must expose existing LogicThread spines"
+        assert "patho_edema_mechanisms" in prompt, "Context must surface slide-relevant existing nodes"
+        assert "thread_extensions" in prompt, "Prompt must document thread_extensions grafting"
+        assert "病理学 (`pathology`) 专属拆解语法" in prompt, "Prompt must inject pathology discipline playbook"
 
-    # 2. Test lossless incremental merge (1 enriched existing node + 1 brand new node + 1 cross-discipline edge)
+        # Also verify pharmacology slide triggers pharmacology-specific playbook
+        pharma_prompt = build_prompt_text(
+            "解热镇痛药理.pptx",
+            [{"page": 1, "text": "药理学：阿司匹林抑制COX-1与COX-2受体机制、临床解热镇痛应用及胃肠道不良反应与半衰期"}],
+            [],
+            graph,
+        )
+        assert "药理学 (`pharmacology`) 专属拆解语法" in pharma_prompt, "Prompt must inject pharmacology discipline playbook"
+
+    # 2. Test lossless incremental merge + thread extension + logic audit
     delta = {
         "nodes": [
             {
@@ -86,7 +103,26 @@ def main():
                 "target": "patho_acute_inflammation_exudate",
                 "relation_type": "contrast_with",
                 "strength": 0.92,
-                "bridge_text": "水肿与积液需分清“淤血滤出”与“炎症渗出”：前者成漏出液，后者因内皮间隙增宽形成高蛋白渗出液。",
+                "bridge_text": "淤血与低蛋白导致单纯漏出液，而炎症因内皮细胞收缩拉大间隙释放高蛋白纤维素，因而必须用渗出液与漏出液加以区分。",
+            },
+            {
+                "id": "e_edema_prereq_exudate",
+                "source": "patho_edema_mechanisms",
+                "target": "patho_acute_inflammation_exudate",
+                "relation_type": "prerequisite",
+                "strength": 0.9,
+                "bridge_text": "理解Starling静水压与胶体渗透压平衡，才能解释为何仅靠流体静力压改变形成的漏出液蛋白低于25g/L。",
+            },
+        ],
+        "thread_extensions": [
+            {
+                "thread_id": "thread_congestion_portal",
+                "append_steps": [
+                    {
+                        "node_id": "patho_acute_inflammation_exudate",
+                        "incoming_edge_id": "e_edema_to_exudate",
+                    }
+                ],
             }
         ],
         "threads": [],
@@ -96,14 +132,50 @@ def main():
     merged, stats = merge_delta_into_graph(graph, delta)
     assert stats["nodes_added"] == 1
     assert stats["nodes_enriched"] == 1
-    assert stats["edges_added"] == 1
+    assert stats["edges_added"] == 2
+    assert stats["threads_extended"] == 1
     assert len(merged["nodes"]) == orig_count + 1
-    # Verify existing node payload was NOT overwritten, while new slide citation WAS appended
-    edema_node = next(n for n in merged["nodes"] if n["id"] == "patho_edema_mechanisms")
-    assert len(edema_node["payload"]["steps"]) == 3
-    assert "基础医学概论 炎症 基础 20241103上传.pdf#P5" in edema_node["source_slides"]
+    assert stats["logic_audit"]["orphan_count"] == 0
+    assert stats["logic_audit"]["rescue_anchors"] == 1
+    assert stats["logic_audit"]["contrast_edges"] == 1
+    assert "syl_pathology_023" in stats["logic_audit"]["newly_covered_syllabus_refs"]
+    assert stats["logic_audit"]["warnings"] == []
 
-    print("PASS test_ingest: syllabus matching, prompt-pack, and lossless incremental merge verified.")
+    ext_th = next(t for t in merged["threads"] if t["id"] == "thread_congestion_portal")
+    assert ext_th["ordered_steps"][-1]["node_id"] == "patho_acute_inflammation_exudate"
+
+    # 3. Verify logic audit catches weak filler bridge_text & orphan nodes
+    bad_delta = {
+        "nodes": [
+            {
+                "id": "patho_orphan_demo",
+                "title": "孤立测试节点",
+                "subject": "pathology",
+                "syllabus_refs": [],
+                "syllabus_tier": "master",
+                "node_type": "structure_cloze",
+                "anchor_summary": "测试孤立警告",
+                "source_slides": [],
+                "payload": {"bullets": ["测试{{胶囊}}"]},
+            }
+        ],
+        "edges": [
+            {
+                "id": "e_filler_demo",
+                "source": "patho_edema_mechanisms",
+                "target": "patho_fatty_change",
+                "relation_type": "causal_next",
+                "strength": 0.7,
+                "bridge_text": "接下来学习脂肪变",
+            }
+        ],
+    }
+    _, bad_stats = merge_delta_into_graph(graph, bad_delta)
+    assert bad_stats["logic_audit"]["orphan_count"] == 1
+    assert any("Discipline logic gap" in w for w in bad_stats["logic_audit"]["warnings"])
+    assert len(bad_stats["logic_audit"]["warnings"]) >= 3
+
+    print("PASS test_ingest: logic-first context, thread grafting, logic audit, and lossless merge verified.")
 
 
 if __name__ == "__main__":

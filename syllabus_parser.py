@@ -217,7 +217,7 @@ def parse_anatomy_pdf(pdf_path: Path) -> list[dict]:
     reader = PdfReader(str(pdf_path))
     full_text = "\n".join((page.extract_text() or "") for page in reader.pages)
     # Extract the per-week detailed syllabus section
-    m = re.search(r"教学内容\s*\(\s*按64学时共计16周.*?(?=六、\s*课程考核)", full_text, re.S)
+    m = re.search(r"教学内容\s*\(\s*按\s*64\s*学时共计\s*16\s*周.*?(?=六、\s*课程考核)", full_text, re.S)
     body = m.group(0) if m else full_text
 
     items: list[dict] = []

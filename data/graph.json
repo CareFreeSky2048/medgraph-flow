@@ -2044,273 +2044,13 @@
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 绪论",
-      "title": "课程名称（中文） /Course Title (in Chinese)人体解剖学 课程名称（英文） /Course Title (in English)Human anatomy课程序号 /",
-      "raw_text": "课程名称（中文） /Course Title (in Chinese)人体解剖学 课程名称（英文） /Course Title (in English)Human anatomy课程序号 /Lesson CodeMED20070.04课程学分 /Credits",
+      "title": "教学内容 ( 按 64 学时共计 16 周，具体到每节课内容 )",
+      "raw_text": "教学内容 ( 按 64 学时共计 16 周，具体到每节课内容 )",
       "tier": "master",
       "underlined": false
     },
     {
       "id": "syl_anatomy_002",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "3.0 课程总学时 /Total Credit Hours",
-      "raw_text": "3.0 课程总学时 /Total Credit Hours",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_003",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "70.0实践学时 /Credit hours for practice实践学分 /Credits for practice",
-      "raw_text": "70.0实践学时 /Credit hours for practice实践学分 /Credits for practice",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_004",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "0.0实验（含上机）学时 /Credit hours for experiments(including computersessions)实验（含上机）学分 /Credits for ex",
-      "raw_text": "0.0实验（含上机）学时 /Credit hours for experiments(including computersessions)实验（含上机）学分 /Credits for experiments(including computersessions)含实践学分合计 /Credits for practice andexperiments",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_005",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "0.0含实验室安全教育学时 /Credit hours for laboratorysafety education含劳动教育学时 /Credit hours for laboreducat",
-      "raw_text": "0.0含实验室安全教育学时 /Credit hours for laboratorysafety education含劳动教育学时 /Credit hours for laboreducation含美育学时 /Credit hours for aestheticeducation含美育学分 /Credits for aestheticeducation课程层级 /Course Level2 主要授课语言 /Language of Instruction中文适用门类 /Applicable Discipline适用一级学科 / 专业学位类别 /First-LevelDiscipline/Degree Category1001 基础医学开课单位 /School/Department基础医学院 课程负责人 /CourseLeader李文生 , 高璐主讲教师 /Instructor(s)李倩，陈亮 先修课程 /Prerequisite Course(s)附件 /Attachment(s)",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_006",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "一、 课程简介（中文） Course Description (in Chinese)人体解剖学是医学基础核心课程，重点研究人体各器官系统的形态、结构和位置关系",
-      "raw_text": "一、 课程简介（中文） Course Description (in Chinese)人体解剖学是医学基础核心课程，重点研究人体各器官系统的形态、结构和位置关系",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_007",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "课程强调理论与实践结合，学生将掌握人体九大系统（如运动、消化、呼吸等）的结构与功能，为临床医学课程奠定坚实的形态学基础",
-      "raw_text": "课程强调理论与实践结合，学生将掌握人体九大系统（如运动、消化、呼吸等）的结构与功能，为临床医学课程奠定坚实的形态学基础",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_008",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "二、 课程简介（英文） Course Description (in English)Human anatomy is a core medical course focusing on t",
-      "raw_text": "二、 课程简介（英文） Course Description (in English)Human anatomy is a core medical course focusing on the morphology, structure, and spatial relationships of human organ systems. Combining lectures, specimenobservation, and lab practice, it covers nine major systems (e.g., musculoskeletal, digestive, respiratory) to build a morphological foundation for clinical medicine.",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_009",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "三、 教学目标 Course Objectives本课程兼顾基础和临床知识内容，临床的思维方法与研究策略，重视在解剖学知识传授的过程中提高学生学习医学知识的能力",
-      "raw_text": "三、 教学目标 Course Objectives本课程兼顾基础和临床知识内容，临床的思维方法与研究策略，重视在解剖学知识传授的过程中提高学生学习医学知识的能力:",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_010",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "1.记忆解剖学关键专业术语的概念，描述解剖学九大系统中各器官和结构中关键的形态学特点",
-      "raw_text": "1.记忆解剖学关键专业术语的概念，描述解剖学九大系统中各器官和结构中关键的形态学特点",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_011",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "2.运用解剖学的理论与知识解决解剖学问题",
-      "raw_text": "2.运用解剖学的理论与知识解决解剖学问题",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_012",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "3.揭示并剖析日常生活中隐藏的解剖学知识点",
-      "raw_text": "3.揭示并剖析日常生活中隐藏的解剖学知识点",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_013",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "4.能初步分析临床病例中 “ 隐藏的 ” 解剖学机制",
-      "raw_text": "4.能初步分析临床病例中 “ 隐藏的 ” 解剖学机制",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_014",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "5.推广普及健康中国2030",
-      "raw_text": "5.推广普及健康中国2030",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_015",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "6.能熟练在 “ 大体老师 ” 上识别九大系统中各器官的关键结构，为《局部解剖学》和《病理解剖学》的学习奠定扎实基础",
-      "raw_text": "6.能熟练在 “ 大体老师 ” 上识别九大系统中各器官的关键结构，为《局部解剖学》和《病理解剖学》的学习奠定扎实基础",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_016",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "7. 通过 “ 大体老师 ” ，感恩生命，普及医学人文，坚定成为一个 “ 有仁心、有仁术的医学领军人才 ”",
-      "raw_text": "7. 通过 “ 大体老师 ” ，感恩生命，普及医学人文，坚定成为一个 “ 有仁心、有仁术的医学领军人才 ”",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_017",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "四、 教学方式 Teaching Methods采用线上线下混合式教学方式，包括线上资源、课堂理论 + 实验教学",
-      "raw_text": "四、 教学方式 Teaching Methods采用线上线下混合式教学方式，包括线上资源、课堂理论 + 实验教学",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_018",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "理论教学应注重形态学教学方法的特点，充分利用线上教学资源、图片、幻灯和多媒体等教学手段",
-      "raw_text": "理论教学应注重形态学教学方法的特点，充分利用线上教学资源、图片、幻灯和多媒体等教学手段",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_019",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "实验教学则应充分利用模型、实物标本、虚拟仿真教学系统等教学手段",
-      "raw_text": "实验教学则应充分利用模型、实物标本、虚拟仿真教学系统等教学手段",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_020",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "五、 教学内容与进度安排 Course Content & Schedule周次 内 容（ 2 学时） 内 容（ 2 学时）1 绪论",
-      "raw_text": "五、 教学内容与进度安排 Course Content & Schedule周次 内 容（ 2 学时） 内 容（ 2 学时）1 绪论",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_021",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "骨学及骨连结总论",
-      "raw_text": "骨学及骨连结总论",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_022",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "躯干骨及其连结2 颅骨及其连结 上肢骨及其连结3 下肢骨及其连结",
-      "raw_text": "躯干骨及其连结2 颅骨及其连结 上肢骨及其连结3 下肢骨及其连结",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_023",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "头颈肌/ 讲座4 躯干肌",
-      "raw_text": "头颈肌/ 讲座4 躯干肌",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_024",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "上、下肢肌 内脏学总论",
-      "raw_text": "上、下肢肌 内脏学总论",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_025",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "消化系统5 国庆放假 国庆放假6 消化系统 呼吸系统7 泌尿生殖系（男性） 泌尿生殖系统（女性）8 脉管学总论",
-      "raw_text": "消化系统5 国庆放假 国庆放假6 消化系统 呼吸系统7 泌尿生殖系（男性） 泌尿生殖系统（女性）8 脉管学总论",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_026",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "9 动脉 静脉",
-      "raw_text": "9 动脉 静脉",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_027",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第1周 · 绪论",
-      "title": "淋巴 / 讲座10 感官（视器） 感官（位听器）11 神经系总论及脊神经（颈丛、臂丛） 脊神经（臂丛、胸神经、腰骶丛）12 脑神经 脑神经13 自主神经系（交感、副交感） 脊髓14 脑干 脑",
-      "raw_text": "淋巴 / 讲座10 感官（视器） 感官（位听器）11 神经系总论及脊神经（颈丛、臂丛） 脊神经（臂丛、胸神经、腰骶丛）12 脑神经 脑神经13 自主神经系（交感、副交感） 脊髓14 脑干 脑干15 小脑、间脑 端脑16 端脑、传导路 脑被膜、脑血管/ 讲座教学内容 ( 按 64 学时共计 16 周，具体到每节课内容 )",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_028",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 绪论",
@@ -2320,7 +2060,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_029",
+      "id": "syl_anatomy_003",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 绪论",
@@ -2330,7 +2070,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_030",
+      "id": "syl_anatomy_004",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 绪论",
@@ -2340,7 +2080,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_031",
+      "id": "syl_anatomy_005",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 绪论",
@@ -2350,7 +2090,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_032",
+      "id": "syl_anatomy_006",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 绪论",
@@ -2360,7 +2100,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_033",
+      "id": "syl_anatomy_007",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2370,7 +2110,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_034",
+      "id": "syl_anatomy_008",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2380,7 +2120,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_035",
+      "id": "syl_anatomy_009",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2390,7 +2130,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_036",
+      "id": "syl_anatomy_010",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2400,7 +2140,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_037",
+      "id": "syl_anatomy_011",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2410,7 +2150,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_038",
+      "id": "syl_anatomy_012",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2420,7 +2160,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_039",
+      "id": "syl_anatomy_013",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2430,7 +2170,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_040",
+      "id": "syl_anatomy_014",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 骨学及骨连接总论",
@@ -2440,7 +2180,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_041",
+      "id": "syl_anatomy_015",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2450,7 +2190,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_042",
+      "id": "syl_anatomy_016",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2460,7 +2200,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_043",
+      "id": "syl_anatomy_017",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2470,7 +2210,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_044",
+      "id": "syl_anatomy_018",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2480,7 +2220,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_045",
+      "id": "syl_anatomy_019",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2490,7 +2230,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_046",
+      "id": "syl_anatomy_020",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2500,7 +2240,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_047",
+      "id": "syl_anatomy_021",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2510,7 +2250,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_048",
+      "id": "syl_anatomy_022",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2520,7 +2260,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_049",
+      "id": "syl_anatomy_023",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2530,7 +2270,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_050",
+      "id": "syl_anatomy_024",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2540,7 +2280,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_051",
+      "id": "syl_anatomy_025",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2550,7 +2290,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_052",
+      "id": "syl_anatomy_026",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2560,7 +2300,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_053",
+      "id": "syl_anatomy_027",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 躯干骨及其连结",
@@ -2570,7 +2310,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_054",
+      "id": "syl_anatomy_028",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2580,7 +2320,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_055",
+      "id": "syl_anatomy_029",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2590,7 +2330,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_056",
+      "id": "syl_anatomy_030",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2600,7 +2340,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_057",
+      "id": "syl_anatomy_031",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2610,7 +2350,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_058",
+      "id": "syl_anatomy_032",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2620,7 +2360,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_059",
+      "id": "syl_anatomy_033",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2630,7 +2370,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_060",
+      "id": "syl_anatomy_034",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2640,7 +2380,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_061",
+      "id": "syl_anatomy_035",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2650,7 +2390,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_062",
+      "id": "syl_anatomy_036",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2660,7 +2400,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_063",
+      "id": "syl_anatomy_037",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2670,7 +2410,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_064",
+      "id": "syl_anatomy_038",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2680,7 +2420,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_065",
+      "id": "syl_anatomy_039",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 颅骨及其连结",
@@ -2690,7 +2430,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_066",
+      "id": "syl_anatomy_040",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2700,7 +2440,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_067",
+      "id": "syl_anatomy_041",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2710,7 +2450,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_068",
+      "id": "syl_anatomy_042",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2720,7 +2460,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_069",
+      "id": "syl_anatomy_043",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2730,7 +2470,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_070",
+      "id": "syl_anatomy_044",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2740,7 +2480,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_071",
+      "id": "syl_anatomy_045",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2750,7 +2490,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_072",
+      "id": "syl_anatomy_046",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2760,7 +2500,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_073",
+      "id": "syl_anatomy_047",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2770,7 +2510,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_074",
+      "id": "syl_anatomy_048",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2780,7 +2520,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_075",
+      "id": "syl_anatomy_049",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 上肢骨及其连结",
@@ -2790,7 +2530,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_076",
+      "id": "syl_anatomy_050",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2800,7 +2540,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_077",
+      "id": "syl_anatomy_051",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2810,7 +2550,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_078",
+      "id": "syl_anatomy_052",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2820,7 +2560,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_079",
+      "id": "syl_anatomy_053",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2830,7 +2570,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_080",
+      "id": "syl_anatomy_054",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2840,7 +2580,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_081",
+      "id": "syl_anatomy_055",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2850,7 +2590,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_082",
+      "id": "syl_anatomy_056",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2860,7 +2600,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_083",
+      "id": "syl_anatomy_057",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2870,7 +2610,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_084",
+      "id": "syl_anatomy_058",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2880,7 +2620,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_085",
+      "id": "syl_anatomy_059",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2890,7 +2630,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_086",
+      "id": "syl_anatomy_060",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2900,7 +2640,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_087",
+      "id": "syl_anatomy_061",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2910,7 +2650,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_088",
+      "id": "syl_anatomy_062",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第1周 · 下肢骨及其连结",
@@ -2920,7 +2660,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_089",
+      "id": "syl_anatomy_063",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 肌学总论",
@@ -2930,7 +2670,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_090",
+      "id": "syl_anatomy_064",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 肌学总论",
@@ -2940,7 +2680,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_091",
+      "id": "syl_anatomy_065",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 肌学总论",
@@ -2950,7 +2690,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_092",
+      "id": "syl_anatomy_066",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 头颈肌",
@@ -2960,7 +2700,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_093",
+      "id": "syl_anatomy_067",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 头颈肌",
@@ -2970,7 +2710,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_094",
+      "id": "syl_anatomy_068",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 头颈肌",
@@ -2980,7 +2720,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_095",
+      "id": "syl_anatomy_069",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 头颈肌",
@@ -2990,7 +2730,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_096",
+      "id": "syl_anatomy_070",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 头颈肌",
@@ -3000,7 +2740,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_097",
+      "id": "syl_anatomy_071",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 躯干肌",
@@ -3010,7 +2750,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_098",
+      "id": "syl_anatomy_072",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 躯干肌",
@@ -3020,7 +2760,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_099",
+      "id": "syl_anatomy_073",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 躯干肌",
@@ -3030,7 +2770,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_100",
+      "id": "syl_anatomy_074",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、胸肌",
@@ -3040,7 +2780,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_101",
+      "id": "syl_anatomy_075",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、膈",
@@ -3050,7 +2790,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_102",
+      "id": "syl_anatomy_076",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、膈",
@@ -3060,7 +2800,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_103",
+      "id": "syl_anatomy_077",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、腹肌",
@@ -3070,7 +2810,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_104",
+      "id": "syl_anatomy_078",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、腹肌",
@@ -3080,7 +2820,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_105",
+      "id": "syl_anatomy_079",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、腹肌",
@@ -3090,7 +2830,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_106",
+      "id": "syl_anatomy_080",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、腹肌",
@@ -3100,7 +2840,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_107",
+      "id": "syl_anatomy_081",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 临床解剖讲座",
@@ -3110,7 +2850,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_108",
+      "id": "syl_anatomy_082",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 上肢肌  一、上肢带肌",
@@ -3120,7 +2860,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_109",
+      "id": "syl_anatomy_083",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 上肢肌  一、上肢带肌",
@@ -3130,7 +2870,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_110",
+      "id": "syl_anatomy_084",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、臂肌",
@@ -3140,7 +2880,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_111",
+      "id": "syl_anatomy_085",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、臂肌",
@@ -3150,7 +2890,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_112",
+      "id": "syl_anatomy_086",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、前臂肌",
@@ -3160,7 +2900,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_113",
+      "id": "syl_anatomy_087",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、前臂肌",
@@ -3170,7 +2910,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_114",
+      "id": "syl_anatomy_088",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、前臂肌",
@@ -3180,7 +2920,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_115",
+      "id": "syl_anatomy_089",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、手肌",
@@ -3190,7 +2930,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_116",
+      "id": "syl_anatomy_090",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 下肢肌  一、髋肌",
@@ -3200,7 +2940,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_117",
+      "id": "syl_anatomy_091",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 下肢肌  一、髋肌",
@@ -3210,7 +2950,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_118",
+      "id": "syl_anatomy_092",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、大腿肌",
@@ -3220,7 +2960,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_119",
+      "id": "syl_anatomy_093",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、大腿肌",
@@ -3230,7 +2970,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_120",
+      "id": "syl_anatomy_094",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、小腿肌",
@@ -3240,7 +2980,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_121",
+      "id": "syl_anatomy_095",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、小腿肌",
@@ -3250,7 +2990,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_122",
+      "id": "syl_anatomy_096",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、小腿肌",
@@ -3260,7 +3000,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_123",
+      "id": "syl_anatomy_097",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、小腿肌",
@@ -3270,7 +3010,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_124",
+      "id": "syl_anatomy_098",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、小腿肌",
@@ -3280,7 +3020,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_125",
+      "id": "syl_anatomy_099",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、小腿肌",
@@ -3290,7 +3030,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_126",
+      "id": "syl_anatomy_100",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3300,7 +3040,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_127",
+      "id": "syl_anatomy_101",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3310,7 +3050,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_128",
+      "id": "syl_anatomy_102",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3320,7 +3060,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_129",
+      "id": "syl_anatomy_103",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3330,7 +3070,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_130",
+      "id": "syl_anatomy_104",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3340,7 +3080,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_131",
+      "id": "syl_anatomy_105",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3350,7 +3090,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_132",
+      "id": "syl_anatomy_106",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3360,7 +3100,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_133",
+      "id": "syl_anatomy_107",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3370,7 +3110,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_134",
+      "id": "syl_anatomy_108",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3380,7 +3120,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_135",
+      "id": "syl_anatomy_109",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3390,7 +3130,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_136",
+      "id": "syl_anatomy_110",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3400,7 +3140,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_137",
+      "id": "syl_anatomy_111",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3410,7 +3150,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_138",
+      "id": "syl_anatomy_112",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3420,7 +3160,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_139",
+      "id": "syl_anatomy_113",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3430,7 +3170,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_140",
+      "id": "syl_anatomy_114",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3440,7 +3180,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_141",
+      "id": "syl_anatomy_115",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3450,7 +3190,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_142",
+      "id": "syl_anatomy_116",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3460,7 +3200,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_143",
+      "id": "syl_anatomy_117",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3470,7 +3210,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_144",
+      "id": "syl_anatomy_118",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3480,7 +3220,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_145",
+      "id": "syl_anatomy_119",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3490,7 +3230,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_146",
+      "id": "syl_anatomy_120",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3500,7 +3240,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_147",
+      "id": "syl_anatomy_121",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 消化系  一、消化管  1. 口腔",
@@ -3510,7 +3250,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_148",
+      "id": "syl_anatomy_122",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、消化腺  肝",
@@ -3520,7 +3260,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_149",
+      "id": "syl_anatomy_123",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、消化腺  肝",
@@ -3530,7 +3270,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_150",
+      "id": "syl_anatomy_124",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、消化腺  肝",
@@ -3540,7 +3280,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_151",
+      "id": "syl_anatomy_125",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、消化腺  肝",
@@ -3550,7 +3290,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_152",
+      "id": "syl_anatomy_126",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、消化腺  肝",
@@ -3560,7 +3300,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_153",
+      "id": "syl_anatomy_127",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、消化腺  肝",
@@ -3570,7 +3310,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_154",
+      "id": "syl_anatomy_128",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、消化腺  肝",
@@ -3580,7 +3320,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_155",
+      "id": "syl_anatomy_129",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 呼吸系",
@@ -3590,7 +3330,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_156",
+      "id": "syl_anatomy_130",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3600,7 +3340,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_157",
+      "id": "syl_anatomy_131",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3610,7 +3350,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_158",
+      "id": "syl_anatomy_132",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3620,7 +3360,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_159",
+      "id": "syl_anatomy_133",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3630,7 +3370,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_160",
+      "id": "syl_anatomy_134",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3640,7 +3380,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_161",
+      "id": "syl_anatomy_135",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3650,7 +3390,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_162",
+      "id": "syl_anatomy_136",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3660,7 +3400,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_163",
+      "id": "syl_anatomy_137",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、呼吸道  1. 鼻",
@@ -3670,7 +3410,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_164",
+      "id": "syl_anatomy_138",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、肺",
@@ -3680,7 +3420,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_165",
+      "id": "syl_anatomy_139",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、肺",
@@ -3690,7 +3430,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_166",
+      "id": "syl_anatomy_140",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、胸膜",
@@ -3700,7 +3440,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_167",
+      "id": "syl_anatomy_141",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、胸膜",
@@ -3710,7 +3450,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_168",
+      "id": "syl_anatomy_142",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、胸膜",
@@ -3720,7 +3460,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_169",
+      "id": "syl_anatomy_143",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、纵隔",
@@ -3730,7 +3470,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_170",
+      "id": "syl_anatomy_144",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 泌尿系",
@@ -3740,7 +3480,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_171",
+      "id": "syl_anatomy_145",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、肾",
@@ -3750,7 +3490,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_172",
+      "id": "syl_anatomy_146",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、肾",
@@ -3760,7 +3500,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_173",
+      "id": "syl_anatomy_147",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 一、肾",
@@ -3770,7 +3510,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_174",
+      "id": "syl_anatomy_148",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、输尿管",
@@ -3780,7 +3520,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_175",
+      "id": "syl_anatomy_149",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 二、输尿管",
@@ -3790,7 +3530,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_176",
+      "id": "syl_anatomy_150",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、膀胱",
@@ -3800,7 +3540,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_177",
+      "id": "syl_anatomy_151",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 三、膀胱",
@@ -3810,7 +3550,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_178",
+      "id": "syl_anatomy_152",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、尿道",
@@ -3820,7 +3560,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_179",
+      "id": "syl_anatomy_153",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第三周 · 四、尿道",
@@ -3830,7 +3570,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_180",
+      "id": "syl_anatomy_154",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 生殖系",
@@ -3840,7 +3580,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_181",
+      "id": "syl_anatomy_155",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3850,7 +3590,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_182",
+      "id": "syl_anatomy_156",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3860,7 +3600,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_183",
+      "id": "syl_anatomy_157",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3870,7 +3610,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_184",
+      "id": "syl_anatomy_158",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3880,7 +3620,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_185",
+      "id": "syl_anatomy_159",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3890,7 +3630,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_186",
+      "id": "syl_anatomy_160",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3900,7 +3640,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_187",
+      "id": "syl_anatomy_161",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3910,7 +3650,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_188",
+      "id": "syl_anatomy_162",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 一、男性生殖系统  1 、男性内生殖器",
@@ -3920,7 +3660,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_189",
+      "id": "syl_anatomy_163",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -3930,7 +3670,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_190",
+      "id": "syl_anatomy_164",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -3940,7 +3680,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_191",
+      "id": "syl_anatomy_165",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -3950,7 +3690,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_192",
+      "id": "syl_anatomy_166",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -3960,7 +3700,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_193",
+      "id": "syl_anatomy_167",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -3970,7 +3710,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_194",
+      "id": "syl_anatomy_168",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -3980,7 +3720,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_195",
+      "id": "syl_anatomy_169",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -3990,7 +3730,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_196",
+      "id": "syl_anatomy_170",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 二、女性生殖系统",
@@ -4000,7 +3740,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_197",
+      "id": "syl_anatomy_171",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 附",
@@ -4010,7 +3750,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_198",
+      "id": "syl_anatomy_172",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 附",
@@ -4020,7 +3760,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_199",
+      "id": "syl_anatomy_173",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 附",
@@ -4030,7 +3770,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_200",
+      "id": "syl_anatomy_174",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 附",
@@ -4040,7 +3780,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_201",
+      "id": "syl_anatomy_175",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 附",
@@ -4050,7 +3790,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_202",
+      "id": "syl_anatomy_176",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 附",
@@ -4060,7 +3800,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_203",
+      "id": "syl_anatomy_177",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4070,7 +3810,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_204",
+      "id": "syl_anatomy_178",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4080,7 +3820,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_205",
+      "id": "syl_anatomy_179",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4090,7 +3830,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_206",
+      "id": "syl_anatomy_180",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4100,7 +3840,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_207",
+      "id": "syl_anatomy_181",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4110,7 +3850,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_208",
+      "id": "syl_anatomy_182",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4120,7 +3860,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_209",
+      "id": "syl_anatomy_183",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4130,7 +3870,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_210",
+      "id": "syl_anatomy_184",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 腹膜",
@@ -4140,7 +3880,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_211",
+      "id": "syl_anatomy_185",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 脉管学总论",
@@ -4150,7 +3890,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_212",
+      "id": "syl_anatomy_186",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 脉管学总论",
@@ -4160,7 +3900,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_213",
+      "id": "syl_anatomy_187",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 脉管学总论",
@@ -4170,7 +3910,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_214",
+      "id": "syl_anatomy_188",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 脉管学总论",
@@ -4180,7 +3920,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_215",
+      "id": "syl_anatomy_189",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4190,7 +3930,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_216",
+      "id": "syl_anatomy_190",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4200,7 +3940,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_217",
+      "id": "syl_anatomy_191",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4210,7 +3950,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_218",
+      "id": "syl_anatomy_192",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4220,7 +3960,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_219",
+      "id": "syl_anatomy_193",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4230,7 +3970,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_220",
+      "id": "syl_anatomy_194",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4240,7 +3980,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_221",
+      "id": "syl_anatomy_195",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4250,7 +3990,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_222",
+      "id": "syl_anatomy_196",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第六周 · 心",
@@ -4260,7 +4000,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_223",
+      "id": "syl_anatomy_197",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · 一、肺循环的动脉",
@@ -4270,7 +4010,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_224",
+      "id": "syl_anatomy_198",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · 二、  体循环的动脉",
@@ -4280,7 +4020,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_225",
+      "id": "syl_anatomy_199",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （一）升主动脉",
@@ -4290,7 +4030,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_226",
+      "id": "syl_anatomy_200",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （二）主动脉弓",
@@ -4300,7 +4040,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_227",
+      "id": "syl_anatomy_201",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （二）主动脉弓",
@@ -4310,7 +4050,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_228",
+      "id": "syl_anatomy_202",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （二）主动脉弓",
@@ -4320,7 +4060,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_229",
+      "id": "syl_anatomy_203",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （二）主动脉弓",
@@ -4330,7 +4070,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_230",
+      "id": "syl_anatomy_204",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （三）胸主动脉",
@@ -4340,7 +4080,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_231",
+      "id": "syl_anatomy_205",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （三）胸主动脉",
@@ -4350,7 +4090,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_232",
+      "id": "syl_anatomy_206",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （三）胸主动脉",
@@ -4360,7 +4100,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_233",
+      "id": "syl_anatomy_207",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （四）腹主动脉",
@@ -4370,7 +4110,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_234",
+      "id": "syl_anatomy_208",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （四）腹主动脉",
@@ -4380,7 +4120,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_235",
+      "id": "syl_anatomy_209",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （四）腹主动脉",
@@ -4390,7 +4130,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_236",
+      "id": "syl_anatomy_210",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （五）髂总动脉",
@@ -4400,7 +4140,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_237",
+      "id": "syl_anatomy_211",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （五）髂总动脉",
@@ -4410,7 +4150,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_238",
+      "id": "syl_anatomy_212",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （五）髂总动脉",
@@ -4420,7 +4160,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_239",
+      "id": "syl_anatomy_213",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （五）髂总动脉",
@@ -4430,7 +4170,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_240",
+      "id": "syl_anatomy_214",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （五）髂总动脉",
@@ -4440,7 +4180,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_241",
+      "id": "syl_anatomy_215",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （五）髂总动脉",
@@ -4450,7 +4190,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_242",
+      "id": "syl_anatomy_216",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第七周 · （五）髂总动脉",
@@ -4460,7 +4200,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_243",
+      "id": "syl_anatomy_217",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 静脉",
@@ -4470,7 +4210,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_244",
+      "id": "syl_anatomy_218",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 静脉",
@@ -4480,7 +4220,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_245",
+      "id": "syl_anatomy_219",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 静脉",
@@ -4490,7 +4230,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_246",
+      "id": "syl_anatomy_220",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、肺循环的静脉",
@@ -4500,7 +4240,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_247",
+      "id": "syl_anatomy_221",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4510,7 +4250,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_248",
+      "id": "syl_anatomy_222",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4520,7 +4260,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_249",
+      "id": "syl_anatomy_223",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4530,7 +4270,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_250",
+      "id": "syl_anatomy_224",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4540,7 +4280,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_251",
+      "id": "syl_anatomy_225",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4550,7 +4290,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_252",
+      "id": "syl_anatomy_226",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4560,7 +4300,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_253",
+      "id": "syl_anatomy_227",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4570,7 +4310,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_254",
+      "id": "syl_anatomy_228",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4580,7 +4320,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_255",
+      "id": "syl_anatomy_229",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4590,7 +4330,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_256",
+      "id": "syl_anatomy_230",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4600,7 +4340,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_257",
+      "id": "syl_anatomy_231",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4610,7 +4350,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_258",
+      "id": "syl_anatomy_232",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4620,7 +4360,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_259",
+      "id": "syl_anatomy_233",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4630,7 +4370,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_260",
+      "id": "syl_anatomy_234",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4640,7 +4380,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_261",
+      "id": "syl_anatomy_235",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4650,7 +4390,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_262",
+      "id": "syl_anatomy_236",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、体循环的静脉",
@@ -4660,7 +4400,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_263",
+      "id": "syl_anatomy_237",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4670,7 +4410,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_264",
+      "id": "syl_anatomy_238",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4680,7 +4420,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_265",
+      "id": "syl_anatomy_239",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4690,7 +4430,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_266",
+      "id": "syl_anatomy_240",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4700,7 +4440,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_267",
+      "id": "syl_anatomy_241",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4710,7 +4450,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_268",
+      "id": "syl_anatomy_242",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4720,7 +4460,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_269",
+      "id": "syl_anatomy_243",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4730,7 +4470,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_270",
+      "id": "syl_anatomy_244",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4740,7 +4480,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_271",
+      "id": "syl_anatomy_245",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4750,7 +4490,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_272",
+      "id": "syl_anatomy_246",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4760,7 +4500,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_273",
+      "id": "syl_anatomy_247",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4770,7 +4510,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_274",
+      "id": "syl_anatomy_248",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4780,7 +4520,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_275",
+      "id": "syl_anatomy_249",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4790,7 +4530,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_276",
+      "id": "syl_anatomy_250",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4800,7 +4540,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_277",
+      "id": "syl_anatomy_251",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4810,7 +4550,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_278",
+      "id": "syl_anatomy_252",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4820,7 +4560,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_279",
+      "id": "syl_anatomy_253",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4830,7 +4570,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_280",
+      "id": "syl_anatomy_254",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4840,7 +4580,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_281",
+      "id": "syl_anatomy_255",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4850,7 +4590,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_282",
+      "id": "syl_anatomy_256",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、总论",
@@ -4860,7 +4600,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_283",
+      "id": "syl_anatomy_257",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 临床解剖学讲座",
@@ -4870,7 +4610,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_284",
+      "id": "syl_anatomy_258",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 临床解剖学讲座",
@@ -4880,7 +4620,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_285",
+      "id": "syl_anatomy_259",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 视器",
@@ -4890,7 +4630,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_286",
+      "id": "syl_anatomy_260",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 视器",
@@ -4900,7 +4640,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_287",
+      "id": "syl_anatomy_261",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 视器",
@@ -4910,7 +4650,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_288",
+      "id": "syl_anatomy_262",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、眼副器",
@@ -4920,7 +4660,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_289",
+      "id": "syl_anatomy_263",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、眼副器",
@@ -4930,7 +4670,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_290",
+      "id": "syl_anatomy_264",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、眼副器",
@@ -4940,7 +4680,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_291",
+      "id": "syl_anatomy_265",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、眼副器",
@@ -4950,7 +4690,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_292",
+      "id": "syl_anatomy_266",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、眼副器",
@@ -4960,7 +4700,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_293",
+      "id": "syl_anatomy_267",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、眼副器",
@@ -4970,7 +4710,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_294",
+      "id": "syl_anatomy_268",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 位听器",
@@ -4980,7 +4720,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_295",
+      "id": "syl_anatomy_269",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、外耳",
@@ -4990,7 +4730,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_296",
+      "id": "syl_anatomy_270",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、外耳",
@@ -5000,7 +4740,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_297",
+      "id": "syl_anatomy_271",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、外耳",
@@ -5010,7 +4750,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_298",
+      "id": "syl_anatomy_272",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、中耳",
@@ -5020,7 +4760,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_299",
+      "id": "syl_anatomy_273",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、中耳",
@@ -5030,7 +4770,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_300",
+      "id": "syl_anatomy_274",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、中耳",
@@ -5040,7 +4780,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_301",
+      "id": "syl_anatomy_275",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、中耳",
@@ -5050,7 +4790,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_302",
+      "id": "syl_anatomy_276",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、中耳",
@@ -5060,7 +4800,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_303",
+      "id": "syl_anatomy_277",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、内耳",
@@ -5070,7 +4810,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_304",
+      "id": "syl_anatomy_278",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、内耳",
@@ -5080,7 +4820,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_305",
+      "id": "syl_anatomy_279",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、内耳",
@@ -5090,7 +4830,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_306",
+      "id": "syl_anatomy_280",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、内耳",
@@ -5100,7 +4840,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_307",
+      "id": "syl_anatomy_281",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、内耳",
@@ -5110,7 +4850,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_308",
+      "id": "syl_anatomy_282",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、内耳",
@@ -5120,7 +4860,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_309",
+      "id": "syl_anatomy_283",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 神经系总论",
@@ -5130,7 +4870,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_310",
+      "id": "syl_anatomy_284",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 神经系总论",
@@ -5140,7 +4880,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_311",
+      "id": "syl_anatomy_285",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 神经系总论",
@@ -5150,7 +4890,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_312",
+      "id": "syl_anatomy_286",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 神经系总论",
@@ -5160,7 +4900,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_313",
+      "id": "syl_anatomy_287",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 神经系总论",
@@ -5170,7 +4910,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_314",
+      "id": "syl_anatomy_288",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 神经系总论",
@@ -5180,7 +4920,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_315",
+      "id": "syl_anatomy_289",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 脊神经",
@@ -5190,7 +4930,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_316",
+      "id": "syl_anatomy_290",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 脊神经",
@@ -5200,7 +4940,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_317",
+      "id": "syl_anatomy_291",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、颈丛",
@@ -5210,7 +4950,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_318",
+      "id": "syl_anatomy_292",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、颈丛",
@@ -5220,7 +4960,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_319",
+      "id": "syl_anatomy_293",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、臂丛",
@@ -5230,7 +4970,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_320",
+      "id": "syl_anatomy_294",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、臂丛",
@@ -5240,7 +4980,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_321",
+      "id": "syl_anatomy_295",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、臂丛",
@@ -5250,7 +4990,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_322",
+      "id": "syl_anatomy_296",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、胸神经前支",
@@ -5260,7 +5000,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_323",
+      "id": "syl_anatomy_297",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 四、腰丛",
@@ -5270,7 +5010,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_324",
+      "id": "syl_anatomy_298",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 四、腰丛",
@@ -5280,7 +5020,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_325",
+      "id": "syl_anatomy_299",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 四、腰丛",
@@ -5290,7 +5030,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_326",
+      "id": "syl_anatomy_300",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5300,7 +5040,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_327",
+      "id": "syl_anatomy_301",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5310,7 +5050,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_328",
+      "id": "syl_anatomy_302",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5320,7 +5060,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_329",
+      "id": "syl_anatomy_303",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5330,7 +5070,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_330",
+      "id": "syl_anatomy_304",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5340,7 +5080,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_331",
+      "id": "syl_anatomy_305",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5350,7 +5090,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_332",
+      "id": "syl_anatomy_306",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5360,7 +5100,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_333",
+      "id": "syl_anatomy_307",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5370,7 +5110,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_334",
+      "id": "syl_anatomy_308",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5380,7 +5120,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_335",
+      "id": "syl_anatomy_309",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5390,7 +5130,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_336",
+      "id": "syl_anatomy_310",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5400,7 +5140,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_337",
+      "id": "syl_anatomy_311",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5410,7 +5150,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_338",
+      "id": "syl_anatomy_312",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5420,7 +5160,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_339",
+      "id": "syl_anatomy_313",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5430,7 +5170,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_340",
+      "id": "syl_anatomy_314",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5440,7 +5180,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_341",
+      "id": "syl_anatomy_315",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5450,7 +5190,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_342",
+      "id": "syl_anatomy_316",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5460,7 +5200,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_343",
+      "id": "syl_anatomy_317",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5470,7 +5210,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_344",
+      "id": "syl_anatomy_318",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5480,7 +5220,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_345",
+      "id": "syl_anatomy_319",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5490,7 +5230,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_346",
+      "id": "syl_anatomy_320",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5500,7 +5240,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_347",
+      "id": "syl_anatomy_321",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5510,7 +5250,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_348",
+      "id": "syl_anatomy_322",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5520,7 +5260,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_349",
+      "id": "syl_anatomy_323",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5530,7 +5270,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_350",
+      "id": "syl_anatomy_324",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5540,7 +5280,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_351",
+      "id": "syl_anatomy_325",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5550,7 +5290,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_352",
+      "id": "syl_anatomy_326",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5560,7 +5300,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_353",
+      "id": "syl_anatomy_327",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5570,7 +5310,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_354",
+      "id": "syl_anatomy_328",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5580,7 +5320,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_355",
+      "id": "syl_anatomy_329",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5590,7 +5330,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_356",
+      "id": "syl_anatomy_330",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5600,7 +5340,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_357",
+      "id": "syl_anatomy_331",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 五、骶丛",
@@ -5610,7 +5350,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_358",
+      "id": "syl_anatomy_332",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （一）交感神经",
@@ -5620,7 +5360,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_359",
+      "id": "syl_anatomy_333",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （一）交感神经",
@@ -5630,7 +5370,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_360",
+      "id": "syl_anatomy_334",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （一）交感神经",
@@ -5640,7 +5380,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_361",
+      "id": "syl_anatomy_335",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （一）交感神经",
@@ -5650,7 +5390,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_362",
+      "id": "syl_anatomy_336",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （二）副交感神经",
@@ -5660,7 +5400,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_363",
+      "id": "syl_anatomy_337",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （二）副交感神经",
@@ -5670,7 +5410,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_364",
+      "id": "syl_anatomy_338",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （二）副交感神经",
@@ -5680,7 +5420,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_365",
+      "id": "syl_anatomy_339",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、内脏感觉神经",
@@ -5690,7 +5430,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_366",
+      "id": "syl_anatomy_340",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、内脏感觉神经",
@@ -5700,7 +5440,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_367",
+      "id": "syl_anatomy_341",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、内脏感觉神经",
@@ -5710,7 +5450,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_368",
+      "id": "syl_anatomy_342",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、内脏感觉神经",
@@ -5720,7 +5460,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_369",
+      "id": "syl_anatomy_343",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、内脏感觉神经",
@@ -5730,7 +5470,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_370",
+      "id": "syl_anatomy_344",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5740,7 +5480,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_371",
+      "id": "syl_anatomy_345",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5750,7 +5490,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_372",
+      "id": "syl_anatomy_346",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5760,7 +5500,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_373",
+      "id": "syl_anatomy_347",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5770,7 +5510,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_374",
+      "id": "syl_anatomy_348",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5780,7 +5520,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_375",
+      "id": "syl_anatomy_349",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5790,7 +5530,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_376",
+      "id": "syl_anatomy_350",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5800,7 +5540,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_377",
+      "id": "syl_anatomy_351",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脊髓的内部结构",
@@ -5810,7 +5550,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_378",
+      "id": "syl_anatomy_352",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑干",
@@ -5820,7 +5560,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_379",
+      "id": "syl_anatomy_353",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑干",
@@ -5830,7 +5570,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_380",
+      "id": "syl_anatomy_354",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑干",
@@ -5840,7 +5580,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_381",
+      "id": "syl_anatomy_355",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑干",
@@ -5850,7 +5590,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_382",
+      "id": "syl_anatomy_356",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑干",
@@ -5860,7 +5600,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_383",
+      "id": "syl_anatomy_357",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑干",
@@ -5870,7 +5610,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_384",
+      "id": "syl_anatomy_358",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、小脑",
@@ -5880,7 +5620,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_385",
+      "id": "syl_anatomy_359",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、小脑",
@@ -5890,7 +5630,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_386",
+      "id": "syl_anatomy_360",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、小脑",
@@ -5900,7 +5640,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_387",
+      "id": "syl_anatomy_361",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、小脑",
@@ -5910,7 +5650,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_388",
+      "id": "syl_anatomy_362",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、小脑",
@@ -5920,7 +5660,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_389",
+      "id": "syl_anatomy_363",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、小脑",
@@ -5930,7 +5670,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_390",
+      "id": "syl_anatomy_364",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -5940,7 +5680,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_391",
+      "id": "syl_anatomy_365",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -5950,7 +5690,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_392",
+      "id": "syl_anatomy_366",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -5960,7 +5700,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_393",
+      "id": "syl_anatomy_367",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -5970,7 +5710,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_394",
+      "id": "syl_anatomy_368",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -5980,7 +5720,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_395",
+      "id": "syl_anatomy_369",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -5990,7 +5730,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_396",
+      "id": "syl_anatomy_370",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -6000,7 +5740,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_397",
+      "id": "syl_anatomy_371",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、间脑",
@@ -6010,7 +5750,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_398",
+      "id": "syl_anatomy_372",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6020,7 +5760,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_399",
+      "id": "syl_anatomy_373",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6030,7 +5770,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_400",
+      "id": "syl_anatomy_374",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6040,7 +5780,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_401",
+      "id": "syl_anatomy_375",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6050,7 +5790,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_402",
+      "id": "syl_anatomy_376",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6060,7 +5800,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_403",
+      "id": "syl_anatomy_377",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6070,7 +5810,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_404",
+      "id": "syl_anatomy_378",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6080,7 +5820,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_405",
+      "id": "syl_anatomy_379",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6090,7 +5830,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_406",
+      "id": "syl_anatomy_380",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6100,7 +5840,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_407",
+      "id": "syl_anatomy_381",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6110,7 +5850,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_408",
+      "id": "syl_anatomy_382",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6120,7 +5860,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_409",
+      "id": "syl_anatomy_383",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6130,7 +5870,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_410",
+      "id": "syl_anatomy_384",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、端脑",
@@ -6140,7 +5880,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_411",
+      "id": "syl_anatomy_385",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （一）本体感觉传导通路",
@@ -6150,7 +5890,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_412",
+      "id": "syl_anatomy_386",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （一）本体感觉传导通路",
@@ -6160,7 +5900,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_413",
+      "id": "syl_anatomy_387",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （二）痛温觉和粗触觉压觉传导通路",
@@ -6170,7 +5910,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_414",
+      "id": "syl_anatomy_388",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （二）痛温觉和粗触觉压觉传导通路",
@@ -6180,7 +5920,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_415",
+      "id": "syl_anatomy_389",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （三）视觉传导通路和瞳孔对光反射通路",
@@ -6190,7 +5930,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_416",
+      "id": "syl_anatomy_390",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （三）视觉传导通路和瞳孔对光反射通路",
@@ -6200,7 +5940,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_417",
+      "id": "syl_anatomy_391",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （四）听觉传导通路",
@@ -6210,7 +5950,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_418",
+      "id": "syl_anatomy_392",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （五）平衡觉传导通路和内脏感觉传导通路",
@@ -6220,7 +5960,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_419",
+      "id": "syl_anatomy_393",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （五）平衡觉传导通路和内脏感觉传导通路",
@@ -6230,7 +5970,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_420",
+      "id": "syl_anatomy_394",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （五）平衡觉传导通路和内脏感觉传导通路",
@@ -6240,7 +5980,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_421",
+      "id": "syl_anatomy_395",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （五）平衡觉传导通路和内脏感觉传导通路",
@@ -6250,7 +5990,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_422",
+      "id": "syl_anatomy_396",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （五）平衡觉传导通路和内脏感觉传导通路",
@@ -6260,7 +6000,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_423",
+      "id": "syl_anatomy_397",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · （五）平衡觉传导通路和内脏感觉传导通路",
@@ -6270,7 +6010,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_424",
+      "id": "syl_anatomy_398",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑和脊髓的被膜",
@@ -6280,7 +6020,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_425",
+      "id": "syl_anatomy_399",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑和脊髓的被膜",
@@ -6290,7 +6030,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_426",
+      "id": "syl_anatomy_400",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑和脊髓的被膜",
@@ -6300,7 +6040,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_427",
+      "id": "syl_anatomy_401",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑和脊髓的被膜",
@@ -6310,7 +6050,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_428",
+      "id": "syl_anatomy_402",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑和脊髓的被膜",
@@ -6320,7 +6060,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_429",
+      "id": "syl_anatomy_403",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑和脊髓的被膜",
@@ -6330,7 +6070,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_430",
+      "id": "syl_anatomy_404",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 一、脑和脊髓的被膜",
@@ -6340,7 +6080,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_431",
+      "id": "syl_anatomy_405",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、脊髓和脑的血管",
@@ -6350,7 +6090,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_432",
+      "id": "syl_anatomy_406",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、脊髓和脑的血管",
@@ -6360,7 +6100,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_433",
+      "id": "syl_anatomy_407",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、脊髓和脑的血管",
@@ -6370,7 +6110,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_434",
+      "id": "syl_anatomy_408",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 二、脊髓和脑的血管",
@@ -6380,7 +6120,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_435",
+      "id": "syl_anatomy_409",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脑脊液及其循环",
@@ -6390,7 +6130,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_436",
+      "id": "syl_anatomy_410",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脑脊液及其循环",
@@ -6400,7 +6140,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_437",
+      "id": "syl_anatomy_411",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脑脊液及其循环",
@@ -6410,7 +6150,7 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_438",
+      "id": "syl_anatomy_412",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 三、脑脊液及其循环",
@@ -6420,122 +6160,12 @@
       "underlined": false
     },
     {
-      "id": "syl_anatomy_439",
+      "id": "syl_anatomy_413",
       "course": "人体解剖学",
       "subject": "anatomy",
       "chapter": "第八周 · 临床解剖讲座",
       "title": "神经外科手术方式创新与解剖等 .",
       "raw_text": "神经外科手术方式创新与解剖等 .",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_440",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "六、 课程考核与成绩评定 Course Assessment & Grading考核指标Assessment Criteria权重 (%)Percentage(%)评定标准Assessmen",
-      "raw_text": "六、 课程考核与成绩评定 Course Assessment & Grading考核指标Assessment Criteria权重 (%)Percentage(%)评定标准Assessment Standard作业 / 实验 / 实践 Assignment 10 每章节一次平时测试，共 8 次",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_441",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "包含 10 道单项选择题，每题 1 分期中考试 Midterm Examination 30 期中考试卷面 100 分：实物题 30 分，单选题 20 分，名词解释 16 分，问答题 34 ",
-      "raw_text": "包含 10 道单项选择题，每题 1 分期中考试 Midterm Examination 30 期中考试卷面 100 分：实物题 30 分，单选题 20 分，名词解释 16 分，问答题 34 分",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_442",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "期末考试 Final Examination ：闭卷 60 期末考试卷面 100 分：实物题 30 分，单选题 20 分，名词解释 16 分，问答题 34 分",
-      "raw_text": "期末考试 Final Examination ：闭卷 60 期末考试卷面 100 分：实物题 30 分，单选题 20 分，名词解释 16 分，问答题 34 分",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_443",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "成绩记载方式 Grading System 等级制",
-      "raw_text": "成绩记载方式 Grading System 等级制",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_444",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "七、 教材 Textbook(s)序号No.名称Title编著者Author(s)标准书号ISBN出版单位Publisher出版日期Publication Date1 系统解剖学 张红旗 9",
-      "raw_text": "七、 教材 Textbook(s)序号No.名称Title编著者Author(s)标准书号ISBN出版单位Publisher出版日期Publication Date1 系统解剖学 张红旗 9787309116229 复旦大学出版社 2015-01",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_445",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "八、 教学参考资料 Suggested Readings",
-      "raw_text": "八、 教学参考资料 Suggested Readings",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_446",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "1. 《Gray's Anatomy》(第42版)，Susan Standring 主编，出版社: Elsevier，2020年 (第42版)，ISBN: 978-0-7020-7707-4",
-      "raw_text": "1. 《Gray's Anatomy》(第42版)，Susan Standring 主编，出版社: Elsevier，2020年 (第42版)，ISBN: 978-0-7020-7707-4",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_447",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "2. 《Netter's Atlas of Human Anatomy》 (奈特人体解剖学图谱)，Frank H. Netter (主绘), 出版社: Elsevier，2023年 (第8版",
-      "raw_text": "2. 《Netter's Atlas of Human Anatomy》 (奈特人体解剖学图谱)，Frank H. Netter (主绘), 出版社: Elsevier，2023年 (第8版)，ISBN: 978-0-323-88154-4",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_448",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "3. 《系统解剖学》（第9版）, 丁文龙、刘学政主编，2018年8月，人民卫生出版社，ISBN：978-7-117-26799-4",
-      "raw_text": "3. 《系统解剖学》（第9版）, 丁文龙、刘学政主编，2018年8月，人民卫生出版社，ISBN：978-7-117-26799-4",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_449",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "4. 人体系统解剖学（第5版），王海杰主编，复旦大学出版社，2021年8月，ISBN: 978-7-309-15825-0",
-      "raw_text": "4. 人体系统解剖学（第5版），王海杰主编，复旦大学出版社，2021年8月，ISBN: 978-7-309-15825-0",
-      "tier": "master",
-      "underlined": false
-    },
-    {
-      "id": "syl_anatomy_450",
-      "course": "人体解剖学",
-      "subject": "anatomy",
-      "chapter": "第八周 · 临床解剖讲座",
-      "title": "九、 教学团队成员 Teaching Team姓名Name职称ProfessionalTitle院系Department/School教学中承担职责InstructionalDuties联系",
-      "raw_text": "九、 教学团队成员 Teaching Team姓名Name职称ProfessionalTitle院系Department/School教学中承担职责InstructionalDuties联系邮箱E-mail简介 / 个人主页Profile or Homepage袁向山 副教授基础医学院School ofBasicMedicalSciences理论和实验讲解 yuanxiangshan1999@163.com https://basicmed.fudan.edu.cn/anatomy/ba/6a/c36677a440938/page.htm李倩 青年研究员基础医学院School ofBasicMedicalSciences理论和实验讲解 ariesliq@outlook.com https://basicmed.fudan.edu.cn/anatomy/ba/60/c36676a440928/page.htm陈亮 青年研究员基础医学院School ofBasicMedicalSciences理论和实验讲解 liang_chen_2021@163.com https://basicmed.fudan.edu.cn/anatomy/ba/5f/c36676a440927/page.htm",
       "tier": "master",
       "underlined": false
     },
@@ -7126,7 +6756,7 @@
       "title": "心腔流向与“左肺右体”衰竭起点",
       "subject": "anatomy",
       "syllabus_refs": [
-        "syl_anatomy_215"
+        "syl_anatomy_189"
       ],
       "syllabus_tier": "master",
       "node_type": "structure_cloze",
@@ -7295,8 +6925,8 @@
       "title": "肝门静脉系属支与三大门腔侧支吻合",
       "subject": "anatomy",
       "syllabus_refs": [
-        "syl_anatomy_261",
-        "syl_anatomy_262"
+        "syl_anatomy_235",
+        "syl_anatomy_236"
       ],
       "syllabus_tier": "master",
       "node_type": "structure_cloze",
@@ -8359,7 +7989,7 @@
       "title": "体循环静脉结构共性与深浅静脉分布规律",
       "subject": "anatomy",
       "syllabus_refs": [
-        "syl_anatomy_248"
+        "syl_anatomy_222"
       ],
       "syllabus_tier": "master",
       "node_type": "structure_cloze",
@@ -8382,8 +8012,8 @@
       "title": "面部“危险三角”面静脉感染颅内扩散路径",
       "subject": "anatomy",
       "syllabus_refs": [
-        "syl_anatomy_248",
-        "syl_anatomy_245"
+        "syl_anatomy_222",
+        "syl_anatomy_219"
       ],
       "syllabus_tier": "master",
       "node_type": "mechanism_flow",
@@ -8418,7 +8048,7 @@
       "title": "上肢三大浅静脉行程与临床静脉穿刺路径",
       "subject": "anatomy",
       "syllabus_refs": [
-        "syl_anatomy_252"
+        "syl_anatomy_226"
       ],
       "syllabus_tier": "master",
       "node_type": "structure_cloze",
@@ -8441,7 +8071,7 @@
       "title": "下肢大、小隐静脉行程与静脉曲张机制",
       "subject": "anatomy",
       "syllabus_refs": [
-        "syl_anatomy_259"
+        "syl_anatomy_233"
       ],
       "syllabus_tier": "master",
       "node_type": "comparison_matrix",
