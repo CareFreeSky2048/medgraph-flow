@@ -152,6 +152,46 @@ async function check(label, fn) {
     assert.deepEqual(pageErrors, []);
   });
 
+  await check('V2 diagram drawer, image load, high-order reversal quiz, and remedial detour work on 390px mobile', async () => {
+    const v2Target = await page.evaluate(() => {
+      const nodes = window.MedApp.getGraph().nodes || [];
+      return nodes.find(
+        n => Array.isArray(n.diagram_assets) && n.diagram_assets.length > 0 && n.payload?.quiz?.remedial_node_id
+      ) || null;
+    });
+    assert(v2Target, 'Expected at least one V2 node with diagram_assets and remedial quiz');
+    await page.locator('[data-act="open-atlas"]').click();
+    await page.locator('[data-act="atlas-tab"][data-tab="syllabus"]').click();
+    await page.locator(`[data-act="svg-jump"][data-id="${v2Target.id}"]`).click();
+    await page.waitForFunction(title => document.querySelector('.card-title')?.textContent?.trim() === title, v2Target.title);
+
+    // Open collapsible diagram drawer & confirm WebP asset actually loaded cleanly
+    await page.locator('.diagram-drawer > summary').click();
+    await page.waitForSelector('.diagram-thumb-btn img');
+    const imgLoaded = await page.locator('.diagram-thumb-btn img').first().evaluate(img => img.complete && img.naturalWidth > 100);
+    assert(imgLoaded, 'Cropped WebP diagram image must decode cleanly with naturalWidth > 100');
+
+    // Answer WRONG deliberately on the high-order quiz -> verify rescue tip & 🔴 recommendation
+    const wrongIdx = (v2Target.payload.quiz.answer_idx + 1) % v2Target.payload.quiz.options.length;
+    await page.locator(`[data-act="answer-quiz"][data-idx="${wrongIdx}"]`).click();
+    await page.waitForSelector('.quiz-rescue-tip');
+    assert.equal(await page.locator('.rate-again.recommended').count(), 1);
+    await page.screenshot({ path: path.join(SHOT_DIR, '07-mobile-v2-diagram-quiz.png'), fullPage: false });
+
+    // Tap thumb to open zoom lightbox modal, verify loaded image, then close modal
+    await page.locator('.diagram-thumb-btn').first().click();
+    await page.waitForSelector('.diagram-zoom-img');
+    const zoomOk = await page.locator('.diagram-zoom-img').evaluate(img => img.complete && img.naturalWidth > 100);
+    assert(zoomOk, 'Lightbox zoom image must load cleanly');
+    await page.locator('[data-act="close-modal"]').click();
+
+    // Tap 🔴 -> should detour directly to quiz.remedial_node_id
+    await page.locator('[data-act="rate"][data-rating="again"]').click();
+    await page.waitForFunction(() => document.querySelector('.planned-detour-pill')?.textContent?.includes('反转诊断题触发精准回溯'));
+    assert.deepEqual(externalRequests, []);
+    assert.deepEqual(pageErrors, []);
+  });
+
   await browser.close();
   console.log(`\nAll ${passed} mobile UI Playwright tests passed.`);
 })();

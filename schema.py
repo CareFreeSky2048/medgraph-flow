@@ -39,6 +39,39 @@ RELATION_TYPES = {
 }
 
 
+def validate_quiz(quiz: dict, node_id: str) -> None:
+    if (
+        not isinstance(quiz, dict)
+        or not str(quiz.get("stem", "")).strip()
+        or not isinstance(quiz.get("options"), list)
+        or len(quiz["options"]) < 2
+    ):
+        raise ValueError(f"{node_id}: invalid quiz object (requires stem and >= 2 options)")
+    ans = quiz.get("answer_idx")
+    if not isinstance(ans, int) or ans < 0 or ans >= len(quiz["options"]):
+        raise ValueError(f"{node_id}: quiz answer_idx out of range")
+    if not str(quiz.get("explain", "")).strip():
+        raise ValueError(f"{node_id}: quiz missing explain")
+    rem = quiz.get("remedial_node_id")
+    if rem is not None and not str(rem).strip():
+        raise ValueError(f"{node_id}: quiz remedial_node_id must be non-empty string if set")
+
+
+def validate_diagram_assets(assets: object, node_id: str) -> None:
+    if assets is None:
+        return
+    if not isinstance(assets, list):
+        raise ValueError(f"{node_id}: diagram_assets must be a list")
+    for idx, asset in enumerate(assets):
+        if not isinstance(asset, dict):
+            raise ValueError(f"{node_id}: diagram_assets[{idx}] must be an object")
+        rel_path = str(asset.get("path", "")).strip().replace("\\", "/")
+        if not rel_path.startswith("assets/") or ".." in rel_path.split("/"):
+            raise ValueError(f"{node_id}: diagram_assets[{idx}].path must be a relative 'assets/...' path without '..'")
+        if not str(asset.get("caption", "")).strip():
+            raise ValueError(f"{node_id}: diagram_assets[{idx}] missing caption")
+
+
 def validate_node_payload(node_type: str, payload: dict, node_id: str) -> None:
     if not isinstance(payload, dict):
         raise ValueError(f"{node_id}: payload must be a dict")
@@ -51,12 +84,16 @@ def validate_node_payload(node_type: str, payload: dict, node_id: str) -> None:
                 raise ValueError(f"{node_id}: step {idx} missing cue/reveal")
         if not payload.get("takeaway"):
             raise ValueError(f"{node_id}: mechanism_flow missing takeaway")
+        if payload.get("quiz") is not None:
+            validate_quiz(payload["quiz"], node_id)
     elif node_type == "structure_cloze":
         bullets = payload.get("bullets")
         if not isinstance(bullets, list) or len(bullets) < 1:
             raise ValueError(f"{node_id}: structure_cloze requires >= 1 bullet")
         if not any("{{" in str(b) and "}}" in str(b) for b in bullets):
             raise ValueError(f"{node_id}: structure_cloze needs at least one {{{{cloze}}}} capsule")
+        if payload.get("quiz") is not None:
+            validate_quiz(payload["quiz"], node_id)
     elif node_type == "comparison_matrix":
         cols = payload.get("columns")
         rows = payload.get("rows")
@@ -68,11 +105,9 @@ def validate_node_payload(node_type: str, payload: dict, node_id: str) -> None:
         for r_idx, row in enumerate(rows):
             if not isinstance(row, list) or len(row) != len(cols):
                 raise ValueError(f"{node_id}: row {r_idx} column count mismatch")
-        if not isinstance(quiz, dict) or not quiz.get("stem") or not isinstance(quiz.get("options"), list):
+        if quiz is None:
             raise ValueError(f"{node_id}: comparison_matrix missing valid quiz")
-        ans = quiz.get("answer_idx")
-        if not isinstance(ans, int) or ans < 0 or ans >= len(quiz["options"]):
-            raise ValueError(f"{node_id}: quiz answer_idx out of range")
+        validate_quiz(quiz, node_id)
 
 
 def validate_graph(graph: dict) -> dict:
@@ -117,8 +152,16 @@ def validate_graph(graph: dict) -> dict:
             raise ValueError(f"Invalid node_type in {nid}: {ntype}")
         if not str(node.get("anchor_summary", "")).strip():
             raise ValueError(f"Node {nid} missing anchor_summary")
+        validate_diagram_assets(node.get("diagram_assets"), nid)
         validate_node_payload(ntype, node.get("payload"), nid)
         node_ids.add(nid)
+
+    for node in nodes:
+        quiz = (node.get("payload") or {}).get("quiz") or {}
+        rem = quiz.get("remedial_node_id")
+        if rem is not None:
+            if rem not in node_ids or rem == node["id"]:
+                raise ValueError(f"Node {node['id']}: quiz remedial_node_id '{rem}' must reference another valid node")
 
     edge_ids = set()
     edge_map = {}

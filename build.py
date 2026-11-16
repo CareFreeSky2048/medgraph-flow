@@ -70,9 +70,20 @@ def build() -> None:
     shutil.copy2(WEB_DIR / "sw.js", PWA_DIR / "sw.js")
     (PWA_DIR / ".nojekyll").write_text("", encoding="utf-8")
 
+    # Copy preserved slide mechanism/anatomy/histology diagram assets to both dist/assets and dist/pwa/assets
+    assets_src = DATA_DIR / "assets"
+    asset_count = 0
+    for target_assets in (DIST_DIR / "assets", PWA_DIR / "assets"):
+        if target_assets.exists():
+            shutil.rmtree(target_assets)
+        if assets_src.exists():
+            shutil.copytree(assets_src, target_assets)
+    if assets_src.exists():
+        asset_count = sum(1 for p in assets_src.rglob("*") if p.is_file())
+
     print(
         f"Build OK -> {DIST_DIR / 'medgraph_offline.html'} & {PWA_DIR} "
-        f"({len(graph['nodes'])} nodes, {len(graph['edges'])} edges, {len(graph['threads'])} threads)"
+        f"({len(graph['nodes'])} nodes, {len(graph['edges'])} edges, {len(graph['threads'])} threads, {asset_count} assets)"
     )
 
 

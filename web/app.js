@@ -28,6 +28,7 @@
     quizAttempted: false,
     quizFirstTryCorrect: false,
     quizSelectedIdx: null,
+    diagramOpen: false,
     selectedGalaxyNodeId: null,
     selectedGalaxyEdgeId: null,
   };
@@ -87,6 +88,7 @@
     cardState.quizAttempted = false;
     cardState.quizFirstTryCorrect = false;
     cardState.quizSelectedIdx = null;
+    cardState.diagramOpen = false;
     cardState.selectedGalaxyNodeId = null;
     cardState.selectedGalaxyEdgeId = null;
     if (node && node.node_type === 'structure_cloze') {
@@ -141,7 +143,50 @@
     });
   }
 
+  function renderQuizBlock(quiz, labelPrefix = '🎯 高阶反转诊断') {
+    if (!quiz || !quiz.stem) return '';
+    const opts = (quiz.options || []).map((opt, idx) => {
+      let cls = 'quiz-opt';
+      if (cardState.quizAttempted) {
+        if (idx === quiz.answer_idx) cls += ' correct';
+        else if (idx === cardState.quizSelectedIdx) cls += ' wrong';
+      }
+      return `<button type="button" class="${cls}" data-act="answer-quiz" data-idx="${idx}">${String.fromCharCode(65 + idx)}. ${esc(opt)}</button>`;
+    }).join('');
+    const rescueTip = cardState.quizAttempted && !cardState.quizFirstTryCorrect && quiz.remedial_node_id
+      ? '<div class="quiz-rescue-tip">🧭 已定位前置根因节点：点下方 🔴 可自动触发诊断补漏岔路</div>'
+      : '';
+    return `
+      <div class="quiz-card">
+        <p class="quiz-stem">${labelPrefix}：${esc(quiz.stem)}</p>
+        <div class="quiz-options">${opts}</div>
+        ${cardState.quizAttempted ? `<div class="quiz-explain"><strong>解析：</strong>${esc(quiz.explain)}${rescueTip}</div>` : ''}
+      </div>
+    `;
+  }
+
+  function renderDiagramAssets(node) {
+    const assets = Array.isArray(node.diagram_assets) ? node.diagram_assets : [];
+    if (!assets.length) return '';
+    const figures = assets.map(a => `
+      <figure class="diagram-figure">
+        <button type="button" class="diagram-thumb-btn" data-act="open-diagram" data-src="${esc(a.path)}" data-cap="${esc(a.caption)}">
+          <img src="./${esc(a.path)}" alt="${esc(a.caption)}" loading="lazy">
+          <span class="diagram-zoom-hint">🔍 点击放大原图</span>
+        </button>
+        <figcaption>${esc(a.caption)}${a.source_page ? ` · P${esc(a.source_page)}` : ''}</figcaption>
+      </figure>
+    `).join('');
+    return `
+      <details class="diagram-drawer"${cardState.diagramOpen ? ' open' : ''}>
+        <summary>🖼️ 查看原课件机理图 (${assets.length} 张 · 点击展开对照)</summary>
+        <div class="diagram-grid">${figures}</div>
+      </details>
+    `;
+  }
+
   function renderNodeBody(node) {
+    let html = '';
     if (node.node_type === 'mechanism_flow') {
       const steps = node.payload.steps || [];
       const shown = Math.min(cardState.stepsRevealed, steps.length);
@@ -163,43 +208,28 @@
         ? `<div class="cloze-toolbar"><button type="button" class="mini-btn" data-act="expand-all-flow">展开全部 ${steps.length} 步</button></div>`
         : '';
 
-      return `${expandAll}<div class="flow-list">${stepCards}${nextBtn}</div>`;
-    }
-
-    if (node.node_type === 'structure_cloze') {
+      html = `${expandAll}<div class="flow-list">${stepCards}${nextBtn}</div>`;
+      if (node.payload.quiz) html += renderQuizBlock(node.payload.quiz, '🎯 机制反转诊断');
+    } else if (node.node_type === 'structure_cloze') {
       const bullets = (node.payload.bullets || []).map((b, i) => `<li>${renderClozeBullet(b, i)}</li>`).join('');
       const allOpen = cardState.totalClozes > 0 && cardState.openClozes.size >= cardState.totalClozes;
-      return `
+      html = `
         <div class="cloze-toolbar">
           <button type="button" class="mini-btn" data-act="toggle-all-cloze">${allOpen ? '全部遮罩练习' : '全部翻开核对'}</button>
         </div>
         <ul class="cloze-list">${bullets}</ul>
         ${node.payload.trap_note ? `<div class="trap-box"><strong>⚠️ 临床陷阱 / 易混点：</strong>${esc(node.payload.trap_note)}</div>` : ''}
       `;
-    }
-
-    if (node.node_type === 'comparison_matrix') {
+      if (node.payload.quiz) html += renderQuizBlock(node.payload.quiz, '🎯 结构功能反转测');
+    } else if (node.node_type === 'comparison_matrix') {
       const cols = (node.payload.columns || []).map(c => `<th>${esc(c)}</th>`).join('');
       const rows = (node.payload.rows || []).map(row => `<tr>${row.map(cell => `<td>${esc(cell)}</td>`).join('')}</tr>`).join('');
-      const quiz = node.payload.quiz;
-      const opts = (quiz?.options || []).map((opt, idx) => {
-        let cls = 'quiz-opt';
-        if (cardState.quizAttempted) {
-          if (idx === quiz.answer_idx) cls += ' correct';
-          else if (idx === cardState.quizSelectedIdx) cls += ' wrong';
-        }
-        return `<button type="button" class="${cls}" data-act="answer-quiz" data-idx="${idx}">${String.fromCharCode(65 + idx)}. ${esc(opt)}</button>`;
-      }).join('');
-      return `
+      html = `
         <div class="matrix-wrap"><table class="matrix-table"><thead><tr>${cols}</tr></thead><tbody>${rows}</tbody></table></div>
-        <div class="quiz-card">
-          <p class="quiz-stem">⚡ 秒测：${esc(quiz.stem)}</p>
-          <div class="quiz-options">${opts}</div>
-          ${cardState.quizAttempted ? `<div class="quiz-explain"><strong>解析：</strong>${esc(quiz.explain)}</div>` : ''}
-        </div>
+        ${renderQuizBlock(node.payload.quiz, '⚡ 秒测')}
       `;
     }
-    return '';
+    return html + renderDiagramAssets(node);
   }
 
   function renderReconnectAndBridge(resumed, curNode) {
@@ -287,11 +317,12 @@
     }
 
     const curState = R.getNodeState(progress, curNode.id);
-    const typeLabel = {
+    const hasOptQuiz = Boolean(curNode.payload?.quiz) && curNode.node_type !== 'comparison_matrix';
+    const typeLabel = ({
       mechanism_flow: '🔄 递进推演流',
       structure_cloze: '💊 胶囊遮罩卡',
       comparison_matrix: '⚖️ 对比表 + 秒测',
-    }[curNode.node_type] || '';
+    }[curNode.node_type] || '') + (hasOptQuiz ? ' + 🎯反转测' : '');
 
     $('card-stage').innerHTML = `
       <div class="card-meta-row">
@@ -606,6 +637,18 @@
       renderStage();
       return;
     }
+    if (act === 'open-diagram') {
+      const src = target.dataset.src;
+      const cap = target.dataset.cap || '原课件机理图';
+      if (!src) return;
+      openModal('原课件机理与形态图', `
+        <div class="diagram-lightbox">
+          <img src="./${esc(src)}" alt="${esc(cap)}" class="diagram-zoom-img">
+          <p class="diagram-lightbox-cap">${esc(cap)}</p>
+        </div>
+      `);
+      return;
+    }
     if (act === 'focus-galaxy') {
       $('inline-galaxy-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -639,7 +682,8 @@
         quizFirstTryCorrect: cardState.quizAttempted ? cardState.quizFirstTryCorrect : null,
       };
       const originalCursor = progress.session.cursor || 0;
-      const diag = R.planDiagnosticDetour(graph, progress, curStep.node_id, rating);
+      const quizWrong = cardState.quizAttempted && !cardState.quizFirstTryCorrect;
+      const diag = R.planDiagnosticDetour(graph, progress, curStep.node_id, rating, { quizWrong });
       progress = R.applyReview(graph, progress, curStep.node_id, rating, signals, Date.now());
       if (diag) {
         progress = R.pushDetour(graph, progress, diag.target_node_id, diag.via_edge_id, Date.now(), {
@@ -821,6 +865,11 @@
       const target = e.target.closest('[data-act]');
       if (target) handleAction(target);
     });
+    document.addEventListener('toggle', e => {
+      if (e.target && e.target.isConnected && e.target.classList?.contains('diagram-drawer')) {
+        cardState.diagramOpen = Boolean(e.target.open);
+      }
+    }, true);
     wireFileInputs();
 
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {

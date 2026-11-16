@@ -1,4 +1,4 @@
-const CACHE_NAME = 'medgraph-flow-v1';
+const CACHE_NAME = 'medgraph-flow-v2';
 const ASSETS = ['./', './index.html', './graph.json', './manifest.json'];
 
 self.addEventListener('install', event => {
@@ -30,6 +30,23 @@ self.addEventListener('fetch', event => {
           return res;
         })
         .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache-first + runtime store for cropped diagram images in ./assets/
+  if (url.pathname.includes('/assets/')) {
+    event.respondWith(
+      caches.match(event.request).then(cached => {
+        if (cached) return cached;
+        return fetch(event.request).then(res => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then(c => c.put(event.request, copy));
+          }
+          return res;
+        });
+      })
     );
     return;
   }

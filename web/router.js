@@ -142,6 +142,10 @@
 
   function recommendImplicitRating(node, interaction = {}) {
     if (!node) return 'fuzzy';
+    const hasQuiz = Boolean(node.payload?.quiz);
+    if (hasQuiz && interaction.quizAttempted) {
+      if (!interaction.quizFirstTryCorrect) return 'again';
+    }
     if (node.node_type === 'comparison_matrix') {
       if (interaction.quizAttempted) {
         return interaction.quizFirstTryCorrect ? 'mastered' : 'again';
@@ -151,12 +155,14 @@
     if (node.node_type === 'mechanism_flow') {
       const total = node.payload?.steps?.length || 1;
       const revealed = interaction.stepsRevealed || 1;
+      if (hasQuiz && !interaction.quizAttempted) return 'fuzzy';
       if (revealed >= total && (interaction.dwellMs || 0) <= 45000) return 'mastered';
       return 'fuzzy';
     }
     if (node.node_type === 'structure_cloze') {
       const totalClozes = interaction.totalClozes || 1;
       const revealedClozes = interaction.revealedClozes || 0;
+      if (hasQuiz && !interaction.quizAttempted) return 'fuzzy';
       if (revealedClozes >= totalClozes && (interaction.clozeToggleCount || 0) <= totalClozes + 2) {
         return 'mastered';
       }
@@ -597,7 +603,7 @@
     return next;
   }
 
-  function planDiagnosticDetour(graph, progress, nodeId, rating) {
+  function planDiagnosticDetour(graph, progress, nodeId, rating, options = {}) {
     if (rating !== 'again') return null;
     const idx = indexGraph(graph);
     const node = idx.nodeMap.get(nodeId);
@@ -605,6 +611,21 @@
     const stackIds = new Set((progress?.session?.detour_stack || []).map(d => d.detour_node_id));
     if (stackIds.size >= 2) return null; // avoid deep automated detour chains
 
+    // 1. If a high-order reversal quiz points to a specific broken mechanism node, rescue directly there
+    const remId = options.quizWrong ? node.payload?.quiz?.remedial_node_id : null;
+    if (remId && remId !== nodeId && !stackIds.has(remId) && idx.nodeMap.has(remId)) {
+      const remNode = idx.nodeMap.get(remId);
+      const viaEdge = findConnectingEdge(idx, remId, nodeId) || findConnectingEdge(idx, nodeId, remId);
+      return {
+        target_node_id: remNode.id,
+        target_title: remNode.title,
+        via_edge_id: viaEdge?.id || null,
+        return_node_id: nodeId,
+        reason: `反转诊断题触发精准回溯：先复盘根因节点「${remNode.title}」`,
+      };
+    }
+
+    // 2. Fall back to scanning incoming prerequisite / high-strength structural_basis edges
     const incoming = (idx.inEdges.get(nodeId) || [])
       .filter(e => e.relation_type === 'prerequisite' || (e.relation_type === 'structural_basis' && (e.strength || 0.8) >= 0.85))
       .sort((a, b) => (b.strength || 0.8) - (a.strength || 0.8));
@@ -828,8 +849,7 @@
 
     for (const nb of picked) {
       const rel = nb.edge.relation_type;
-      if ((nb.direction === 'incoming' && ['causal_next', 'prerequisite', 'structural_basis'].includes(rel)) ||
-          (nb.direction === 'outgoing' && ['prerequisite', 'structural_basis'].includes(rel))) {
+      if (nb.direction === 'incoming' && ['causal_next', 'prerequisite', 'structural_basis'].includes(rel)) {
         upstream.push(nb);
       } else if (['cross_discipline', 'contrast_with'].includes(rel)) {
         lateral.push(nb);

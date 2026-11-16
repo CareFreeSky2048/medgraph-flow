@@ -183,4 +183,39 @@ check('algorithmic diagnostic detour & planned opportunistic detour work alongsi
   assert(galaxy.items.some(i => i.slot === 'lateral' || i.slot === 'upstream' || i.slot === 'downstream'));
 });
 
+check('V2: outgoing structural_basis goes downstream & optional reversal quiz drives rating + remedial detour', () => {
+  const t0 = Date.parse('2026-11-16T08:00:00Z');
+  let prog = R.createEmptyProgress(t0);
+  // 1. Standing at histo_liver_lobule, its outgoing structural_basis edge -> patho_hepatic_congestion MUST be downstream (not upstream!)
+  const histoGalaxy = R.getGalaxyLayout(graph, prog, 'histo_liver_lobule', t0, 6);
+  const hepaticItem = histoGalaxy.items.find(i => i.node.id === 'patho_hepatic_congestion');
+  assert(hepaticItem, 'Expected patho_hepatic_congestion neighbor');
+  assert.equal(hepaticItem.slot, 'downstream', 'Outgoing structural_basis target should appear downstream');
+
+  // 2. Optional quiz on mechanism_flow downgrades implicit rating if unattempted or wrong & triggers remedial detour
+  const gQuiz = JSON.parse(JSON.stringify(graph));
+  const targetNode = gQuiz.nodes.find(n => n.id === 'physio_nmj_transmission');
+  targetNode.payload.quiz = {
+    stem: '阻断突触前膜 N 型钙通道会直接导致什么？',
+    options: ['ACh囊泡量子释放受阻', '肌浆网自发超极化'],
+    answer_idx: 0,
+    explain: 'Ca2+内流触发囊泡出胞。',
+    remedial_node_id: 'physio_resting_potential',
+  };
+  assert.equal(
+    R.recommendImplicitRating(targetNode, { stepsRevealed: 3, dwellMs: 12000, quizAttempted: false }),
+    'fuzzy',
+    'Unattempted optional reversal quiz should avoid auto-recommending mastered'
+  );
+  assert.equal(
+    R.recommendImplicitRating(targetNode, { stepsRevealed: 3, dwellMs: 12000, quizAttempted: true, quizFirstTryCorrect: false }),
+    'again',
+    'Wrong optional reversal quiz should recommend again'
+  );
+  // Even though physio_resting_potential is mastered or indirect, quizWrong should route to remedial_node_id
+  prog = R.applyReview(gQuiz, prog, 'histo_chemical_synapse', 'mastered', null, t0);
+  const remDetour = R.planDiagnosticDetour(gQuiz, prog, 'physio_nmj_transmission', 'again', { quizWrong: true });
+  assert(remDetour && remDetour.target_node_id === 'physio_resting_potential');
+});
+
 console.log(`\nAll ${passed} MedRouter & MedSync unit tests passed.`);

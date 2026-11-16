@@ -12,10 +12,12 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 import urllib.error
 import urllib.request
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -23,23 +25,71 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_DIR = APP_DIR / "data"
+ASSETS_DIR = DATA_DIR / "assets"
 INBOX_DIR = APP_DIR / "inbox"
 
-from schema import NODE_TYPES, RELATION_TYPES, SYLLABUS_TIERS, validate_graph  # noqa: E402
+from schema import NODE_TYPES, RELATION_TYPES, SUBJECTS, SYLLABUS_TIERS, validate_graph  # noqa: E402
 
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
 
-def extract_pptx(path: Path) -> list[dict]:
+def load_course_manifest() -> dict:
+    manifest_path = DATA_DIR / "course_manifest.json"
+    if manifest_path.exists():
+        return json.loads(manifest_path.read_text(encoding="utf-8"))
+    return {"curricula": [], "lectures": []}
+
+
+def resolve_lecture_metadata(slide_path: Path, explicit_subject: str | None = None) -> dict:
+    """Resolve curriculum_id & declared subject from explicit CLI flag or authoritative course_manifest.json."""
+    manifest = load_course_manifest()
+    norm_target = str(slide_path).lower()
+    stem_target = slide_path.stem.lower()
+    matched = None
+    for lec in manifest.get("lectures", []):
+        lpath = Path(lec["path"])
+        if str(lpath).lower() == norm_target or lpath.name.lower() == slide_path.name.lower() or lpath.stem.lower() == stem_target:
+            matched = lec
+            break
+
+    subject = explicit_subject or (matched["subject"] if matched else None)
+    sub_subjects = (matched.get("sub_subjects") if matched else None) or ([subject] if subject else [])
+    curriculum_id = matched.get("curriculum_id") if matched else None
+    cur_meta = next((c for c in manifest.get("curricula", []) if c["id"] == curriculum_id), None)
+    return {
+        "primary_subject": subject,
+        "sub_subjects": sub_subjects,
+        "curriculum_id": curriculum_id,
+        "curriculum_name": cur_meta["name"] if cur_meta else None,
+        "syllabus_path": cur_meta["syllabus_path"] if cur_meta else None,
+        "manifest_hit": bool(matched),
+    }
+
+
+def _iter_pptx_shapes(shapes):
+    for shape in shapes:
+        yield shape
+        if hasattr(shape, "shapes"):
+            yield from _iter_pptx_shapes(shape.shapes)
+
+
+def extract_pptx(path: Path, visual_dir: Path | None = None) -> list[dict]:
     from pptx import Presentation
+    from pptx.enum.shapes import MSO_SHAPE_TYPE
 
     prs = Presentation(str(path))
     pages = []
     for idx, slide in enumerate(prs.slides, 1):
         chunks = []
+        img_paths = []
+        img_count = 0
+        group_count = 0
         for shape in slide.shapes:
+            if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
+                group_count += 1
+        for shape in _iter_pptx_shapes(slide.shapes):
             if shape.has_text_frame:
                 txt = "\n".join(p.text.strip() for p in shape.text_frame.paragraphs if p.text.strip())
                 if txt:
@@ -52,14 +102,45 @@ def extract_pptx(path: Path) -> list[dict]:
                         rows.append(" | ".join(cells))
                 if rows:
                     chunks.append("\n".join(rows))
+            elif shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
+                img_count += 1
+                if visual_dir is not None:
+                    try:
+                        img = shape.image
+                        ext = (img.ext or "png").lower()
+                        visual_dir.mkdir(parents=True, exist_ok=True)
+                        out_img = visual_dir / f"s{idx:03d}_img{img_count}.{ext}"
+                        out_img.write_bytes(img.blob)
+                        img_paths.append(str(out_img))
+                    except Exception:
+                        pass
+
         notes = ""
         if slide.has_notes_slide and slide.notes_slide.notes_text_frame:
             notes = slide.notes_slide.notes_text_frame.text.strip()
         text = "\n".join(chunks).strip()
         if notes:
             text = f"{text}\n[讲义备注] {notes}".strip()
-        if text:
-            pages.append({"page": idx, "text": text})
+
+        lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+        reasons = []
+        if len(text) < 45:
+            reasons.append("sparse_or_image_only")
+        if img_count > 0:
+            reasons.append(f"embedded_images:{img_count}")
+        if group_count >= 2:
+            reasons.append(f"grouped_diagrams:{group_count}")
+
+        pages.append({
+            "page": idx,
+            "text": text,
+            "char_count": len(text),
+            "heading": lines[0][:60] if lines else "[纯图/无文本页]",
+            "embedded_images": img_count,
+            "needs_vision": bool(reasons),
+            "vision_reasons": reasons,
+            "visual_files": img_paths,
+        })
     return pages
 
 
@@ -70,9 +151,111 @@ def extract_pdf(path: Path) -> list[dict]:
     pages = []
     for idx, page in enumerate(reader.pages, 1):
         text = (page.extract_text() or "").strip()
-        if text:
-            pages.append({"page": idx, "text": text})
+        lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+        try:
+            img_count = len(page.images)
+        except Exception:
+            img_count = 0
+        short_lines = sum(1 for ln in lines if len(ln) <= 6)
+        short_ratio = (short_lines / len(lines)) if lines else 0.0
+
+        reasons = []
+        if len(text) < 45:
+            reasons.append("sparse_or_image_only")
+        if img_count > 0:
+            reasons.append(f"embedded_images:{img_count}")
+        if len(lines) >= 10 and short_ratio >= 0.45:
+            reasons.append(f"fragmented_diagram:{short_ratio:.0%}")
+
+        pages.append({
+            "page": idx,
+            "text": text,
+            "char_count": len(text),
+            "heading": lines[0][:60] if lines else "[纯图/无提取文本页]",
+            "embedded_images": img_count,
+            "needs_vision": bool(reasons),
+            "vision_reasons": reasons,
+            "visual_files": [],
+        })
     return pages
+
+
+def render_pdf_visual_pages(pdf_path: Path, pages: list[dict], visual_dir: Path, dpi: int = 150) -> int:
+    """Rasterize flagged diagram/image-heavy PDF pages using Poppler pdftoppm for multimodal reading."""
+    pdftoppm = shutil.which("pdftoppm")
+    if not pdftoppm:
+        return 0
+    visual_dir.mkdir(parents=True, exist_ok=True)
+    rendered = 0
+    for p in pages:
+        if not p.get("needs_vision"):
+            continue
+        pg = p["page"]
+        target_png = visual_dir / f"p{pg:03d}.png"
+        if target_png.exists():
+            p.setdefault("visual_files", []).append(str(target_png))
+            rendered += 1
+            continue
+        prefix = visual_dir / f"_tmp_p{pg:03d}"
+        try:
+            subprocess.run(
+                [pdftoppm, "-png", "-r", str(dpi), "-f", str(pg), "-l", str(pg), str(pdf_path), str(prefix)],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            matches = sorted(visual_dir.glob(f"_tmp_p{pg:03d}*.png"))
+            if matches:
+                matches[0].replace(target_png)
+                for extra in matches[1:]:
+                    extra.unlink(missing_ok=True)
+                p.setdefault("visual_files", []).append(str(target_png))
+                rendered += 1
+        except Exception:
+            continue
+    return rendered
+
+
+def crop_asset_image(image_path: Path, out_name: str, box_spec: str = "full", max_width: int = 1200) -> dict:
+    """Crop a clean pathway diagram or morphological plate from a rendered slide PNG into data/assets/."""
+    from PIL import Image
+
+    if not image_path.exists():
+        raise FileNotFoundError(f"Source image not found: {image_path}")
+    safe_name = Path(out_name).name
+    if not safe_name.lower().endswith((".webp", ".jpg", ".jpeg", ".png")):
+        safe_name = f"{Path(safe_name).stem}.webp"
+
+    ASSETS_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = ASSETS_DIR / safe_name
+
+    with Image.open(image_path) as im:
+        im = im.convert("RGB")
+        w, h = im.size
+        if box_spec and box_spec.lower() != "full":
+            parts = [float(x.strip()) for x in box_spec.split(",")]
+            if len(parts) != 4:
+                raise ValueError("--box must be 'full' or 'x1,y1,x2,y2' normalized in 0..1")
+            x1, y1, x2, y2 = parts
+            if not (0.0 <= x1 < x2 <= 1.0 and 0.0 <= y1 < y2 <= 1.0):
+                raise ValueError(f"Normalized crop coordinates out of bounds: {parts}")
+            im = im.crop((int(w * x1), int(h * y1), int(w * x2), int(h * y2)))
+        cw, ch = im.size
+        if cw > max_width:
+            nh = max(1, int(ch * (max_width / cw)))
+            im = im.resize((max_width, nh), Image.Resampling.LANCZOS)
+        fmt = "WEBP" if out_path.suffix.lower() == ".webp" else ("JPEG" if out_path.suffix.lower() in {".jpg", ".jpeg"} else "PNG")
+        save_kwargs = {"quality": 86, "method": 5} if fmt == "WEBP" else ({"quality": 88, "optimize": True} if fmt == "JPEG" else {"optimize": True})
+        im.save(out_path, format=fmt, **save_kwargs)
+        fw, fh = im.size
+
+    return {
+        "rel_path": f"assets/{safe_name}",
+        "abs_path": str(out_path),
+        "width": fw,
+        "height": fh,
+        "size_kb": round(out_path.stat().st_size / 1024, 1),
+    }
 
 
 def extract_docx(path: Path) -> list[dict]:
@@ -124,20 +307,27 @@ def convert_legacy_office(path: Path) -> Path:
     raise ValueError(f"Unsupported legacy suffix: {suffix}")
 
 
-def extract_courseware(path: Path) -> list[dict]:
+def extract_courseware(path: Path, visual_dir: Path | None = None, render_visuals: bool = False) -> list[dict]:
     if not path.exists():
         raise FileNotFoundError(f"Courseware not found: {path}")
     suffix = path.suffix.lower()
     if suffix == ".pptx":
-        return extract_pptx(path)
+        return extract_pptx(path, visual_dir=visual_dir if render_visuals else None)
     if suffix == ".pdf":
-        return extract_pdf(path)
+        pages = extract_pdf(path)
+        if render_visuals and visual_dir is not None:
+            render_pdf_visual_pages(path, pages, visual_dir)
+        return pages
     if suffix == ".docx":
         return extract_docx(path)
     if suffix in {".ppt", ".doc"}:
         converted = convert_legacy_office(path)
         try:
-            return extract_pptx(converted) if suffix == ".ppt" else extract_docx(converted)
+            return (
+                extract_pptx(converted, visual_dir=visual_dir if render_visuals else None)
+                if suffix == ".ppt"
+                else extract_docx(converted)
+            )
         finally:
             shutil.rmtree(converted.parent, ignore_errors=True)
     raise ValueError(f"Unsupported courseware extension: {suffix}")
@@ -150,8 +340,13 @@ def bigrams(text: str) -> set[str]:
     return {clean[i : i + 2] for i in range(len(clean) - 1)}
 
 
-def match_syllabus_candidates(pages: list[dict], syllabus_items: list[dict], top_k: int = 12) -> list[dict]:
-    combined = "\n".join(p["text"] for p in pages[:60])
+def match_syllabus_candidates(
+    pages: list[dict],
+    syllabus_items: list[dict],
+    top_k: int = 20,
+    primary_subject: str | None = None,
+) -> list[dict]:
+    combined = "\n".join(p.get("text", "") for p in pages[:80])
     slide_bg = bigrams(combined)
     admin_noise = ("课程名称", "课程考核", "教学团队", "实践学时", "含实验室安全", "教学参考资料", "课程简介")
     scored = []
@@ -164,9 +359,11 @@ def match_syllabus_candidates(pages: list[dict], syllabus_items: list[dict], top
             continue
         overlap = len(slide_bg & item_bg)
         score = overlap / max(6, len(item_bg) ** 0.7)
-        if item.get("tier") == "core_underlined":
-            score *= 1.2
-        if score > 0.25:
+        if primary_subject and item.get("subject") == primary_subject:
+            score *= 1.5
+        elif item.get("tier") == "core_underlined":
+            score *= 1.15
+        if score > 0.22:
             scored.append((score, item))
     scored.sort(key=lambda x: x[0], reverse=True)
     return [item for _, item in scored[:top_k]]
@@ -257,14 +454,14 @@ def detect_slide_subjects(pages: list[dict], syllabus_candidates: list[dict], sl
     return [subj for subj, _ in ranked[:3]] or ["pathology", "physiology"]
 
 
-def select_relevant_nodes_and_edges(pages: list[dict], graph: dict, limit: int = 80) -> tuple[list[dict], list[dict]]:
-    """Rank existing nodes by relevance to incoming slides + hub connectivity (no blind truncation)."""
+def select_relevant_nodes_and_edges(pages: list[dict], graph: dict, limit: int = 120) -> tuple[list[dict], list[dict]]:
+    """Rank existing nodes by relevance to incoming slides + hub connectivity (high ceiling avoids blind clipping)."""
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
     if not nodes:
         return [], []
 
-    combined_bg = bigrams("\n".join(p["text"] for p in pages[:60]))
+    combined_bg = bigrams("\n".join(p.get("text", "") for p in pages[:80]))
     degree = {n["id"]: 0 for n in nodes}
     cross_hub = set()
     for e in edges:
@@ -287,8 +484,86 @@ def select_relevant_nodes_and_edges(pages: list[dict], graph: dict, limit: int =
     scored.sort(key=lambda x: x[0], reverse=True)
     picked_nodes = [n for _, n in scored[:limit]]
     picked_ids = {n["id"] for n in picked_nodes}
-    relevant_edges = [e for e in edges if e["source"] in picked_ids or e["target"] in picked_ids][:60]
+    relevant_edges = [e for e in edges if e["source"] in picked_ids or e["target"] in picked_ids][:90]
     return picked_nodes, relevant_edges
+
+
+def format_syl_raw_line(s: dict, covered_syl_map: dict[str, list[str]]) -> str:
+    cov = covered_syl_map.get(s["id"], [])
+    cov_tag = f"已建图: {','.join(cov[:4])}" if cov else "⚠️ 空白"
+    tier_mark = "★重点/下划线" if s["tier"] == "core_underlined" else s["tier"]
+    raw = str(s.get("raw_text") or s.get("title") or "").strip()
+    ul = str(s.get("underlined_span") or "").strip()
+    ul_note = f" 〔★下划线核心: {ul}〕" if ul and ul != raw else ""
+    return f"- `{s['id']}` ({s['chapter']} | {tier_mark} | {cov_tag}): {raw}{ul_note}"
+
+
+def format_full_syllabus_locator(
+    graph: dict,
+    primary_subj: str,
+    syllabus_candidates: list[dict],
+    covered_syl_map: dict[str, list[str]],
+) -> tuple[str, str]:
+    """Build untruncated raw syllabus panorama for primary subject + cross-curriculum ownership map."""
+    all_syl = graph.get("syllabus", [])
+    primary_all = [s for s in all_syl if s.get("subject") == primary_subj]
+    cand_ids = {s["id"] for s in syllabus_candidates}
+
+    if primary_subj == "anatomy" and len(primary_all) > 80:
+        # Summarise all 413 weekly chapters + expand full raw_text for matched chapters & candidates
+        by_chap: dict[str, list[dict]] = defaultdict(list)
+        matched_chaps = {s["chapter"] for s in syllabus_candidates if s.get("subject") == "anatomy"}
+        for s in primary_all:
+            by_chap[s["chapter"]].append(s)
+        chap_summary = []
+        expanded = []
+        for ch, items in by_chap.items():
+            cov_n = sum(1 for it in items if it["id"] in covered_syl_map)
+            mark = "【◀疑似本课】" if ch in matched_chaps else ""
+            chap_summary.append(f"- {ch} ({len(items)}条, 已建{cov_n}条){mark}")
+            if ch in matched_chaps:
+                expanded.extend(items)
+        if not expanded:
+            expanded = [s for s in syllabus_candidates if s.get("subject") == "anatomy"] or primary_all[:45]
+        primary_block = (
+            "#### 解剖学全学期章节概览（未展开章节可按 `syllabus_backbone.json` 检索）：\n"
+            + "\n".join(chap_summary)
+            + "\n\n#### 命中章节完整原始大纲条目（未截断 `raw_text`）：\n"
+            + "\n".join(format_syl_raw_line(s, covered_syl_map) for s in expanded[:60])
+        )
+    else:
+        primary_block = "\n".join(
+            format_syl_raw_line(s, covered_syl_map) for s in primary_all
+        ) or "- （该学科暂无大纲条目）"
+
+    # Cross-curriculum / sibling-discipline ownership map
+    sibling_lines = []
+    other_subjs = [s for s in ("histology", "embryology", "physiology", "pathophys", "pathology", "pharmacology", "biochem", "anatomy") if s != primary_subj]
+    for subj in other_subjs:
+        items = [s for s in all_syl if s.get("subject") == subj]
+        if not items:
+            continue
+        prof = SUBJECT_LOGIC_PROFILES.get(subj, {"label": subj})
+        cov_cnt = sum(1 for it in items if it["id"] in covered_syl_map)
+        # Highlight chapter overview + candidate/already-covered anchors in sibling subjects
+        by_ch: dict[str, list[dict]] = defaultdict(list)
+        for it in items:
+            by_ch[it["chapter"]].append(it)
+        ch_tags = [
+            f"{ch}({sum(1 for x in its if x['id'] in covered_syl_map)}/{len(its)})"
+            for ch, its in by_ch.items()
+        ]
+        sibling_lines.append(f"**{prof['label']} (`{subj}`) — 共 {len(items)} 条（已建 {cov_cnt} 条）**：{' · '.join(ch_tags[:12])}")
+        # Expand specific sibling items matched by content or already linked in graph
+        highlights = [
+            it for it in items
+            if it["id"] in cand_ids or it["id"] in covered_syl_map
+        ][:10]
+        for h in highlights:
+            sibling_lines.append("  " + format_syl_raw_line(h, covered_syl_map))
+
+    cross_block = "\n".join(sibling_lines) or "- （无他科大纲条目）"
+    return primary_block, cross_block
 
 
 def build_prompt_text(
@@ -296,9 +571,11 @@ def build_prompt_text(
     pages: list[dict],
     syllabus_candidates: list[dict],
     graph_or_nodes: dict | list[dict],
+    primary_subject: str | None = None,
+    curriculum_name: str | None = None,
 ) -> str:
     graph = graph_or_nodes if isinstance(graph_or_nodes, dict) else {"nodes": graph_or_nodes, "edges": [], "threads": []}
-    picked_nodes, relevant_edges = select_relevant_nodes_and_edges(pages, graph, limit=80)
+    picked_nodes, relevant_edges = select_relevant_nodes_and_edges(pages, graph, limit=120)
 
     node_deg = {}
     for e in graph.get("edges", []):
@@ -315,47 +592,26 @@ def build_prompt_text(
     )
     existing_edges = "\n".join(
         f"- `{e['id']}`: `{e['source']}` --[{e['relation_type']}]--> `{e['target']}` ({e['bridge_text'][:70]}...)"
-        for e in relevant_edges[:35]
+        for e in relevant_edges[:45]
     )
-    detected_subjs = detect_slide_subjects(pages, syllabus_candidates, slide_name)
+
+    if primary_subject and primary_subject in SUBJECT_LOGIC_PROFILES:
+        heuristic_subjs = [s for s in detect_slide_subjects(pages, syllabus_candidates, slide_name) if s != primary_subject]
+        detected_subjs = [primary_subject] + heuristic_subjs[:2]
+        subject_source = "显式指定 / 课程清单锁定"
+    else:
+        detected_subjs = detect_slide_subjects(pages, syllabus_candidates, slide_name)
+        subject_source = "启发式回退识别"
     primary_subj = detected_subjs[0]
 
-    # Map existing coverage of syllabus refs
     covered_syl_map: dict[str, list[str]] = {}
     for n in graph.get("nodes", []):
         for ref in n.get("syllabus_refs", []):
             covered_syl_map.setdefault(ref, []).append(n["id"])
 
-    tier_rank = {"core_underlined": 4, "master": 3, "familiar": 2, "understand": 1}
-    primary_syl = sorted(
-        [s for s in syllabus_candidates if s["subject"] == primary_subj],
-        key=lambda x: tier_rank.get(x["tier"], 1),
-        reverse=True,
+    primary_syl_block, cross_syl_block = format_full_syllabus_locator(
+        graph, primary_subj, syllabus_candidates, covered_syl_map
     )
-    cross_syl = sorted(
-        [s for s in syllabus_candidates if s["subject"] != primary_subj],
-        key=lambda x: tier_rank.get(x["tier"], 1),
-        reverse=True,
-    )
-
-    def fmt_syl(s: dict) -> str:
-        cov = covered_syl_map.get(s["id"], [])
-        cov_tag = f"已建图: {','.join(cov[:3])}" if cov else "⚠️ 尚属空白(优先覆盖)"
-        tier_mark = "★重点/下划线" if s["tier"] == "core_underlined" else s["tier"]
-        return f"- `{s['id']}` ({s['subject']} | {tier_mark} | {cov_tag}): {s['title']}"
-
-    primary_syl_lines = "\n".join(fmt_syl(s) for s in primary_syl) or "- （本课未匹配到主学科大纲条目，请检查 syllabus_backbone.json）"
-    cross_syl_lines = "\n".join(fmt_syl(s) for s in cross_syl) or "- （无明显跨学科命中大纲条目）"
-
-    # Surface remaining high-priority syllabus gaps in primary subject
-    candidate_ids = {s["id"] for s in syllabus_candidates}
-    uncovered_gaps = [
-        s for s in graph.get("syllabus", [])
-        if s["subject"] == primary_subj and s["id"] not in covered_syl_map and s["id"] not in candidate_ids and s["tier"] in {"core_underlined", "master"}
-    ][:10]
-    gap_lines = "\n".join(
-        f"- `{s['id']}` ({s['tier']}): {s['title']}" for s in uncovered_gaps
-    ) or "- （暂无额外空白条目）"
 
     playbook_blocks = []
     for subj in detected_subjs:
@@ -369,99 +625,105 @@ def build_prompt_text(
                 f"- `bridge_text` 写法：{prof['bridge_rule']}"
             )
     playbook_text = "\n\n".join(playbook_blocks)
-    pages_txt = "\n".join(f"### Page/Slide {p['page']}\n{p['text']}" for p in pages)
 
-    return f"""你是复旦基础医学跨学科知识图谱的**逻辑架构师与编译器**。
+    skeleton_lines = []
+    page_blocks = []
+    for p in pages:
+        pg = p["page"]
+        chars = p.get("char_count", len(p.get("text", "")))
+        imgs = p.get("embedded_images", 0)
+        reasons = p.get("vision_reasons", [])
+        vfiles = p.get("visual_files", [])
+        v_flag = f"🖼️ MUST_VIEW ({', '.join(reasons)})" if p.get("needs_vision") else "文本页"
+        skeleton_lines.append(f"- P{pg:02d} | {chars}字 | {imgs}图 | {v_flag} | {p.get('heading', '')}")
+
+        header_meta = f" [{chars}字 | {imgs}图 | {v_flag}]" if (p.get("needs_vision") or imgs or chars < 45) else ""
+        vis_note = ""
+        if vfiles:
+            vis_note = "\n" + "\n".join(f"📷 视觉页/内嵌图（务必用 read_file 亲眼读取）: `{vf}`" for vf in vfiles)
+        body_txt = p.get("text", "").strip() or "[⚠️ 此页无可用纯文本或极稀疏，必须结合视觉原图读取内容！]"
+        page_blocks.append(f"### Page/Slide {pg}{header_meta}{vis_note}\n{body_txt}")
+
+    skeleton_txt = "\n".join(skeleton_lines)
+    pages_txt = "\n".join(page_blocks)
+    cur_label = curriculum_name or "按大纲与文件属性定位"
+
+    return f"""你是复旦基础医学跨学科知识图谱的**逻辑架构师与多模态编译器**。
 严禁直接按 PPT 幻灯片目录逐页转写成“内容清单卡”，也**严禁用同一种模板去硬套所有医学学科**！
-你必须**以复旦教学大纲为最高指挥棒**，先剪枝非考纲冗余、逐条锚定必考条目，再依据子学科专属认知语法完成逻辑拆解，最后输出严格合法的增量 JSON（delta_graph.json）。
+你必须以**完整原始教学大纲**定位坐标与学科所有权边界，结合**图文双通道精读（文字 + `read_file` 看机理原图）**忠实还原教授的课堂因果逻辑，最后输出严格合法的增量 JSON（delta_graph.json）与保留的机制原图资产。
 
-## 课件来源
-`{slide_name}`
+## 课件元信息
+- 文件：`{slide_name}`
+- 主学科：`{primary_subj}`（来源：{subject_source}）
+- 所属课程体系：{cur_label}
 
-## 教学大纲指挥表（权重与必考覆盖门控）
-### 1. 本课主学科命中的大纲条目（`★重点/下划线` 与 `master` 必须零遗漏承接；`understand` 降级折叠；未入纲冗余科研拓展请剪枝）
-{primary_syl_lines}
+## Phase 0.5 · 原始教学大纲全量定位图（未经截断 `raw_text` · 只做定位与所有权边界，禁止先入为主硬套）
+### 1. 本课主学科 `{primary_subj}` 全量大纲（`★重点/下划线` 与 `master` 必须零遗漏承接；`understand` 折叠；超纲故事剪枝）
+{primary_syl_block}
 
-### 2. 跨学科关联大纲线索（用于牵引 `prerequisite` / `structural_basis` / `cross_discipline` 跨科连边）
-{cross_syl_lines}
+### 2. 他科 / 跨课程大纲所有权边界（避免重复打补丁；若本课件顺带提及他科内容，优先复用或留跨学科桥接边）
+{cross_syl_block}
 
-### 3. 主学科其余尚属空白的核心大纲点（检查本课件是否顺带讲到）
-{gap_lines}
-
-## 自动识别的子学科逻辑拆解语法（本次构建必须严格遵循）
+## Sub-Discipline 认知语法（本次构建必须严格遵循）
 {playbook_text}
 
-## 已有图谱逻辑主线（优先考虑能否用 `thread_extensions` 嫁接延伸，而非孤立建链）
+## 已有图谱逻辑主线（优先评估 `thread_extensions` 嫁接延伸）
 {existing_threads or "- （暂无已有主线）"}
 
-## 高相关已有概念节点（必须优先复用已有 ID，并为其新概念寻找先修/结构地基边！）
+## 已有概念节点全览（按相关度与枢纽度排序；同概念严禁重复建卡）
 {existing_index or "- （暂无已有节点）"}
 
-## 周边已有逻辑边参考（避免重复建边，主动补齐跨学科缺口）
+## 已有逻辑边参考
 {existing_edges or "- （暂无已有边）"}
 
-## 逻辑拆解硬性准则
-1. **打破 PPT 页序、先找核心矛盾**：围绕这节课要解释的 1–3 个核心医学问题重排节点，剔除行政通知/冗余举例；边缘历史或罕见拓展标为 `understand`。
-2. **单卡单步认知负荷**：每卡只讲 1 个因果推进/结构格局/易混对偶（30–45秒可读完）。严禁把“病因+分类+机制+症状”全塞进一张大杂烩卡片。
-3. **补漏锚点刚性要求**：每个新 `core_underlined` / `master` 机制或病理节点，尽量配置至少 1 条入向 `prerequisite` 或 `structural_basis` 边连向其解剖/组胚/生理/生化基础节点（支持手机端点击 🔴 时自动触发诊断补漏岔路）。
-4. **`bridge_text` 因果检验**：每条边的 `bridge_text` 必须用 1 句话写清**“因为 `source` 发生了什么改变，所以逻辑上必然推导出/依赖于 `target`”**；禁止出现“接下来学习/本节还介绍了”等空洞衔接词。
+## Phase 1 · 本分块逐页骨架与视觉待检清单
+{skeleton_txt}
+
+## 逻辑拆解与高阶测试硬性准则（V2）
+1. **看图读拓扑，严禁猜破碎文字**：凡标有 `🖼️ MUST_VIEW` 或含机理流程图/曲线/对比表图/显微照片的页，必须用 `read_file` 直接看图；核心机理总图/曲线/典型显微图用 `ingest_slides.py --mode crop-asset` 裁出保存至 `data/assets/*.webp` 并挂载 `diagram_assets`。
+2. **打破 PPT 页序、单卡单步认知负荷**：每卡聚焦 1 个因果推进/结构格局/易混对偶（30–45秒读完）。`structure_cloze` $\\le 5$ bullets，`mechanism_flow` 2–4 steps。严禁标题超过 26 字或带 `...`/`…`。
+3. **可选高阶反转诊断层**：除 `comparison_matrix` 必带 `quiz` 外，建议为核心 `mechanism_flow` / `structure_cloze` 选配 1 道机制反推或临床断点题 `quiz`（可指定 `remedial_node_id` 指向前修根因，答错 🔴 时精准直达回溯）。
+4. **诊断补漏锚点与 `bridge_text` 因果检验**：重要新节点配入向 `prerequisite` / `structural_basis`（若需开荒自动前置，设 `strength >= 0.90`；🔴 诊断回溯至少 `>= 0.85`）；`ordered_steps` 相邻边方向必须 `prev -> next`（仅 `contrast_with` 允许双向）。
 
 ## 严格输出格式要求
-只输出一个合法 JSON 对象（可用 ```json 包裹），字段如下：
+只输出一个合法 JSON 对象（可用 ```json 包裹），可选新增 `diagram_assets` 与通用 `quiz`：
 ```json
 {{
   "nodes": [
     {{
       "id": "subject_snake_case_id",
-      "title": "精炼概念标题（<=22字）",
+      "title": "精炼概念标题（<=22字，禁用省略号）",
       "subject": "anatomy|histology|embryology|physiology|biochem|pathophys|pathology|pharmacology",
       "syllabus_refs": ["syl_xxx_001"],
       "syllabus_tier": "core_underlined|master|familiar|understand",
       "node_type": "mechanism_flow|structure_cloze|comparison_matrix",
-      "anchor_summary": "40字以内一句话核心定位，供断点重连时10秒回顾",
+      "anchor_summary": "40字以内一句话核心定位",
       "source_slides": ["{slide_name}#P1-P5"],
+      "diagram_assets": [{{"path": "assets/example_pathway.webp", "caption": "原图说明", "source_page": 21}}],
       "payload": {{}}
     }}
   ],
   "edges": [
     {{
       "id": "e_src_to_dst",
-      "source": "源节点ID（可为已有节点或本次新增节点）",
-      "target": "目标节点ID（可为已有节点或本次新增节点）",
+      "source": "源节点ID",
+      "target": "目标节点ID",
       "relation_type": "causal_next|prerequisite|structural_basis|clinical_manifestation|contrast_with|cross_discipline",
       "strength": 0.9,
-      "bridge_text": "【必填】用1句话显式说明为什么从source推演/关联到target，保证碎片切换不断逻辑"
+      "bridge_text": "【必填】用1句话显式说明因果/结构/跨学科联系"
     }}
   ],
-  "threads": [
-    {{
-      "id": "thread_unique_id",
-      "title": "本课件主干逻辑线标题",
-      "description": "一句话说明主线脉络",
-      "subject_scope": ["pathology", "physiology"],
-      "ordered_steps": [
-        {{"node_id": "节点1", "incoming_edge_id": null}},
-        {{"node_id": "节点2", "incoming_edge_id": "e_1_to_2"}}
-      ]
-    }}
-  ],
-  "thread_extensions": [
-    {{
-      "thread_id": "已有thread_id（可选：将新节点续接到已有主线末端）",
-      "append_steps": [
-        {{"node_id": "新节点ID", "incoming_edge_id": "连接旧末节点与新节点的边ID"}}
-      ]
-    }}
-  ]
+  "threads": [],
+  "thread_extensions": []
 }}
 ```
 
 三种 `node_type` 的 `payload` 规范：
-1. `mechanism_flow`（生理/病生/机制推演）：`{{"steps": [{{"cue": "问题/触发点（引导预测而非只写标题）", "reveal": "推演结论", "mechanism_tag": "标签"}}], "takeaway": "一句话总结"}}`（steps 建议 2–4 步）
-2. `structure_cloze`（解剖/组胚/结构要点）：`{{"bullets": ["要点含{{{{关键胶囊词}}}}"], "trap_note": "易错陷阱"}}`（bullets 建议 <= 5 条，只遮罩核心枢纽词）
-3. `comparison_matrix`（易混鉴别对比）：`{{"columns": ["维度","甲","乙"], "rows": [["...","...","..."]], "quiz": {{"stem":"考察因果辨析的单选题干","options":["A","B","C","D"],"answer_idx":0,"explain":"解析"}}}}`
+1. `mechanism_flow`：`{{"steps": [{{"cue": "预测问题", "reveal": "推演结论", "mechanism_tag": "标签"}}], "takeaway": "一句话总结", "quiz": "(可选高阶反转题)"}}`
+2. `structure_cloze`：`{{"bullets": ["含{{{{核心词}}}}"], "trap_note": "易错陷阱", "quiz": "(可选功能/临床反转题)"}}`
+3. `comparison_matrix`：`{{"columns": [...], "rows": [[...]], "quiz": {{"stem": "...", "options": [...], "answer_idx": 0, "explain": "...", "remedial_node_id": "可选前置节点ID"}}}}`
 
-## 原始课件正文
+## 原始课件正文与页面标引
 {pages_txt}
 """
 
@@ -554,6 +816,14 @@ def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = Non
                 if r not in existing_refs:
                     existing.setdefault("syllabus_refs", []).append(r)
                     existing_refs.add(r)
+            existing_assets = {a.get("path") for a in existing.get("diagram_assets", []) if isinstance(a, dict)}
+            for da in inc_node.get("diagram_assets", []) or []:
+                if isinstance(da, dict) and da.get("path") not in existing_assets:
+                    existing.setdefault("diagram_assets", []).append(da)
+                    existing_assets.add(da.get("path"))
+            inc_quiz = (inc_node.get("payload") or {}).get("quiz")
+            if inc_quiz and isinstance(existing.get("payload"), dict) and not existing["payload"].get("quiz"):
+                existing["payload"]["quiz"] = inc_quiz
             stats["nodes_enriched"] += 1
         else:
             new_node = json.loads(json.dumps(inc_node))
@@ -569,11 +839,13 @@ def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = Non
     edge_keys = {(e["source"], e["target"], e["relation_type"]) for e in merged["edges"]}
     edge_ids = {e["id"] for e in merged["edges"]}
     edge_id_remap: dict[str, str] = {}
+    dropped_dangling_edges: list[str] = []
 
     for inc_edge in delta.get("edges", []):
         src = id_remap.get(inc_edge["source"], inc_edge["source"])
         dst = id_remap.get(inc_edge["target"], inc_edge["target"])
         if src == dst or src not in nodes_by_id or dst not in nodes_by_id:
+            dropped_dangling_edges.append(f"{inc_edge.get('id', '?')}: {src}->{dst}")
             continue
         key = (src, dst, inc_edge["relation_type"])
         if key in edge_keys:
@@ -635,14 +907,19 @@ def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = Non
 
     merged["generated_at"] = ts
     validate_graph(merged)
-    stats["logic_audit"] = audit_logic_quality(merged, delta, id_remap)
+    stats["logic_audit"] = audit_logic_quality(merged, delta, id_remap, dropped_dangling_edges)
     return merged, stats
 
 
 FILLER_BRIDGE_PREFIXES = ("接下来", "下面我们", "然后学习", "此外还有", "本节介绍", "下一节")
 
 
-def audit_logic_quality(graph: dict, delta: dict, id_remap: dict[str, str]) -> dict:
+def audit_logic_quality(
+    graph: dict,
+    delta: dict,
+    id_remap: dict[str, str],
+    dropped_dangling_edges: list[str] | None = None,
+) -> dict:
     """Inspect structural logic density and highlight weak/unanchored delta artifacts."""
     nodes_by_id = {n["id"]: n for n in graph.get("nodes", [])}
     in_edges_by_node = {n["id"]: [] for n in graph.get("nodes", [])}
@@ -679,6 +956,12 @@ def audit_logic_quality(graph: dict, delta: dict, id_remap: dict[str, str]) -> d
             warnings.append(f"Weak filler bridge_text on edge {e.get('id')}: '{bt}'")
 
     ungrounded_core = []
+    missing_assets = []
+    title_violations = []
+    quiz_nodes_added = 0
+    remedial_quiz_nodes = 0
+    diagram_assets_added = 0
+    comparison_cards_added = 0
     newly_covered_refs = set()
     pre_covered_refs = set()
     delta_added_ids = {id_remap.get(n["id"], n["id"]) for n in delta.get("nodes", [])}
@@ -691,6 +974,21 @@ def audit_logic_quality(graph: dict, delta: dict, id_remap: dict[str, str]) -> d
         ins = in_edges_by_node.get(nid, [])
         outs = out_edges_by_node.get(nid, [])
         refs = nd.get("syllabus_refs", [])
+        title = nd.get("title", "")
+        if "…" in title or "..." in title or len(title) > 32:
+            title_violations.append(nid)
+        if nd["node_type"] == "comparison_matrix":
+            comparison_cards_added += 1
+        quiz_obj = (nd.get("payload") or {}).get("quiz")
+        if quiz_obj:
+            quiz_nodes_added += 1
+            if quiz_obj.get("remedial_node_id"):
+                remedial_quiz_nodes += 1
+        for da in nd.get("diagram_assets", []) or []:
+            diagram_assets_added += 1
+            rel = str(da.get("path", "")).replace("\\", "/")
+            if not (DATA_DIR / rel).exists():
+                missing_assets.append(f"{nid}:{rel}")
         for r in refs:
             if r not in pre_covered_refs:
                 newly_covered_refs.add(r)
@@ -713,6 +1011,12 @@ def audit_logic_quality(graph: dict, delta: dict, id_remap: dict[str, str]) -> d
         warnings.append(f"Core nodes missing incoming logic foundation: {unanchored_core}")
     if ungrounded_core:
         warnings.append(f"Core/Master nodes missing syllabus_refs grounding: {ungrounded_core}")
+    if missing_assets:
+        warnings.append(f"Missing diagram_assets files under data/: {missing_assets}")
+    if title_violations:
+        warnings.append(f"Node title exceeds 32 chars or contains ellipsis (.../…): {title_violations}")
+    if dropped_dangling_edges:
+        warnings.append(f"Dropped dangling or self-loop edges referencing missing node IDs: {dropped_dangling_edges}")
 
     # Discipline-specific logic grammar checks
     added_subjects = {nodes_by_id[nid]["subject"] for nid in added_node_ids}
@@ -731,6 +1035,11 @@ def audit_logic_quality(graph: dict, delta: dict, id_remap: dict[str, str]) -> d
         "cross_discipline_edges": cross_discipline_edges,
         "rescue_anchors": rescue_anchors,
         "contrast_edges": contrast_edges,
+        "comparison_cards_added": comparison_cards_added,
+        "quiz_nodes_added": quiz_nodes_added,
+        "remedial_quiz_nodes": remedial_quiz_nodes,
+        "diagram_assets_added": diagram_assets_added,
+        "dropped_dangling_edges": len(dropped_dangling_edges or []),
         "newly_covered_syllabus_refs": sorted(newly_covered_refs),
         "orphan_count": len(orphan_nodes),
         "warnings": warnings,
@@ -748,12 +1057,24 @@ def load_graph(graph_path: Path) -> dict:
 def main():
     parser = argparse.ArgumentParser(description="Compile slides into MedGraph Flow delta JSON and merge safely.")
     parser.add_argument("--slide", help="Path to courseware (.pptx/.ppt/.pdf/.docx)")
-    parser.add_argument("--mode", choices=["extract-context", "prompt-pack", "api", "merge"], required=True)
+    parser.add_argument("--subject", choices=sorted(SUBJECTS), help="Explicit primary subject override (skips fragile auto-guessing)")
+    parser.add_argument("--mode", choices=["extract-context", "prompt-pack", "api", "merge", "crop-asset"], required=True)
+    parser.add_argument("--render-visuals", action="store_true", help="Rasterize visual/diagram PDF pages or dump PPTX images into inbox/visuals/")
     parser.add_argument("--delta", help="Path to delta_graph.json (for --mode merge or api output)")
+    parser.add_argument("--image", help="Source image path for --mode crop-asset")
+    parser.add_argument("--box", default="full", help="Normalized crop box 'x1,y1,x2,y2' (0..1) or 'full' for --mode crop-asset")
+    parser.add_argument("--out-name", help="Output filename under data/assets/ for --mode crop-asset")
     parser.add_argument("--graph", default=str(DATA_DIR / "graph.json"), help="Target graph.json path")
     parser.add_argument("--chunk-size", type=int, default=25, help="Max slides per prompt pack chunk")
     parser.add_argument("--out-dir", default=str(INBOX_DIR), help="Directory for prompt packs / intermediate outputs")
     args = parser.parse_args()
+
+    if args.mode == "crop-asset":
+        if not args.image or not args.out_name:
+            raise ValueError("--mode crop-asset requires --image <path> and --out-name <filename.webp>")
+        info = crop_asset_image(Path(args.image), args.out_name, args.box)
+        print(f"Cropped asset -> {info['rel_path']} ({info['width']}x{info['height']}, {info['size_kb']} KB) at {info['abs_path']}")
+        return
 
     graph_path = Path(args.graph)
     out_dir = Path(args.out_dir)
@@ -764,6 +1085,7 @@ def main():
         if not args.delta:
             raise ValueError("--mode merge requires --delta <delta_graph.json>")
         delta = json.loads(Path(args.delta).read_text(encoding="utf-8"))
+        # Support enriching existing nodes with new quiz or diagram_assets safely
         merged, stats = merge_delta_into_graph(graph, delta)
         if graph_path.exists():
             shutil.copy2(graph_path, graph_path.with_suffix(".json.bak"))
@@ -774,33 +1096,51 @@ def main():
     if not args.slide:
         raise ValueError(f"--mode {args.mode} requires --slide <path>")
     slide_path = Path(args.slide)
-    pages = extract_courseware(slide_path)
+    meta = resolve_lecture_metadata(slide_path, args.subject)
+    visual_dir = out_dir / "visuals" / slide_path.stem
+    pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=args.render_visuals)
     if not pages:
-        raise RuntimeError(f"No extractable text found in {slide_path} (may be scanned images only).")
-    syl_candidates = match_syllabus_candidates(pages, graph.get("syllabus", []))
+        raise RuntimeError(f"No slides/pages found in {slide_path}.")
+    primary_subj = meta["primary_subject"]
+    syl_candidates = match_syllabus_candidates(pages, graph.get("syllabus", []), top_k=24, primary_subject=primary_subj)
 
     if args.mode in {"extract-context", "prompt-pack"}:
         chunks = [pages[i : i + args.chunk_size] for i in range(0, len(pages), args.chunk_size)]
         generated_files = []
         suffix_tag = "context" if args.mode == "extract-context" else "prompt_pack"
         for idx, chunk in enumerate(chunks, 1):
-            prompt = build_prompt_text(slide_path.name, chunk, syl_candidates, graph)
+            prompt = build_prompt_text(
+                slide_path.name,
+                chunk,
+                syl_candidates,
+                graph,
+                primary_subject=primary_subj,
+                curriculum_name=meta.get("curriculum_name"),
+            )
             out_file = out_dir / f"{slide_path.stem}_part{idx}_{suffix_tag}.md"
             out_file.write_text(prompt, encoding="utf-8")
             generated_files.append(str(out_file))
-        print(f"Extracted {len(pages)} pages -> {len(generated_files)} {suffix_tag} file(s):")
+        vis_pages = [p["page"] for p in pages if p.get("needs_vision")]
+        print(
+            f"Extracted {len(pages)} pages (subject={primary_subj or 'auto'}, vision_flagged={len(vis_pages)}) "
+            f"-> {len(generated_files)} {suffix_tag} file(s):"
+        )
         for f in generated_files:
             print(f"  {f}")
-        if args.mode == "prompt-pack":
-            print("下一步：把上述 prompt_pack.md 发给任意免费 AI 生成 delta.json，再执行：")
-            print(f'  python "{Path(__file__).name}" --mode merge --delta delta.json')
         return
 
     if args.mode == "api":
         chunks = [pages[i : i + args.chunk_size] for i in range(0, len(pages), args.chunk_size)]
         combined_delta = {"nodes": [], "edges": [], "threads": []}
         for idx, chunk in enumerate(chunks, 1):
-            prompt = build_prompt_text(slide_path.name, chunk, syl_candidates, graph)
+            prompt = build_prompt_text(
+                slide_path.name,
+                chunk,
+                syl_candidates,
+                graph,
+                primary_subject=primary_subj,
+                curriculum_name=meta.get("curriculum_name"),
+            )
             raw = call_llm_api(prompt)
             delta_part = extract_json_block(raw)
             combined_delta["nodes"].extend(delta_part.get("nodes", []))

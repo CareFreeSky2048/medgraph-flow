@@ -12,10 +12,15 @@ sys.path.insert(0, str(APP_DIR))
 
 from ingest_slides import (  # noqa: E402
     build_prompt_text,
+    crop_asset_image,
     extract_courseware,
+    extract_pdf,
     match_syllabus_candidates,
     merge_delta_into_graph,
+    resolve_lecture_metadata,
 )
+from PIL import Image  # noqa: E402
+from pypdf import PdfWriter  # noqa: E402
 from schema import validate_graph  # noqa: E402
 
 
@@ -175,7 +180,86 @@ def main():
     assert any("Discipline logic gap" in w for w in bad_stats["logic_audit"]["warnings"])
     assert len(bad_stats["logic_audit"]["warnings"]) >= 3
 
-    print("PASS test_ingest: logic-first context, thread grafting, logic audit, and lossless merge verified.")
+    # 4. V2 manifest lookup, blank-page preservation + visual flagging, full raw syllabus, and crop/quiz schema
+    ct_meta = resolve_lecture_metadata(Path(r"C:\Users\32461\Desktop\结缔组织（基础医学分论，2025秋）V.pdf"))
+    assert ct_meta["primary_subject"] == "histology" and ct_meta["manifest_hit"]
+    fever_meta = resolve_lecture_metadata(Path(r"C:\Users\32461\Desktop\发热20251030.pdf"))
+    assert fever_meta["primary_subject"] == "pathophys" and fever_meta["manifest_hit"]
+
+    with tempfile.TemporaryDirectory() as tmp2:
+        pdf_path = Path(tmp2) / "blank_vis_test.pdf"
+        w = PdfWriter()
+        w.add_blank_page(width=400, height=300)
+        with pdf_path.open("wb") as f:
+            w.write(f)
+        pdf_pages = extract_pdf(pdf_path)
+        assert len(pdf_pages) == 1, "Blank/image-only PDF pages must NOT be silently dropped"
+        assert pdf_pages[0]["needs_vision"] and "sparse_or_image_only" in pdf_pages[0]["vision_reasons"]
+
+        # Test crop_asset_image & clean cleanup inside ASSETS_DIR
+        src_img = Path(tmp2) / "raw_slide.png"
+        Image.new("RGB", (800, 600), color=(240, 248, 255)).save(src_img)
+        cropped = crop_asset_image(src_img, "__test_v2_crop.webp", "0.1,0.1,0.9,0.9")
+        try:
+            assert cropped["rel_path"] == "assets/__test_v2_crop.webp"
+            assert Path(cropped["abs_path"]).exists()
+            quiz_delta = {
+                "nodes": [
+                    {
+                        "id": "patho_test_v2_quiz_asset",
+                        "title": "细胞水肿机制测试卡",
+                        "subject": "pathology",
+                        "syllabus_refs": ["syl_pathology_002"],
+                        "syllabus_tier": "core_underlined",
+                        "node_type": "mechanism_flow",
+                        "anchor_summary": "ATP减少致钠泵衰竭从而引起水钠潴留。",
+                        "source_slides": ["test#P1"],
+                        "diagram_assets": [{"path": "assets/__test_v2_crop.webp", "caption": "测试通路图", "source_page": 1}],
+                        "payload": {
+                            "steps": [{"cue": "ATP不足时首先受阻的是？", "reveal": "Na+-K+泵衰竭", "mechanism_tag": "泵衰竭"},
+                                      {"cue": "胞内Na+上升导致？", "reveal": "水随渗透压进入引起颗粒变性", "mechanism_tag": "水肿"}],
+                            "takeaway": "能量障碍直接引发膜泵失灵与水钠潴留。",
+                            "quiz": {
+                                "stem": "氰化物抑制氧化磷酸化后早期胞内改变是？",
+                                "options": ["细胞内Na+和水量↑", "K+内流骤增"],
+                                "answer_idx": 0,
+                                "explain": "ATP生成中断令钠泵停摆。",
+                                "remedial_node_id": "physio_membrane_transport",
+                            },
+                        },
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "e_transport_to_v2_quiz",
+                        "source": "physio_membrane_transport",
+                        "target": "patho_test_v2_quiz_asset",
+                        "relation_type": "prerequisite",
+                        "strength": 0.92,
+                        "bridge_text": "Na+-K+泵耗ATP逆梯度泵出Na+维持细胞容积，其崩溃直接造成细胞水肿。",
+                    }
+                ],
+                "threads": [],
+            }
+            _, v2_stats = merge_delta_into_graph(graph, quiz_delta)
+            assert v2_stats["logic_audit"]["quiz_nodes_added"] == 1
+            assert v2_stats["logic_audit"]["diagram_assets_added"] == 1
+            assert v2_stats["logic_audit"]["warnings"] == []
+        finally:
+            Path(cropped["abs_path"]).unlink(missing_ok=True)
+
+    full_prompt = build_prompt_text(
+        "发热20251030.pdf",
+        [{"page": 1, "text": "发热机制", "char_count": 4, "embedded_images": 0, "needs_vision": True, "vision_reasons": ["sparse_or_image_only"], "heading": "发热"}],
+        [],
+        graph,
+        primary_subject="pathophys",
+        curriculum_name="基础医学分论（整合课程）",
+    )
+    assert "体温调节的方式及发热的时相" in full_prompt, "Full raw_text must not be truncated in V2 prompt"
+    assert "Phase 0.5" in full_prompt and "crop-asset" in full_prompt
+
+    print("PASS test_ingest: logic-first context, thread grafting, V2 visual/syllabus/quiz audit, and lossless merge verified.")
 
 
 if __name__ == "__main__":

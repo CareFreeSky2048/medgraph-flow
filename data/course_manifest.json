@@ -1,0 +1,398 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-11-16T21:15:00+08:00",
+  "ordering_policy": "The slide list below preserves user-declared discipline classification; canonical teaching sequence follows the 3 official syllabi below rather than raw filename order.",
+  "curricula": [
+    {
+      "id": "integrated_basic_medicine",
+      "name": "基础医学分论（整合课程）",
+      "syllabus_path": "C:\\Users\\32461\\Desktop\\《基础医学分论》详细教学大纲 20251221.docx",
+      "subjects": ["histology", "embryology", "physiology", "pathophys", "pathology", "pharmacology"],
+      "cross_link_note": "整合课程内部优先跨学科强互连；暂无药理学课件，可在病生/病理节点预留药理学大纲挂接钩子。"
+    },
+    {
+      "id": "systematic_anatomy",
+      "name": "系统解剖学（独立课程）",
+      "syllabus_path": "C:\\Users\\32461\\Desktop\\系解教学大纲.pdf",
+      "subjects": ["anatomy"],
+      "cross_link_note": "独立课程，按系解教学大纲周次主序推进，并与整合课程组胚/生理/病理做结构地基跨连接。"
+    },
+    {
+      "id": "biochemistry",
+      "name": "生物化学（独立课程）",
+      "syllabus_path": "C:\\Users\\32461\\Desktop\\生化教学大纲.pdf",
+      "subjects": ["biochem"],
+      "cross_link_note": "独立课程，按生化教学大纲章节主序推进，并与整合课程生理/病生/病理做代谢机制跨连接。"
+    }
+  ],
+  "lectures": [
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "histology",
+      "sub_subjects": ["histology"],
+      "path": "C:\\Users\\32461\\Desktop\\绪论 上皮组织 刘琼_20260907基础医学分论（组胚）.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "histology",
+      "sub_subjects": ["histology"],
+      "path": "C:\\Users\\32461\\Desktop\\结缔组织（基础医学分论，2025秋）V.pdf",
+      "format": ".pdf",
+      "status": "ingested_v2"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "histology",
+      "sub_subjects": ["histology"],
+      "path": "C:\\Users\\32461\\Desktop\\202609154软骨与骨（基础医学分论）.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "histology",
+      "sub_subjects": ["histology"],
+      "path": "C:\\Users\\32461\\Desktop\\2026-基础医学分论-血液、肌组织.pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "histology",
+      "sub_subjects": ["histology"],
+      "path": "C:\\Users\\32461\\Desktop\\第五讲 神经组织（基础医学，2023）.pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "histology",
+      "sub_subjects": ["histology"],
+      "path": "C:\\Users\\32461\\Desktop\\20260928眼耳皮肤（基础医学分论）.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "histology",
+      "sub_subjects": ["embryology", "histology"],
+      "path": "C:\\Users\\32461\\Desktop\\胚胎学总论（基础医学分论，2025）(1).pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "physiology",
+      "sub_subjects": ["physiology"],
+      "path": "C:\\Users\\32461\\Desktop\\基础医学分论-1-绪论机体功能的调节20261014.pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "physiology",
+      "sub_subjects": ["physiology"],
+      "path": "C:\\Users\\32461\\Desktop\\细胞跨膜物质转运-基础医学分论2026-chyh.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "physiology",
+      "sub_subjects": ["physiology"],
+      "path": "C:\\Users\\32461\\Desktop\\生物电 陈咏华_细胞生物电活动-基础医学分论2026-chyh.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "physiology",
+      "sub_subjects": ["physiology"],
+      "path": "C:\\Users\\32461\\Desktop\\肌细胞的收缩-基础医学分论2026-chyh.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "physiology",
+      "sub_subjects": ["physiology"],
+      "path": "C:\\Users\\32461\\Desktop\\能量代谢与体温-基础医学分论2026-chyh.ppt",
+      "format": ".ppt",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathophys",
+      "sub_subjects": ["pathophys"],
+      "path": "C:\\Users\\32461\\Desktop\\疾病概论 -2026.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathophys",
+      "sub_subjects": ["pathophys"],
+      "path": "C:\\Users\\32461\\Desktop\\发热20251030.pdf",
+      "format": ".pdf",
+      "status": "ingested_v2"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathophys",
+      "sub_subjects": ["pathophys"],
+      "path": "C:\\Users\\32461\\Desktop\\应激-20251029.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathology",
+      "sub_subjects": ["pathology"],
+      "path": "C:\\Users\\32461\\Desktop\\细胞组织的适应和损伤 曾文姣 （基医4学时）2026秋 更新.pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathology",
+      "sub_subjects": ["pathology"],
+      "path": "C:\\Users\\32461\\Desktop\\基础医学概论 修复 基础 20241103上传.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathology",
+      "sub_subjects": ["pathology"],
+      "path": "C:\\Users\\32461\\Desktop\\充血和淤血（基医 2学时）2026秋.pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathology",
+      "sub_subjects": ["pathology"],
+      "path": "C:\\Users\\32461\\Desktop\\基础医学概论 炎症 基础 20241103上传.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "integrated_basic_medicine",
+      "subject": "pathology",
+      "sub_subjects": ["pathology"],
+      "path": "C:\\Users\\32461\\Desktop\\基础医学分论（概论）-肿瘤-刘秀萍-定稿2025.11.24.pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\人体解剖学_第一章_基础医学班 20260906.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\260910 基础医学班 躯干骨及连接.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\03 基础医学 颅骨及其连结 0913.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\04 基础医学 上肢骨及骨联接 260915.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\05 基础医学 下肢骨及其连结 20260920.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\06 基础医学 肌学总论 头颈肌 0922.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\07 基础医学 肌学总论 头颈 躯干肌.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\07 基础医学-运动系统 肌学 上下肢 李倩.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\08 消化系统 李倩.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\10 解剖与形功 呼吸系统 李倩.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\11 12 解剖与形功-泌尿生殖系统 李倩.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\13 14 基础医学 心脏.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\15 脉管学总论-动脉 李倩.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\16 基础医学 静脉 淋巴.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\感觉器官-视器.ppt",
+      "format": ".ppt",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\感觉器官-位听觉.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "systematic_anatomy",
+      "subject": "anatomy",
+      "sub_subjects": ["anatomy"],
+      "path": "C:\\Users\\32461\\Desktop\\神经系统-总论脊神经-1.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\生物化学-第一章 氨基酸与蛋白质-1.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\生物化学-第一章 氨基酸与蛋白质-2.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\生物化学-第一章 氨基酸与蛋白质-3.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\第2章酶-20260915.pptx",
+      "format": ".pptx",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\糖代谢2026.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\脂质代谢-2026.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\2026-基医-氨基酸代谢-1.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\2026-基医-氨基酸代谢-2.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\2026-基医-氨基酸代谢-3.pdf",
+      "format": ".pdf",
+      "status": "pending"
+    }
+  ]
+}
