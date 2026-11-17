@@ -113,16 +113,23 @@ def _finalize_slide_pages(raw_pages: list[dict], visual_dir: Path | None = None,
         group_count = rec.get("_group_count", 0)
         short_lines = sum(1 for ln in lines if len(ln) <= 6)
         short_ratio = (short_lines / len(lines)) if lines else 0.0
+        label_lines = sum(1 for ln in lines if len(ln) <= 16 and not re.search(r"[。！？；.!?;]", ln))
+        label_ratio = (label_lines / len(lines)) if lines else 0.0
+
+        has_vector = any(img.get("is_vector") for img in sig_imgs)
 
         reasons = []
         if len(text) < 45:
             reasons.append("sparse_or_image_only")
         if img_count > 0:
             reasons.append(f"embedded_images:{img_count}")
-        if group_count >= 2:
-            reasons.append(f"grouped_diagrams:{group_count}")
-        if len(lines) >= 10 and short_ratio >= 0.45:
-            reasons.append(f"fragmented_diagram:{short_ratio:.0%}")
+        if has_vector:
+            reasons.append("wmf_vector_media")
+        if group_count >= 2 or rec.get("_complex_group"):
+            reasons.append(f"grouped_diagrams:{max(group_count, 1)}")
+        if len(lines) >= 10 and (short_ratio >= 0.45 or (label_lines >= 10 and label_ratio >= 0.60)):
+            diag_pct = max(short_ratio, label_ratio)
+            reasons.append(f"fragmented_diagram:{diag_pct:.0%}")
 
         img_paths = []
         if visual_dir is not None and sig_imgs:
@@ -157,9 +164,15 @@ def extract_pptx(path: Path, visual_dir: Path | None = None) -> list[dict]:
         chunks = []
         sig_images = []
         group_count = 0
+        complex_group = False
         for shape in slide.shapes:
             if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
                 group_count += 1
+                try:
+                    if len(list(shape.shapes)) >= 3:
+                        complex_group = True
+                except Exception:
+                    pass
         for shape in _iter_pptx_shapes(slide.shapes):
             if shape.has_text_frame:
                 txt = "\n".join(p.text.strip() for p in shape.text_frame.paragraphs if p.text.strip())
@@ -176,12 +189,15 @@ def extract_pptx(path: Path, visual_dir: Path | None = None) -> list[dict]:
             elif shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
                 try:
                     img = shape.image
+                    img_ext = (img.ext or "png").lower()
+                    is_vector = img_ext in {"wmf", "emf"}
                     digest, nontrivial = _inspect_image_blob(img.blob)
                     if nontrivial:
                         sig_images.append({
                             "hash": digest,
-                            "ext": (img.ext or "png").lower(),
-                            "blob": img.blob if visual_dir is not None else None,
+                            "ext": img_ext,
+                            "is_vector": is_vector,
+                            "blob": (img.blob if (visual_dir is not None and not is_vector) else None),
                         })
                 except Exception:
                     pass
@@ -198,6 +214,7 @@ def extract_pptx(path: Path, visual_dir: Path | None = None) -> list[dict]:
             "text": text,
             "_images": sig_images,
             "_group_count": group_count,
+            "_complex_group": complex_group,
             "_empty_heading": "[纯图/无文本页]",
         })
     return _finalize_slide_pages(raw_pages, visual_dir=visual_dir, prefix="s")
@@ -277,8 +294,14 @@ def crop_asset_image(image_path: Path, out_name: str, box_spec: str = "full", ma
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = ASSETS_DIR / safe_name
 
-    with Image.open(image_path) as im:
-        im = im.convert("RGB")
+    with Image.open(image_path) as raw_im:
+        has_alpha = raw_im.mode in {"RGBA", "LA"} or ("transparency" in raw_im.info)
+        if has_alpha:
+            rgba = raw_im.convert("RGBA")
+            white_bg = Image.new("RGBA", rgba.size, (255, 255, 255, 255))
+            im = Image.alpha_composite(white_bg, rgba).convert("RGB")
+        else:
+            im = raw_im.convert("RGB")
         w, h = im.size
         if box_spec and box_spec.lower() != "full":
             parts = [float(x.strip()) for x in box_spec.split(",")]
@@ -355,12 +378,71 @@ def convert_legacy_office(path: Path) -> Path:
     raise ValueError(f"Unsupported legacy suffix: {suffix}")
 
 
+def render_pptx_via_com_pdf(pptx_path: Path, pages: list[dict], visual_dir: Path, dpi: int = 150) -> int:
+    """Export PPTX via PowerPoint COM to temp PDF and rasterize flagged slides as composite pXXX.png."""
+    if not shutil.which("pdftoppm"):
+        return 0
+    flagged = [p for p in pages if p.get("needs_vision")]
+    if not flagged:
+        return 0
+    pending = [p for p in flagged if not (visual_dir / f"p{p['page']:03d}.png").exists()]
+    if not pending:
+        attached = 0
+        for p in flagged:
+            target_png = visual_dir / f"p{p['page']:03d}.png"
+            vf = p.setdefault("visual_files", [])
+            if target_png.exists() and str(target_png) not in vf:
+                vf.insert(0, str(target_png))
+                attached += 1
+        return attached
+
+    tmp_dir = Path(tempfile.mkdtemp(prefix="medgraph_pptx_pdf_"))
+    tmp_pdf = tmp_dir / f"{pptx_path.stem}.pdf"
+    try:
+        import win32com.client  # type: ignore
+
+        app = win32com.client.Dispatch("PowerPoint.Application")
+        pres = None
+        try:
+            pres = app.Presentations.Open(str(pptx_path.resolve()), ReadOnly=True, Untitled=False, WithWindow=False)
+            pres.SaveAs(str(tmp_pdf), 32)  # ppSaveAsPDF
+        finally:
+            if pres is not None:
+                try:
+                    pres.Close()
+                except Exception:
+                    pass
+            try:
+                if app.Presentations.Count == 0:
+                    app.Quit()
+            except Exception:
+                pass
+        if not tmp_pdf.exists():
+            return 0
+        before_lens = {p["page"]: len(p.get("visual_files", [])) for p in pages}
+        rendered = render_pdf_visual_pages(tmp_pdf, pages, visual_dir, dpi=dpi)
+        for p in pages:
+            vf = p.get("visual_files", [])
+            if len(vf) > before_lens.get(p["page"], 0):
+                composite_png = vf.pop()
+                if composite_png not in vf:
+                    vf.insert(0, composite_png)
+        return rendered
+    except Exception:
+        return 0
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
 def extract_courseware(path: Path, visual_dir: Path | None = None, render_visuals: bool = False) -> list[dict]:
     if not path.exists():
         raise FileNotFoundError(f"Courseware not found: {path}")
     suffix = path.suffix.lower()
     if suffix == ".pptx":
-        return extract_pptx(path, visual_dir=visual_dir if render_visuals else None)
+        pages = extract_pptx(path, visual_dir=visual_dir if render_visuals else None)
+        if render_visuals and visual_dir is not None:
+            render_pptx_via_com_pdf(path, pages, visual_dir)
+        return pages
     if suffix == ".pdf":
         pages = extract_pdf(path)
         if render_visuals and visual_dir is not None:
@@ -371,11 +453,12 @@ def extract_courseware(path: Path, visual_dir: Path | None = None, render_visual
     if suffix in {".ppt", ".doc"}:
         converted = convert_legacy_office(path)
         try:
-            return (
-                extract_pptx(converted, visual_dir=visual_dir if render_visuals else None)
-                if suffix == ".ppt"
-                else extract_docx(converted)
-            )
+            if suffix == ".ppt":
+                pages = extract_pptx(converted, visual_dir=visual_dir if render_visuals else None)
+                if render_visuals and visual_dir is not None:
+                    render_pptx_via_com_pdf(converted, pages, visual_dir)
+                return pages
+            return extract_docx(converted)
         finally:
             shutil.rmtree(converted.parent, ignore_errors=True)
     raise ValueError(f"Unsupported courseware extension: {suffix}")
@@ -749,7 +832,7 @@ def build_prompt_text(
 ## 逻辑拆解与高阶测试硬性准则（V2）
 1. **看图读拓扑，严禁猜破碎文字**：凡标有 `🖼️ MUST_VIEW` 或含机理流程图/曲线/对比表图/显微照片的页，必须用 `read_file` 直接看图；核心机理总图/曲线/典型显微图用 `ingest_slides.py --mode crop-asset` 裁出保存至 `data/assets/*.webp` 并挂载 `diagram_assets`。
 2. **打破 PPT 页序、单卡单步认知负荷**：每卡聚焦 1 个因果推进/结构格局/易混对偶（30–45秒读完）。`structure_cloze` $\\le 5$ bullets，`mechanism_flow` 2–4 steps。严禁标题超过 26 字或带 `...`/`…`。
-3. **可选高阶反转诊断层**：除 `comparison_matrix` 必带 `quiz` 外，建议为核心 `mechanism_flow` / `structure_cloze` 选配 1 道机制反推或临床断点题 `quiz`（可指定 `remedial_node_id` 指向前修根因，答错 🔴 时精准直达回溯）。
+3. **可选高阶反转诊断层（防泄题铁律）**：除 `comparison_matrix` 必带 `quiz` 外，建议为核心 `mechanism_flow` / `structure_cloze` 选配 1 道机制反推或临床断点题 `quiz`（可指定 `remedial_node_id` 指向前修根因，答错 🔴 时精准直达回溯）。**所有 4 个选项长度与语法结构必须对称**（把“因为……”留给 `explain`，严禁正确项比干扰项明显更长），且整批题目的 `answer_idx` 必须在 `0/1/2/3` 之间均衡打散（严禁全放 `0`）！
 4. **诊断补漏锚点与 `bridge_text` 因果检验**：重要新节点配入向 `prerequisite` / `structural_basis`（若需开荒自动前置，设 `strength >= 0.90`；🔴 诊断回溯至少 `>= 0.85`）；`ordered_steps` 相邻边方向必须 `prev -> next`（仅 `contrast_with` 允许双向）。
 
 ## 严格输出格式要求
@@ -860,17 +943,22 @@ def normalize_title(title: str) -> str:
 def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = None) -> tuple[dict, dict]:
     """Losslessly merge delta_graph dict into existing graph without breaking IDs or progress."""
     ts = timestamp or now_iso()
+    pre_existing_refs = {r for n in graph.get("nodes", []) for r in n.get("syllabus_refs", [])}
     merged = json.loads(json.dumps(graph))
     nodes_by_id = {n["id"]: n for n in merged["nodes"]}
     nodes_by_title = {normalize_title(n["title"]): n for n in merged["nodes"]}
     id_remap: dict[str, str] = {}
 
     stats = {"nodes_added": 0, "nodes_enriched": 0, "edges_added": 0, "threads_added": 0}
+    newly_added_ids: list[str] = []
+    enriched_ids: list[str] = []
+    enriched_new_quizzes: dict[str, dict] = {}
+    enriched_new_assets: dict[str, list[dict]] = {}
 
     for inc_node in delta.get("nodes", []):
         nid = inc_node["id"]
-        norm_t = normalize_title(inc_node["title"])
-        existing = nodes_by_id.get(nid) or nodes_by_title.get(norm_t)
+        norm_t = normalize_title(inc_node["title"]) if inc_node.get("title") else ""
+        existing = nodes_by_id.get(nid) or (nodes_by_title.get(norm_t) if norm_t else None)
         if existing:
             id_remap[nid] = existing["id"]
             existing_slides = set(existing.get("source_slides", []))
@@ -888,9 +976,12 @@ def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = Non
                 if isinstance(da, dict) and da.get("path") not in existing_assets:
                     existing.setdefault("diagram_assets", []).append(da)
                     existing_assets.add(da.get("path"))
+                    enriched_new_assets.setdefault(existing["id"], []).append(da)
             inc_quiz = (inc_node.get("payload") or {}).get("quiz")
             if inc_quiz and isinstance(existing.get("payload"), dict) and not existing["payload"].get("quiz"):
                 existing["payload"]["quiz"] = inc_quiz
+                enriched_new_quizzes[existing["id"]] = inc_quiz
+            enriched_ids.append(existing["id"])
             stats["nodes_enriched"] += 1
         else:
             new_node = json.loads(json.dumps(inc_node))
@@ -899,8 +990,10 @@ def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = Non
             new_node.setdefault("source_slides", [])
             merged["nodes"].append(new_node)
             nodes_by_id[nid] = new_node
-            nodes_by_title[norm_t] = new_node
+            if norm_t:
+                nodes_by_title[norm_t] = new_node
             id_remap[nid] = nid
+            newly_added_ids.append(nid)
             stats["nodes_added"] += 1
 
     edge_keys = {(e["source"], e["target"], e["relation_type"]) for e in merged["edges"]}
@@ -974,7 +1067,19 @@ def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = Non
 
     merged["generated_at"] = ts
     validate_graph(merged)
-    stats["logic_audit"] = audit_logic_quality(merged, delta, id_remap, dropped_dangling_edges)
+    stats["logic_audit"] = audit_logic_quality(
+        merged,
+        delta,
+        id_remap,
+        dropped_dangling_edges,
+        merge_context={
+            "pre_existing_refs": pre_existing_refs,
+            "newly_added_ids": newly_added_ids,
+            "enriched_ids": enriched_ids,
+            "enriched_new_quizzes": enriched_new_quizzes,
+            "enriched_new_assets": enriched_new_assets,
+        },
+    )
     return merged, stats
 
 
@@ -986,6 +1091,7 @@ def audit_logic_quality(
     delta: dict,
     id_remap: dict[str, str],
     dropped_dangling_edges: list[str] | None = None,
+    merge_context: dict | None = None,
 ) -> dict:
     """Inspect structural logic density and highlight weak/unanchored delta artifacts."""
     nodes_by_id = {n["id"]: n for n in graph.get("nodes", [])}
@@ -995,11 +1101,28 @@ def audit_logic_quality(
         in_edges_by_node.setdefault(e["target"], []).append(e)
         out_edges_by_node.setdefault(e["source"], []).append(e)
 
-    added_node_ids = [
-        id_remap.get(n["id"], n["id"])
-        for n in delta.get("nodes", [])
-        if id_remap.get(n["id"], n["id"]) in nodes_by_id
-    ]
+    if merge_context is not None:
+        target_new_ids = [nid for nid in dict.fromkeys(merge_context.get("newly_added_ids", [])) if nid in nodes_by_id]
+        target_enriched_ids = [nid for nid in dict.fromkeys(merge_context.get("enriched_ids", [])) if nid in nodes_by_id]
+        pre_covered_refs = set(merge_context.get("pre_existing_refs", ()))
+        enriched_new_quizzes = merge_context.get("enriched_new_quizzes", {})
+        enriched_new_assets = merge_context.get("enriched_new_assets", {})
+    else:
+        target_new_ids = list(
+            dict.fromkeys(
+                id_remap.get(n["id"], n["id"])
+                for n in delta.get("nodes", [])
+                if id_remap.get(n["id"], n["id"]) in nodes_by_id
+            )
+        )
+        target_enriched_ids = []
+        delta_id_set = set(target_new_ids)
+        pre_covered_refs = {
+            r for nid, nd in nodes_by_id.items() if nid not in delta_id_set for r in nd.get("syllabus_refs", [])
+        }
+        enriched_new_quizzes = {}
+        enriched_new_assets = {}
+
     warnings = []
     orphan_nodes = []
     unanchored_core = []
@@ -1016,6 +1139,19 @@ def audit_logic_quality(
             cross_discipline_edges += 1
         if e.get("relation_type") in {"prerequisite", "structural_basis"}:
             rescue_anchors += 1
+        if (
+            sn
+            and dn
+            and sn.get("syllabus_tier") == "understand"
+            and dn.get("syllabus_tier") != "understand"
+            and (
+                e.get("relation_type") == "prerequisite"
+                or (e.get("relation_type") == "structural_basis" and e.get("strength", 0.8) >= 0.9)
+            )
+        ):
+            warnings.append(
+                f"Prerequisite leak risk on edge {e.get('id')}: understand-tier source '{src}' gates mainline target '{dst}' via {e.get('relation_type')}."
+            )
         if e.get("relation_type") == "contrast_with":
             contrast_edges += 1
         bt = e.get("bridge_text", "").strip()
@@ -1029,14 +1165,40 @@ def audit_logic_quality(
     remedial_quiz_nodes = 0
     diagram_assets_added = 0
     comparison_cards_added = 0
+    quiz_ans_counts: dict[int, int] = defaultdict(int)
+    quiz_length_tell_nodes: list[str] = []
+    extreme_length_tell_nodes: list[str] = []
+    dense_card_warnings: list[str] = []
     newly_covered_refs = set()
-    pre_covered_refs = set()
-    delta_added_ids = {id_remap.get(n["id"], n["id"]) for n in delta.get("nodes", [])}
-    for nid, nd in nodes_by_id.items():
-        if nid not in delta_added_ids:
-            pre_covered_refs.update(nd.get("syllabus_refs", []))
 
-    for nid in dict.fromkeys(added_node_ids):
+    def _tally_quiz(nid: str, quiz_obj: dict | None):
+        nonlocal quiz_nodes_added, remedial_quiz_nodes
+        if not quiz_obj:
+            return
+        quiz_nodes_added += 1
+        if quiz_obj.get("remedial_node_id"):
+            remedial_quiz_nodes += 1
+        ans_i = quiz_obj.get("answer_idx")
+        opts = quiz_obj.get("options", [])
+        if isinstance(ans_i, int) and opts and 0 <= ans_i < len(opts):
+            quiz_ans_counts[ans_i] += 1
+            opt_lens = [len(str(o)) for o in opts]
+            dist_lens = sorted(opt_lens[j] for j in range(len(opt_lens)) if j != ans_i)
+            med_dist = dist_lens[len(dist_lens) // 2] if dist_lens else 0
+            if opt_lens[ans_i] == max(opt_lens) and med_dist > 0 and opt_lens[ans_i] > med_dist * 1.25:
+                quiz_length_tell_nodes.append(nid)
+                if med_dist >= 8 and (opt_lens[ans_i] - med_dist) >= 10 and opt_lens[ans_i] > med_dist * 1.45:
+                    extreme_length_tell_nodes.append(nid)
+
+    def _tally_assets(nid: str, asset_list: list | None):
+        nonlocal diagram_assets_added
+        for da in asset_list or []:
+            diagram_assets_added += 1
+            rel = str(da.get("path", "")).replace("\\", "/")
+            if not (DATA_DIR / rel).exists():
+                missing_assets.append(f"{nid}:{rel}")
+
+    for nid in target_new_ids:
         nd = nodes_by_id[nid]
         ins = in_edges_by_node.get(nid, [])
         outs = out_edges_by_node.get(nid, [])
@@ -1046,16 +1208,8 @@ def audit_logic_quality(
             title_violations.append(nid)
         if nd["node_type"] == "comparison_matrix":
             comparison_cards_added += 1
-        quiz_obj = (nd.get("payload") or {}).get("quiz")
-        if quiz_obj:
-            quiz_nodes_added += 1
-            if quiz_obj.get("remedial_node_id"):
-                remedial_quiz_nodes += 1
-        for da in nd.get("diagram_assets", []) or []:
-            diagram_assets_added += 1
-            rel = str(da.get("path", "")).replace("\\", "/")
-            if not (DATA_DIR / rel).exists():
-                missing_assets.append(f"{nid}:{rel}")
+        _tally_quiz(nid, (nd.get("payload") or {}).get("quiz"))
+        _tally_assets(nid, nd.get("diagram_assets", []))
         for r in refs:
             if r not in pre_covered_refs:
                 newly_covered_refs.add(r)
@@ -1067,10 +1221,59 @@ def audit_logic_quality(
             has_foundation = any(e["relation_type"] in {"prerequisite", "structural_basis", "causal_next"} for e in ins)
             if not has_foundation and not outs:
                 unanchored_core.append(nid)
-        if nd["node_type"] == "structure_cloze" and len(nd["payload"].get("bullets", [])) > 6:
-            warnings.append(f"Kitchen-sink bloat risk in {nid}: >6 cloze bullets (consider splitting)")
-        if nd["node_type"] == "mechanism_flow" and len(nd["payload"].get("steps", [])) > 5:
-            warnings.append(f"Overlong mechanism_flow in {nid}: >5 steps (consider splitting)")
+        if nd["node_type"] == "structure_cloze":
+            bullets = nd["payload"].get("bullets", [])
+            if len(bullets) > 6:
+                warnings.append(f"Kitchen-sink bloat risk in {nid}: >6 cloze bullets (consider splitting)")
+            if any(len(str(b)) > 190 for b in bullets):
+                dense_card_warnings.append(f"{nid}(bullet>190c)")
+        if nd["node_type"] == "mechanism_flow":
+            steps = nd["payload"].get("steps", [])
+            if len(steps) > 5:
+                warnings.append(f"Overlong mechanism_flow in {nid}: >5 steps (consider splitting)")
+            if any(len(str(st.get("cue", ""))) + len(str(st.get("reveal", ""))) > 250 for st in steps):
+                dense_card_warnings.append(f"{nid}(step>250c)")
+
+    for nid in target_enriched_ids:
+        nd = nodes_by_id[nid]
+        for r in nd.get("syllabus_refs", []):
+            if r not in pre_covered_refs:
+                newly_covered_refs.add(r)
+        _tally_quiz(nid, enriched_new_quizzes.get(nid))
+        _tally_assets(nid, enriched_new_assets.get(nid))
+        if not in_edges_by_node.get(nid) and not out_edges_by_node.get(nid):
+            orphan_nodes.append(nid)
+
+    if quiz_nodes_added >= 4 and quiz_ans_counts:
+        top_cnt = max(quiz_ans_counts.values())
+        if top_cnt / quiz_nodes_added > 0.60:
+            warnings.append(
+                f"Quiz position bias: {top_cnt}/{quiz_nodes_added} quizzes share one answer_idx ({dict(quiz_ans_counts)}); spread across A/B/C/D."
+            )
+    if (quiz_nodes_added >= 4 and len(quiz_length_tell_nodes) / quiz_nodes_added >= 0.50) or extreme_length_tell_nodes:
+        flagged_quiz_ids = extreme_length_tell_nodes or quiz_length_tell_nodes
+        warnings.append(
+            f"Quiz length bias: {len(quiz_length_tell_nodes)}/{quiz_nodes_added} correct options are >25% longer than distractors "
+            f"(flagged: {flagged_quiz_ids}); keep options symmetric and put rationale in explain."
+        )
+
+    understand_leaks: list[str] = []
+    for inc_th in delta.get("threads", []):
+        for step in inc_th.get("ordered_steps", []):
+            step_nid = id_remap.get(step.get("node_id", ""), step.get("node_id", ""))
+            if nodes_by_id.get(step_nid, {}).get("syllabus_tier") == "understand":
+                understand_leaks.append(f"{inc_th.get('id')}:{step_nid}")
+    for ext in delta.get("thread_extensions", []):
+        for step in ext.get("append_steps", []):
+            step_nid = id_remap.get(step.get("node_id", ""), step.get("node_id", ""))
+            if nodes_by_id.get(step_nid, {}).get("syllabus_tier") == "understand":
+                understand_leaks.append(f"{ext.get('thread_id')}:{step_nid}")
+    if understand_leaks:
+        warnings.append(
+            f"Understand-tier node(s) in thread ordered_steps (keep understand nodes on side branches off mainline ordered_steps): {understand_leaks}"
+        )
+    if dense_card_warnings:
+        warnings.append(f"Mobile density risk (overlong card blocks): {dense_card_warnings}")
 
     if orphan_nodes:
         warnings.append(f"Orphan nodes without any edges: {orphan_nodes}")
@@ -1085,14 +1288,14 @@ def audit_logic_quality(
     if dropped_dangling_edges:
         warnings.append(f"Dropped dangling or self-loop edges referencing missing node IDs: {dropped_dangling_edges}")
 
-    # Discipline-specific logic grammar checks
-    added_subjects = {nodes_by_id[nid]["subject"] for nid in added_node_ids}
+    # Discipline-specific logic grammar checks (based on genuinely added nodes)
+    added_subjects = {nodes_by_id[nid]["subject"] for nid in target_new_ids}
     if any(s in added_subjects for s in ("pathology", "pathophys", "pharmacology")):
         has_foundation_anchor = any(
             e.get("relation_type") in {"prerequisite", "structural_basis", "cross_discipline"}
             for e in delta.get("edges", [])
         )
-        if added_node_ids and not has_foundation_anchor:
+        if target_new_ids and not has_foundation_anchor:
             warnings.append(
                 "Discipline logic gap: pathology/pathophys/pharmacology additions should include at least one "
                 "prerequisite, structural_basis, or cross_discipline anchor back to normal anatomy/histology/physiology/biochem."
@@ -1121,11 +1324,106 @@ def load_graph(graph_path: Path) -> dict:
     return {"schema_version": 1, "title": "MedGraph Flow", "generated_at": now_iso(), "syllabus": syl, "nodes": [], "edges": [], "threads": []}
 
 
+def extract_and_write_context(
+    slide_path: Path,
+    subject: str | None,
+    graph: dict,
+    out_dir: Path,
+    chunk_size: int = 25,
+    mode: str = "extract-context",
+    render_visuals: bool = False,
+) -> dict:
+    """Extract courseware pages + visuals and write partitioned markdown context files."""
+    meta = resolve_lecture_metadata(slide_path, subject)
+    visual_dir = out_dir / "visuals" / slide_path.stem
+    pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=render_visuals)
+    if not pages:
+        raise RuntimeError(f"No slides/pages found in {slide_path}.")
+    primary_subj = meta["primary_subject"]
+    syl_candidates = match_syllabus_candidates(pages, graph.get("syllabus", []), top_k=24, primary_subject=primary_subj)
+    chunks = [pages[i : i + chunk_size] for i in range(0, len(pages), chunk_size)]
+    generated_files = []
+    suffix_tag = "context" if mode == "extract-context" else "prompt_pack"
+    for idx, chunk in enumerate(chunks, 1):
+        is_context_cont = (mode == "extract-context" and idx > 1)
+        prompt = build_prompt_text(
+            slide_path.name,
+            chunk,
+            syl_candidates,
+            graph,
+            primary_subject=primary_subj,
+            curriculum_name=meta.get("curriculum_name"),
+            include_atlas=not is_context_cont,
+            chunk_idx=idx,
+            total_chunks=len(chunks),
+            all_pages_for_index=pages,
+        )
+        out_file = out_dir / f"{slide_path.stem}_part{idx}_{suffix_tag}.md"
+        out_file.write_text(prompt, encoding="utf-8")
+        generated_files.append(str(out_file))
+    vis_pages = [p["page"] for p in pages if p.get("needs_vision")]
+    return {
+        "pages": len(pages),
+        "subject": primary_subj or "auto",
+        "vision_flagged": len(vis_pages),
+        "files": generated_files,
+    }
+
+
+def batch_extract_pending(
+    manifest_path: Path,
+    graph: dict,
+    out_dir: Path,
+    subject: str | None = None,
+    chunk_size: int = 25,
+    render_visuals: bool = False,
+    force: bool = False,
+) -> dict:
+    """One-shot batch extraction for all pending lectures in course_manifest.json."""
+    if not manifest_path.exists():
+        raise FileNotFoundError(f"Manifest not found: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    pending = [
+        lec
+        for lec in manifest.get("lectures", [])
+        if lec.get("status", "pending") == "pending" and (not subject or lec.get("subject") == subject)
+    ]
+    extracted, skipped, failed = 0, 0, []
+    total = len(pending)
+    for idx, lec in enumerate(pending, 1):
+        slide_path = Path(lec["path"])
+        part1 = out_dir / f"{slide_path.stem}_part1_context.md"
+        if part1.exists() and not force:
+            skipped += 1
+            print(f"[{idx}/{total}] SKIP (cached): {slide_path.name}")
+            continue
+        try:
+            res = extract_and_write_context(
+                slide_path,
+                lec.get("subject") or subject,
+                graph,
+                out_dir,
+                chunk_size=chunk_size,
+                mode="extract-context",
+                render_visuals=render_visuals,
+            )
+            extracted += 1
+            print(
+                f"[{idx}/{total}] OK: {slide_path.name} ({res['pages']}p, vis={res['vision_flagged']}, {len(res['files'])} parts)"
+            )
+        except Exception as err:
+            failed.append(f"{slide_path.name}: {err}")
+            print(f"[{idx}/{total}] FAIL: {slide_path.name} -> {err}")
+    return {"total": total, "extracted": extracted, "skipped": skipped, "failed": failed}
+
+
 def main():
     parser = argparse.ArgumentParser(description="Compile slides into MedGraph Flow delta JSON and merge safely.")
     parser.add_argument("--slide", help="Path to courseware (.pptx/.ppt/.pdf/.docx)")
     parser.add_argument("--subject", choices=sorted(SUBJECTS), help="Explicit primary subject override (skips fragile auto-guessing)")
-    parser.add_argument("--mode", choices=["extract-context", "prompt-pack", "api", "merge", "crop-asset"], required=True)
+    parser.add_argument("--mode", choices=["extract-context", "prompt-pack", "api", "merge", "crop-asset", "batch-extract"], required=True)
+    parser.add_argument("--manifest", default=str(DATA_DIR / "course_manifest.json"), help="Manifest JSON path for --mode batch-extract")
+    parser.add_argument("--force", action="store_true", help="Re-extract even if *_part1_context.md exists (for --mode batch-extract)")
     parser.add_argument("--render-visuals", action="store_true", help="Rasterize visual/diagram PDF pages or dump PPTX images into inbox/visuals/")
     parser.add_argument("--delta", help="Path to delta_graph.json (for --mode merge or api output)")
     parser.add_argument("--image", help="Source image path for --mode crop-asset")
@@ -1148,6 +1446,19 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     graph = load_graph(graph_path)
 
+    if args.mode == "batch-extract":
+        summary = batch_extract_pending(
+            Path(args.manifest),
+            graph,
+            out_dir,
+            subject=args.subject,
+            chunk_size=args.chunk_size,
+            render_visuals=args.render_visuals,
+            force=args.force,
+        )
+        print(f"Batch extract finished: {json.dumps(summary, ensure_ascii=False)}")
+        return
+
     if args.mode == "merge":
         if not args.delta:
             raise ValueError("--mode merge requires --delta <delta_graph.json>")
@@ -1163,45 +1474,34 @@ def main():
     if not args.slide:
         raise ValueError(f"--mode {args.mode} requires --slide <path>")
     slide_path = Path(args.slide)
-    meta = resolve_lecture_metadata(slide_path, args.subject)
-    visual_dir = out_dir / "visuals" / slide_path.stem
-    pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=args.render_visuals)
-    if not pages:
-        raise RuntimeError(f"No slides/pages found in {slide_path}.")
-    primary_subj = meta["primary_subject"]
-    syl_candidates = match_syllabus_candidates(pages, graph.get("syllabus", []), top_k=24, primary_subject=primary_subj)
 
     if args.mode in {"extract-context", "prompt-pack"}:
-        chunks = [pages[i : i + args.chunk_size] for i in range(0, len(pages), args.chunk_size)]
-        generated_files = []
-        suffix_tag = "context" if args.mode == "extract-context" else "prompt_pack"
-        for idx, chunk in enumerate(chunks, 1):
-            is_context_cont = (args.mode == "extract-context" and idx > 1)
-            prompt = build_prompt_text(
-                slide_path.name,
-                chunk,
-                syl_candidates,
-                graph,
-                primary_subject=primary_subj,
-                curriculum_name=meta.get("curriculum_name"),
-                include_atlas=not is_context_cont,
-                chunk_idx=idx,
-                total_chunks=len(chunks),
-                all_pages_for_index=pages,
-            )
-            out_file = out_dir / f"{slide_path.stem}_part{idx}_{suffix_tag}.md"
-            out_file.write_text(prompt, encoding="utf-8")
-            generated_files.append(str(out_file))
-        vis_pages = [p["page"] for p in pages if p.get("needs_vision")]
-        print(
-            f"Extracted {len(pages)} pages (subject={primary_subj or 'auto'}, vision_flagged={len(vis_pages)}) "
-            f"-> {len(generated_files)} {suffix_tag} file(s):"
+        res = extract_and_write_context(
+            slide_path,
+            args.subject,
+            graph,
+            out_dir,
+            chunk_size=args.chunk_size,
+            mode=args.mode,
+            render_visuals=args.render_visuals,
         )
-        for f in generated_files:
+        suffix_tag = "context" if args.mode == "extract-context" else "prompt_pack"
+        print(
+            f"Extracted {res['pages']} pages (subject={res['subject']}, vision_flagged={res['vision_flagged']}) "
+            f"-> {len(res['files'])} {suffix_tag} file(s):"
+        )
+        for f in res["files"]:
             print(f"  {f}")
         return
 
     if args.mode == "api":
+        meta = resolve_lecture_metadata(slide_path, args.subject)
+        visual_dir = out_dir / "visuals" / slide_path.stem
+        pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=args.render_visuals)
+        if not pages:
+            raise RuntimeError(f"No slides/pages found in {slide_path}.")
+        primary_subj = meta["primary_subject"]
+        syl_candidates = match_syllabus_candidates(pages, graph.get("syllabus", []), top_k=24, primary_subject=primary_subj)
         chunks = [pages[i : i + args.chunk_size] for i in range(0, len(pages), args.chunk_size)]
         combined_delta = {"nodes": [], "edges": [], "threads": []}
         for idx, chunk in enumerate(chunks, 1):

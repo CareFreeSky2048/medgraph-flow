@@ -291,6 +291,238 @@ def main():
         wm_pages = extract_courseware(wm_pptx)
         assert [p["embedded_images"] for p in wm_pages] == [0, 0, 1, 0, 0], f"Repeated master logo must be filtered: {[p['embedded_images'] for p in wm_pages]}"
 
+    # 6. Test psychometric quiz bias audit catches all-A & length-tell batches
+    skewed_delta = {
+        "nodes": [
+            {
+                "id": f"biochem_skew_{i}",
+                "title": f"测试选项偏斜卡片{i}",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_001"],
+                "syllabus_tier": "master",
+                "node_type": "structure_cloze",
+                "anchor_summary": "测试测验选项均衡与防泄题审计规则。",
+                "source_slides": ["test#P1"],
+                "payload": {
+                    "bullets": ["测试关键词{{胶囊}}"],
+                    "quiz": {
+                        "stem": f"机制测试题 {i}",
+                        "options": [
+                            "这是一条写得特别长而且带有原因从句的正确答案明显比其他三个干扰项长很多倍",
+                            "短干扰项乙",
+                            "短干扰项丙",
+                            "短干扰项丁",
+                        ],
+                        "answer_idx": 0,
+                        "explain": "解释。",
+                    },
+                },
+            }
+            for i in range(4)
+        ],
+        "edges": [
+            {
+                "id": f"e_skew_{i}",
+                "source": "biochem_aa_pool",
+                "target": f"biochem_skew_{i}",
+                "relation_type": "prerequisite",
+                "strength": 0.9,
+                "bridge_text": "氨基酸代谢库提供基础氨基酸底物用于后续酶催化反应。",
+            }
+            for i in range(4)
+        ],
+    }
+    _, skew_stats = merge_delta_into_graph(graph, skewed_delta)
+    skew_warns = skew_stats["logic_audit"]["warnings"]
+    assert any("Quiz position bias" in w for w in skew_warns), f"Expected position bias warning: {skew_warns}"
+    assert any("Quiz length bias" in w for w in skew_warns), f"Expected length bias warning: {skew_warns}"
+
+    # 7. Test RGBA white-canvas cropping, PPTX grouped/WMF flagging, and enriched-node audit separation
+    with tempfile.TemporaryDirectory() as tmp4:
+        # 7a. Transparent RGBA PNG with black linework must composite onto white (never black!)
+        rgba_png = Path(tmp4) / "transparent_formula.png"
+        rgba_img = Image.new("RGBA", (300, 200), (0, 0, 0, 0))
+        for x in range(50, 250):
+            rgba_img.putpixel((x, 100), (0, 0, 0, 255))
+        rgba_img.save(rgba_png)
+        cropped_white = crop_asset_image(rgba_png, "__test_rgba_white.webp", "full")
+        try:
+            with Image.open(cropped_white["abs_path"]) as out_im:
+                corner_rgb = out_im.convert("RGB").getpixel((5, 5))
+                assert min(corner_rgb) >= 245, f"Transparent background flattened to non-white: {corner_rgb}"
+        finally:
+            Path(cropped_white["abs_path"]).unlink(missing_ok=True)
+
+        # 7b. PPTX with a single complex GROUP (>=3 shapes) and WMF picture flags grouped_diagrams + wmf_vector_media cleanly
+        from pptx.util import Inches
+
+        vec_pptx = Path(tmp4) / "vec_group.pptx"
+        prs_vec = Presentation()
+        sl_v = prs_vec.slides.add_slide(prs_vec.slide_layouts[6])
+        grp = sl_v.shapes.add_group_shape()
+        grp.shapes.add_shape(1, Inches(1), Inches(1), Inches(1), Inches(1))
+        grp.shapes.add_shape(1, Inches(2), Inches(1), Inches(1), Inches(1))
+        grp.shapes.add_shape(1, Inches(3), Inches(1), Inches(1), Inches(1))
+        prs_vec.save(str(vec_pptx))
+        vec_pages = extract_courseware(vec_pptx)
+        assert "grouped_diagrams:1" in vec_pages[0]["vision_reasons"], f"Single multi-shape group missed: {vec_pages[0]}"
+
+        # Simulate non-trivial WMF blob (>=4096 bytes) via _finalize_slide_pages
+        from ingest_slides import _finalize_slide_pages
+
+        wmf_pages = _finalize_slide_pages(
+            [{"page": 1, "text": "水溶性维生素辅酶结构示意与转氨机理说明文字足够长避免稀疏触发", "_images": [{"hash": "wmf123456789", "ext": "wmf", "is_vector": True, "blob": None}], "_group_count": 0}],
+            visual_dir=Path(tmp4),
+        )
+        assert "wmf_vector_media" in wmf_pages[0]["vision_reasons"], f"WMF media not flagged: {wmf_pages[0]}"
+        assert wmf_pages[0]["visual_files"] == [], "Unviewable raw WMF must not be written as image path"
+
+    # 7c. Enriching an existing node must NOT inflate quiz_nodes_added or newly_covered_syllabus_refs
+    existing_target = next(n for n in graph["nodes"] if (n.get("payload") or {}).get("quiz") and n.get("syllabus_refs"))
+    enrich_only_delta = {
+        "nodes": [
+            {
+                "id": existing_target["id"],
+                "source_slides": ["enrich_audit_test#P99"],
+                "syllabus_refs": list(existing_target["syllabus_refs"]),
+                "payload": {"quiz": existing_target["payload"]["quiz"]},
+            }
+        ],
+        "edges": [],
+        "threads": [],
+    }
+    _, enrich_stats = merge_delta_into_graph(graph, enrich_only_delta)
+    assert enrich_stats["nodes_added"] == 0 and enrich_stats["nodes_enriched"] == 1
+    assert enrich_stats["logic_audit"]["quiz_nodes_added"] == 0, f"Pre-existing quiz inflated audit: {enrich_stats}"
+    assert enrich_stats["logic_audit"]["newly_covered_syllabus_refs"] == [], f"Pre-existing ref inflated audit: {enrich_stats}"
+
+    # 8. Test understand-tier leak detection in threads, single extreme quiz length tell, and batch_extract_pending cache
+    leak_delta = {
+        "nodes": [
+            {
+                "id": "biochem_understand_leak_demo",
+                "title": "主线拓展防漏测试卡片",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_019"],
+                "syllabus_tier": "understand",
+                "node_type": "structure_cloze",
+                "anchor_summary": "测试 understand 节点误入主线及单题极长选项警告。",
+                "source_slides": ["test#P1"],
+                "payload": {
+                    "bullets": ["测试关键词{{机制}}"],
+                    "quiz": {
+                        "stem": "酶催化机制测试？",
+                        "options": [
+                            "极短干扰乙句九字",
+                            "这是一条非常长的因为带有详细因果从句而明显泄题的正确选项示例文本",
+                            "极短干扰丙句九字",
+                            "极短干扰丁句九字",
+                        ],
+                        "answer_idx": 1,
+                        "explain": "解释。",
+                    },
+                },
+            }
+        ],
+        "edges": [
+            {
+                "id": "e_leak_demo",
+                "source": "biochem_aa_pool",
+                "target": "biochem_understand_leak_demo",
+                "relation_type": "prerequisite",
+                "strength": 0.9,
+                "bridge_text": "氨基酸代谢库提供基础底物支撑后续生化反应路径检验。",
+            }
+        ],
+        "threads": [
+            {
+                "id": "thread_leak_demo",
+                "title": "测试主线",
+                "subject": "biochem",
+                "ordered_steps": [
+                    {"node_id": "biochem_aa_pool", "incoming_edge_id": None},
+                    {"node_id": "biochem_understand_leak_demo", "incoming_edge_id": "e_leak_demo"},
+                ],
+            }
+        ],
+    }
+    _, leak_stats = merge_delta_into_graph(graph, leak_delta)
+    leak_warns = leak_stats["logic_audit"]["warnings"]
+    assert any("Understand-tier node(s)" in w for w in leak_warns), f"Missing understand leak warning: {leak_warns}"
+    assert any("Quiz length bias" in w for w in leak_warns), f"Missing single extreme length tell warning: {leak_warns}"
+
+    from ingest_slides import batch_extract_pending
+
+    with tempfile.TemporaryDirectory() as tmp5:
+        tp = Path(tmp5)
+        mini_pdf = tp / "mini_pending.pdf"
+        mw = PdfWriter()
+        mw.add_blank_page(width=300, height=200)
+        with mini_pdf.open("wb") as f:
+            mw.write(f)
+        man_path = tp / "manifest.json"
+        man_path.write_text(
+            json.dumps({"lectures": [{"path": str(mini_pdf), "subject": "biochem", "status": "pending"}]}),
+            encoding="utf-8",
+        )
+        out5 = tp / "inbox_out"
+        out5.mkdir()
+        b1 = batch_extract_pending(man_path, graph, out5, render_visuals=False)
+        assert b1["extracted"] == 1 and b1["skipped"] == 0 and not b1["failed"], b1
+        b2 = batch_extract_pending(man_path, graph, out5, render_visuals=False, force=False)
+        assert b2["extracted"] == 0 and b2["skipped"] == 1, b2
+
+        # 8b. Chemical reaction labels (<=16c without sentence punctuation) trigger fragmented_diagram for vector PDF pages
+        from ingest_slides import _finalize_slide_pages
+
+        vec_label_text = "\n".join([
+            "二、一碳单位互变闭环",
+            "N10—CHO—FH4",
+            "N5,N10=CH—FH4",
+            "N5,N10—CH2—FH4",
+            "N5—CH3—FH4",
+            "N5—CH=NH—FH4",
+            "NADPH+H+",
+            "NADP+",
+            "NADH+H+",
+            "NAD+",
+            "丝氨酸羟甲基转移酶",
+            "同型半胱氨酸",
+            "Vit B12",
+            "甲硫氨酸合成酶",
+        ])
+        vec_res = _finalize_slide_pages([{"page": 15, "text": vec_label_text, "_images": [], "_group_count": 0}])
+        assert vec_res[0]["needs_vision"] and any("fragmented_diagram" in r for r in vec_res[0]["vision_reasons"]), vec_res[0]
+
+    # 8c. Understand-tier node gating a mainline target via prerequisite triggers Prerequisite leak risk warning
+    prereq_leak_delta = {
+        "nodes": [
+            {
+                "id": "biochem_prereq_leak_src",
+                "title": "拓展前置风险测试卡",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_019"],
+                "syllabus_tier": "understand",
+                "node_type": "structure_cloze",
+                "anchor_summary": "验证 understand 节点禁止作为主线 prerequisite 前置。",
+                "source_slides": ["test#P1"],
+                "payload": {"bullets": ["测试{{条目}}"]},
+            }
+        ],
+        "edges": [
+            {
+                "id": "e_understand_prereq_leak",
+                "source": "biochem_prereq_leak_src",
+                "target": "biochem_urea_cycle",
+                "relation_type": "prerequisite",
+                "strength": 0.92,
+                "bridge_text": "拓展知识错误使用先修门控连向主干核心节点时应由审计拦截。",
+            }
+        ],
+    }
+    _, pleak_stats = merge_delta_into_graph(graph, prereq_leak_delta)
+    assert any("Prerequisite leak risk" in w for w in pleak_stats["logic_audit"]["warnings"]), pleak_stats
+
     print("PASS test_ingest: logic-first context, thread grafting, V2 visual/syllabus/quiz audit, and lossless merge verified.")
 
 

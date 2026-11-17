@@ -275,7 +275,7 @@
       for (const pe of prereqEdges) {
         if (added >= maxPrepends) break;
         const pNode = idx.nodeMap.get(pe.source);
-        if (!pNode || inQueue.has(pNode.id)) continue;
+        if (!pNode || pNode.syllabus_tier === 'understand' || inQueue.has(pNode.id)) continue;
         const pState = getNodeState(progress, pNode.id);
         if (pState.status === 'unvisited' || pState.status === 'again') {
           result.splice(i, 0, { node_id: pNode.id, incoming_edge_id: null, gated_for: targetId });

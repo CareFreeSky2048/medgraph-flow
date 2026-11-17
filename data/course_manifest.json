@@ -1,6 +1,6 @@
 {
   "manifest_version": 1,
-  "updated_at": "2026-11-16T21:15:00+08:00",
+  "updated_at": "2026-11-17T09:47:30+08:00",
   "ordering_policy": "The slide list below preserves user-declared discipline classification; canonical teaching sequence follows the 3 official syllabi below rather than raw filename order.",
   "curricula": [
     {
@@ -328,7 +328,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\生物化学-第一章 氨基酸与蛋白质-1.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",
@@ -336,7 +336,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\生物化学-第一章 氨基酸与蛋白质-2.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",
@@ -344,7 +344,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\生物化学-第一章 氨基酸与蛋白质-3.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",
@@ -352,7 +352,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\第2章酶-20260915.pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",
@@ -368,7 +368,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\脂质代谢-2026.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",
@@ -376,7 +376,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\2026-基医-氨基酸代谢-1.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",
@@ -384,7 +384,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\2026-基医-氨基酸代谢-2.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "biochemistry",
@@ -392,7 +392,7 @@
       "sub_subjects": ["biochem"],
       "path": "C:\\Users\\32461\\Desktop\\2026-基医-氨基酸代谢-3.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     }
   ]
 }
