@@ -67,7 +67,11 @@ async function check(label, fn) {
     await page.waitForFunction(() => document.querySelector('.card-title')?.textContent?.includes('动脉性充血'));
     assert(await page.locator('.bridge-box').count() > 0);
 
-    await page.locator('[data-act="answer-quiz"][data-idx="2"]').click();
+    const hypAnsIdx = await page.evaluate(() => {
+      const n = (window.MedApp.getGraph().nodes || []).find(x => x.id === 'patho_hyperemia_vs_congestion');
+      return n?.payload?.quiz?.answer_idx ?? 2;
+    });
+    await page.locator(`[data-act="answer-quiz"][data-idx="${hypAnsIdx}"]`).click();
     await page.waitForSelector('.quiz-explain');
     assert.equal(await page.locator('.rate-mastered.recommended').count(), 1);
 

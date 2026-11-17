@@ -136,8 +136,26 @@ def _finalize_slide_pages(raw_pages: list[dict], visual_dir: Path | None = None,
             visual_dir.mkdir(parents=True, exist_ok=True)
             for k, img in enumerate(sig_imgs, 1):
                 if img.get("blob"):
-                    out_img = visual_dir / f"{prefix}{rec['page']:03d}_img{k}.{img.get('ext', 'png')}"
-                    out_img.write_bytes(img["blob"])
+                    ext = img.get("ext", "png")
+                    out_img = visual_dir / f"{prefix}{rec['page']:03d}_img{k}.{ext}"
+                    blob = img["blob"]
+                    try:
+                        from PIL import Image
+
+                        with Image.open(io.BytesIO(blob)) as raw_im:
+                            if max(raw_im.size) > 2048:
+                                resized = raw_im.copy()
+                                resized.thumbnail((2048, 2048), Image.Resampling.LANCZOS)
+                                buf = io.BytesIO()
+                                fmt = "JPEG" if ext.lower() in {"jpg", "jpeg"} and resized.mode in {"RGB", "L"} else "PNG"
+                                if fmt == "PNG" and out_img.suffix.lower() != ".png":
+                                    out_img = visual_dir / f"{prefix}{rec['page']:03d}_img{k}.png"
+                                save_kw = {"quality": 90, "optimize": True} if fmt == "JPEG" else {"optimize": True}
+                                resized.save(buf, format=fmt, **save_kw)
+                                blob = buf.getvalue()
+                    except Exception:
+                        pass
+                    out_img.write_bytes(blob)
                     img_paths.append(str(out_img))
 
         pages.append({
@@ -357,24 +375,49 @@ def convert_legacy_office(path: Path) -> Path:
     if suffix == ".ppt":
         out_path = tmp_dir / f"{path.stem}.pptx"
         app = win32com.client.Dispatch("PowerPoint.Application")
+        pres = None
         try:
             pres = app.Presentations.Open(str(path.resolve()), WithWindow=False)
             pres.SaveAs(str(out_path), 24)  # ppSaveAsOpenXMLPresentation
-            pres.Close()
+        except Exception:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
+            raise
         finally:
-            app.Quit()
+            if pres is not None:
+                try:
+                    pres.Close()
+                except Exception:
+                    pass
+            try:
+                if app.Presentations.Count == 0:
+                    app.Quit()
+            except Exception:
+                pass
         return out_path
     if suffix == ".doc":
         out_path = tmp_dir / f"{path.stem}.docx"
         app = win32com.client.Dispatch("Word.Application")
         app.Visible = False
+        doc = None
         try:
             doc = app.Documents.Open(str(path.resolve()))
             doc.SaveAs2(str(out_path), FileFormat=16)  # wdFormatDocumentDefault
-            doc.Close()
+        except Exception:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
+            raise
         finally:
-            app.Quit()
+            if doc is not None:
+                try:
+                    doc.Close()
+                except Exception:
+                    pass
+            try:
+                if app.Documents.Count == 0:
+                    app.Quit()
+            except Exception:
+                pass
         return out_path
+    shutil.rmtree(tmp_dir, ignore_errors=True)
     raise ValueError(f"Unsupported legacy suffix: {suffix}")
 
 
@@ -734,7 +777,22 @@ def build_prompt_text(
         header_meta = f" [{chars}字 | {imgs}图 | {v_flag}]" if (p.get("needs_vision") or imgs or chars < 45) else ""
         vis_note = ""
         if vfiles:
-            vis_note = "\n" + "\n".join(f"📷 视觉页/内嵌图（务必用 read_file 亲眼读取）: `{vf}`" for vf in vfiles)
+            has_composite = any(
+                Path(vf).name.startswith("p") and Path(vf).suffix.lower() == ".png"
+                for vf in vfiles
+            )
+            vis_lines = []
+            for vf in vfiles:
+                vpath = Path(vf)
+                if has_composite and not (vpath.name.startswith("p") and vpath.suffix.lower() == ".png"):
+                    vis_lines.append(
+                        f"🔎 原始内嵌图备查（复合页已渲染；仅当局部过小/被遮挡或需完整无字底图裁剪时再读）: `{vf}`"
+                    )
+                elif has_composite:
+                    vis_lines.append(f"📷 视觉页/复合幻灯片（务必用 read_file 亲眼读取）: `{vf}`")
+                else:
+                    vis_lines.append(f"📷 视觉页/内嵌图（务必用 read_file 亲眼读取）: `{vf}`")
+            vis_note = "\n" + "\n".join(vis_lines)
         body_txt = p.get("text", "").strip() or "[⚠️ 此页无可用纯文本或极稀疏，必须结合视觉原图读取内容！]"
         page_blocks.append(f"### Page/Slide {pg}{header_meta}{vis_note}\n{body_txt}")
 
@@ -978,7 +1036,7 @@ def merge_delta_into_graph(graph: dict, delta: dict, timestamp: str | None = Non
                     existing_assets.add(da.get("path"))
                     enriched_new_assets.setdefault(existing["id"], []).append(da)
             inc_quiz = (inc_node.get("payload") or {}).get("quiz")
-            if inc_quiz and isinstance(existing.get("payload"), dict) and not existing["payload"].get("quiz"):
+            if inc_quiz and isinstance(existing.get("payload"), dict) and (not existing["payload"].get("quiz") or inc_node.get("upgrade_quiz")):
                 existing["payload"]["quiz"] = inc_quiz
                 enriched_new_quizzes[existing["id"]] = inc_quiz
             enriched_ids.append(existing["id"])
@@ -1129,6 +1187,11 @@ def audit_logic_quality(
     cross_discipline_edges = 0
     rescue_anchors = 0
     contrast_edges = 0
+    new_thread_front_ids = {
+        id_remap.get(step.get("node_id", ""), step.get("node_id", ""))
+        for inc_th in delta.get("threads", [])
+        for step in inc_th.get("ordered_steps", [])[:3]
+    }
 
     for e in delta.get("edges", []):
         src = id_remap.get(e["source"], e["source"])
@@ -1139,19 +1202,23 @@ def audit_logic_quality(
             cross_discipline_edges += 1
         if e.get("relation_type") in {"prerequisite", "structural_basis"}:
             rescue_anchors += 1
-        if (
-            sn
-            and dn
-            and sn.get("syllabus_tier") == "understand"
-            and dn.get("syllabus_tier") != "understand"
-            and (
-                e.get("relation_type") == "prerequisite"
-                or (e.get("relation_type") == "structural_basis" and e.get("strength", 0.8) >= 0.9)
-            )
-        ):
-            warnings.append(
-                f"Prerequisite leak risk on edge {e.get('id')}: understand-tier source '{src}' gates mainline target '{dst}' via {e.get('relation_type')}."
-            )
+        is_prereq_gate = (
+            e.get("relation_type") == "prerequisite"
+            or (e.get("relation_type") == "structural_basis" and e.get("strength", 0.8) >= 0.9)
+        )
+        if sn and dn and is_prereq_gate:
+            if sn.get("syllabus_tier") == "understand" and dn.get("syllabus_tier") != "understand":
+                warnings.append(
+                    f"Prerequisite leak risk on edge {e.get('id')}: understand-tier source '{src}' gates mainline target '{dst}' via {e.get('relation_type')}."
+                )
+            elif (
+                sn.get("syllabus_tier") == "familiar"
+                and dn.get("syllabus_tier") in {"core_underlined", "master"}
+                and dst in new_thread_front_ids
+            ):
+                warnings.append(
+                    f"Familiar prerequisite leak risk on edge {e.get('id')}: familiar source '{src}' gates front-of-thread core target '{dst}' (use causal_next)."
+                )
         if e.get("relation_type") == "contrast_with":
             contrast_edges += 1
         bt = e.get("bridge_text", "").strip()
@@ -1168,6 +1235,8 @@ def audit_logic_quality(
     quiz_ans_counts: dict[int, int] = defaultdict(int)
     quiz_length_tell_nodes: list[str] = []
     extreme_length_tell_nodes: list[str] = []
+    quiz_bilateral_asym_nodes: list[str] = []
+    quiz_because_tell_nodes: list[str] = []
     dense_card_warnings: list[str] = []
     newly_covered_refs = set()
 
@@ -1189,6 +1258,16 @@ def audit_logic_quality(
                 quiz_length_tell_nodes.append(nid)
                 if med_dist >= 8 and (opt_lens[ans_i] - med_dist) >= 10 and opt_lens[ans_i] > med_dist * 1.45:
                     extreme_length_tell_nodes.append(nid)
+            min_len = min(opt_lens)
+            max_len = max(opt_lens)
+            if (min_len > 0 and max_len >= min_len * 2.25 and (max_len - min_len) >= 12) or (
+                med_dist >= 10 and opt_lens[ans_i] < med_dist * 0.55 and (med_dist - opt_lens[ans_i]) >= 10
+            ):
+                quiz_bilateral_asym_nodes.append(nid)
+            ans_txt = str(opts[ans_i])
+            dist_txts = [str(opts[j]) for j in range(len(opts)) if j != ans_i]
+            if len(dist_txts) >= 2 and "因为" in ans_txt and not any("因为" in dt for dt in dist_txts):
+                quiz_because_tell_nodes.append(nid)
 
     def _tally_assets(nid: str, asset_list: list | None):
         nonlocal diagram_assets_added
@@ -1255,6 +1334,16 @@ def audit_logic_quality(
         warnings.append(
             f"Quiz length bias: {len(quiz_length_tell_nodes)}/{quiz_nodes_added} correct options are >25% longer than distractors "
             f"(flagged: {flagged_quiz_ids}); keep options symmetric and put rationale in explain."
+        )
+    if quiz_bilateral_asym_nodes:
+        warnings.append(
+            f"Quiz bilateral option asymmetry: extreme option length spread (>=2.25x & >=12c diff or ultra-short key) on "
+            f"{quiz_bilateral_asym_nodes}; balance option lengths across A/B/C/D."
+        )
+    if quiz_because_tell_nodes:
+        warnings.append(
+            f"Quiz rationale-in-option tell: correct option contains '因为' while distractors do not on "
+            f"{quiz_because_tell_nodes}; move causal explanation into quiz.explain."
         )
 
     understand_leaks: list[str] = []
@@ -1421,7 +1510,7 @@ def main():
     parser = argparse.ArgumentParser(description="Compile slides into MedGraph Flow delta JSON and merge safely.")
     parser.add_argument("--slide", help="Path to courseware (.pptx/.ppt/.pdf/.docx)")
     parser.add_argument("--subject", choices=sorted(SUBJECTS), help="Explicit primary subject override (skips fragile auto-guessing)")
-    parser.add_argument("--mode", choices=["extract-context", "prompt-pack", "api", "merge", "crop-asset", "batch-extract"], required=True)
+    parser.add_argument("--mode", choices=["extract-context", "prompt-pack", "api", "merge", "audit-delta", "crop-asset", "batch-extract"], required=True)
     parser.add_argument("--manifest", default=str(DATA_DIR / "course_manifest.json"), help="Manifest JSON path for --mode batch-extract")
     parser.add_argument("--force", action="store_true", help="Re-extract even if *_part1_context.md exists (for --mode batch-extract)")
     parser.add_argument("--render-visuals", action="store_true", help="Rasterize visual/diagram PDF pages or dump PPTX images into inbox/visuals/")
@@ -1459,12 +1548,15 @@ def main():
         print(f"Batch extract finished: {json.dumps(summary, ensure_ascii=False)}")
         return
 
-    if args.mode == "merge":
+    if args.mode in {"merge", "audit-delta"}:
         if not args.delta:
-            raise ValueError("--mode merge requires --delta <delta_graph.json>")
+            raise ValueError(f"--mode {args.mode} requires --delta <delta_graph.json>")
         delta = json.loads(Path(args.delta).read_text(encoding="utf-8"))
         # Support enriching existing nodes with new quiz or diagram_assets safely
         merged, stats = merge_delta_into_graph(graph, delta)
+        if args.mode == "audit-delta":
+            print(f"Dry-run audit OK (no files modified): {json.dumps(stats, ensure_ascii=False)}")
+            return
         if graph_path.exists():
             shutil.copy2(graph_path, graph_path.with_suffix(".json.bak"))
         graph_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")

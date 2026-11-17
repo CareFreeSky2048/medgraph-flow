@@ -133,8 +133,12 @@ def main():
         "threads": [],
     }
 
-    orig_count = len(graph["nodes"])
-    merged, stats = merge_delta_into_graph(graph, delta)
+    graph_step2 = json.loads(json.dumps(graph))
+    for n in graph_step2["nodes"]:
+        if "syl_pathology_023" in n.get("syllabus_refs", []):
+            n["syllabus_refs"] = [r for r in n["syllabus_refs"] if r != "syl_pathology_023"]
+    orig_count = len(graph_step2["nodes"])
+    merged, stats = merge_delta_into_graph(graph_step2, delta)
     assert stats["nodes_added"] == 1
     assert stats["nodes_enriched"] == 1
     assert stats["edges_added"] == 2
@@ -522,6 +526,167 @@ def main():
     }
     _, pleak_stats = merge_delta_into_graph(graph, prereq_leak_delta)
     assert any("Prerequisite leak risk" in w for w in pleak_stats["logic_audit"]["warnings"]), pleak_stats
+
+    # 8d. Familiar->core prerequisite on thread front + upgrade_quiz=True support
+    fam_leak_delta = {
+        "nodes": [
+            {
+                "id": "biochem_fam_src_demo",
+                "title": "熟悉前置门控风险卡",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_014"],
+                "syllabus_tier": "familiar",
+                "node_type": "structure_cloze",
+                "anchor_summary": "测试 familiar 先修误提至主线队首告警。",
+                "source_slides": ["test#P1"],
+                "payload": {"bullets": ["测试{{条件}}"]},
+            },
+            {
+                "id": "biochem_master_dst_demo",
+                "title": "主线核心目标测试卡",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_017"],
+                "syllabus_tier": "master",
+                "node_type": "structure_cloze",
+                "anchor_summary": "主线前排核心节点。",
+                "source_slides": ["test#P2"],
+                "payload": {"bullets": ["核心{{步骤}}"]},
+            },
+            {
+                "id": existing_target["id"],
+                "upgrade_quiz": True,
+                "payload": {
+                    "quiz": {
+                        "stem": "升级替换旧题测试题干？",
+                        "options": ["升级平衡选项甲十五", "升级平衡选项乙十五", "升级平衡选项丙十五", "升级平衡选项丁十五"],
+                        "answer_idx": 1,
+                        "explain": "验证 upgrade_quiz 可控覆盖。",
+                    }
+                },
+            },
+        ],
+        "edges": [
+            {
+                "id": "e_fam_gates_core_front",
+                "source": "biochem_fam_src_demo",
+                "target": "biochem_master_dst_demo",
+                "relation_type": "prerequisite",
+                "strength": 0.92,
+                "bridge_text": "熟悉层级前置若强门控主线前排核心节点将被路由器提至队首。",
+            }
+        ],
+        "threads": [
+            {
+                "id": "thread_fam_leak_demo",
+                "title": "熟悉前置告警测试线",
+                "subject": "biochem",
+                "ordered_steps": [
+                    {"node_id": "biochem_master_dst_demo", "incoming_edge_id": None},
+                    {"node_id": "biochem_aa_pool", "incoming_edge_id": None},
+                ],
+            }
+        ],
+    }
+    upg_merged, fam_stats = merge_delta_into_graph(graph, fam_leak_delta)
+    assert any("Familiar prerequisite leak risk" in w for w in fam_stats["logic_audit"]["warnings"]), fam_stats
+    upg_node = next(n for n in upg_merged["nodes"] if n["id"] == existing_target["id"])
+    assert upg_node["payload"]["quiz"]["stem"] == "升级替换旧题测试题干？"
+    assert fam_stats["logic_audit"]["quiz_nodes_added"] == 1
+
+    # 8e. Audit catches '因为'-in-correct-option tell, bilateral asymmetry, and --mode audit-delta stays dry-run
+    import subprocess
+
+    quiz_tell_delta = {
+        "nodes": [
+            {
+                "id": "biochem_quiz_tell_demo",
+                "title": "选项夹带因果线索测试卡",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_017"],
+                "syllabus_tier": "core_underlined",
+                "node_type": "structure_cloze",
+                "anchor_summary": "测试审计能否拦截正确答案单独含因为或极端长度失衡。",
+                "source_slides": ["test#P3"],
+                "payload": {
+                    "bullets": ["测试{{审计规则}}"],
+                    "quiz": {
+                        "stem": "下列哪项说明尿素循环障碍导致血氨升高？",
+                        "options": [
+                            "仅四字符",
+                            "因为精氨酸代琥珀酸合成酶缺陷阻断瓜氨酸缩合导致鸟氨酸循环受阻",
+                            "谷丙转氨酶在肝脏中活性增高表现",
+                            "磷酸吡哆醛参与细胞内转氨基催化作用",
+                        ],
+                        "answer_idx": 1,
+                        "remedial_node_id": "biochem_urea_cycle",
+                        "explain": "解释放这里而非选项。",
+                    },
+                },
+            }
+        ],
+        "edges": [
+            {
+                "id": "e_tell_demo_prereq",
+                "source": "biochem_aa_pool",
+                "target": "biochem_quiz_tell_demo",
+                "relation_type": "prerequisite",
+                "strength": 0.9,
+                "bridge_text": "氨基酸脱氨基产氨必须进入肝线粒体尿素循环解毒才能避免高氨血症脑病。",
+            }
+        ],
+    }
+    _, qt_stats = merge_delta_into_graph(graph, quiz_tell_delta)
+    qt_warnings = qt_stats["logic_audit"]["warnings"]
+    assert any("Quiz rationale-in-option tell" in w for w in qt_warnings), qt_warnings
+    assert any("Quiz bilateral option asymmetry" in w for w in qt_warnings), qt_warnings
+
+    with tempfile.TemporaryDirectory() as tmp:
+        delta_file = Path(tmp) / "dry_audit_demo.json"
+        delta_file.write_text(json.dumps(quiz_tell_delta, ensure_ascii=False), encoding="utf-8")
+        pre_mtime = graph_path.stat().st_mtime_ns
+        proc = subprocess.run(
+            [sys.executable, "-X", "utf8", str(APP_DIR / "ingest_slides.py"), "--mode", "audit-delta", "--delta", str(delta_file)],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            check=True,
+        )
+        assert "Dry-run audit OK" in proc.stdout, proc.stdout
+        assert graph_path.stat().st_mtime_ns == pre_mtime, "--mode audit-delta must not modify graph.json"
+
+    # 8f. Composite pXXX.png demotes duplicate sXXX_imgK to secondary reference & >2048px blobs downscale
+    import io
+    comp_prompt = build_prompt_text(
+        "复合页视觉测试.pptx",
+        [
+            {
+                "page": 1,
+                "text": "测试",
+                "char_count": 2,
+                "embedded_images": 1,
+                "needs_vision": True,
+                "vision_reasons": ["embedded_images:1"],
+                "visual_files": ["C:/tmp/p001.png", "C:/tmp/s001_img1.jpg"],
+                "heading": "测试",
+            }
+        ],
+        [],
+        graph,
+        primary_subject="histology",
+    )
+    assert "📷 视觉页/复合幻灯片（务必用 read_file 亲眼读取）: `C:/tmp/p001.png`" in comp_prompt
+    assert "🔎 原始内嵌图备查" in comp_prompt and "s001_img1.jpg" in comp_prompt
+
+    with tempfile.TemporaryDirectory() as tmp6:
+        huge_buf = io.BytesIO()
+        Image.new("RGB", (3200, 1200), color=(250, 250, 250)).save(huge_buf, format="JPEG")
+        down_res = _finalize_slide_pages(
+            [{"page": 1, "text": "超大图降采样测试文本内容足够长不触发稀疏页", "_images": [{"hash": "huge12345678", "ext": "jpg", "is_vector": False, "blob": huge_buf.getvalue()}], "_group_count": 0}],
+            visual_dir=Path(tmp6),
+        )
+        saved_path = Path(down_res[0]["visual_files"][0])
+        with Image.open(saved_path) as check_im:
+            assert max(check_im.size) <= 2048, f"Expected <=2048px downscale, got {check_im.size}"
 
     print("PASS test_ingest: logic-first context, thread grafting, V2 visual/syllabus/quiz audit, and lossless merge verified.")
 

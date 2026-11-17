@@ -1,6 +1,6 @@
 {
   "manifest_version": 1,
-  "updated_at": "2026-11-17T09:47:30+08:00",
+  "updated_at": "2026-11-17T12:41:00+08:00",
   "ordering_policy": "The slide list below preserves user-declared discipline classification; canonical teaching sequence follows the 3 official syllabi below rather than raw filename order.",
   "curricula": [
     {
@@ -32,7 +32,7 @@
       "sub_subjects": ["histology"],
       "path": "C:\\Users\\32461\\Desktop\\绪论 上皮组织 刘琼_20260907基础医学分论（组胚）.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -48,7 +48,7 @@
       "sub_subjects": ["histology"],
       "path": "C:\\Users\\32461\\Desktop\\202609154软骨与骨（基础医学分论）.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -56,7 +56,7 @@
       "sub_subjects": ["histology"],
       "path": "C:\\Users\\32461\\Desktop\\2026-基础医学分论-血液、肌组织.pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -64,7 +64,7 @@
       "sub_subjects": ["histology"],
       "path": "C:\\Users\\32461\\Desktop\\第五讲 神经组织（基础医学，2023）.pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -88,7 +88,7 @@
       "sub_subjects": ["physiology"],
       "path": "C:\\Users\\32461\\Desktop\\基础医学分论-1-绪论机体功能的调节20261014.pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -96,7 +96,7 @@
       "sub_subjects": ["physiology"],
       "path": "C:\\Users\\32461\\Desktop\\细胞跨膜物质转运-基础医学分论2026-chyh.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -104,7 +104,7 @@
       "sub_subjects": ["physiology"],
       "path": "C:\\Users\\32461\\Desktop\\生物电 陈咏华_细胞生物电活动-基础医学分论2026-chyh.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -112,7 +112,7 @@
       "sub_subjects": ["physiology"],
       "path": "C:\\Users\\32461\\Desktop\\肌细胞的收缩-基础医学分论2026-chyh.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -120,7 +120,7 @@
       "sub_subjects": ["physiology"],
       "path": "C:\\Users\\32461\\Desktop\\能量代谢与体温-基础医学分论2026-chyh.ppt",
       "format": ".ppt",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -128,7 +128,7 @@
       "sub_subjects": ["pathophys"],
       "path": "C:\\Users\\32461\\Desktop\\疾病概论 -2026.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -144,7 +144,7 @@
       "sub_subjects": ["pathophys"],
       "path": "C:\\Users\\32461\\Desktop\\应激-20251029.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -152,7 +152,7 @@
       "sub_subjects": ["pathology"],
       "path": "C:\\Users\\32461\\Desktop\\细胞组织的适应和损伤 曾文姣 （基医4学时）2026秋 更新.pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -160,7 +160,7 @@
       "sub_subjects": ["pathology"],
       "path": "C:\\Users\\32461\\Desktop\\基础医学概论 修复 基础 20241103上传.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -168,7 +168,7 @@
       "sub_subjects": ["pathology"],
       "path": "C:\\Users\\32461\\Desktop\\充血和淤血（基医 2学时）2026秋.pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -176,7 +176,7 @@
       "sub_subjects": ["pathology"],
       "path": "C:\\Users\\32461\\Desktop\\基础医学概论 炎症 基础 20241103上传.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -184,7 +184,7 @@
       "sub_subjects": ["pathology"],
       "path": "C:\\Users\\32461\\Desktop\\基础医学分论（概论）-肿瘤-刘秀萍-定稿2025.11.24.pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
