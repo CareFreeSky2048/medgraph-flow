@@ -262,10 +262,61 @@ html, body {
 .tier-master { background: #ecfdf5; color: #047857; }
 .tier-understand { background: #f8fafc; color: #64748b; }
 
-.type-badge {
+.card-meta-right {
   margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.type-badge {
   font-size: 11px;
   color: var(--ink-3);
+}
+
+.kw-toggle-btn {
+  border: 1px solid var(--line);
+  background: var(--surface-muted);
+  color: var(--ink-3);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.kw-toggle-btn.on {
+  border-color: #fde68a;
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.kw-core {
+  font-weight: 700;
+  color: #0f172a;
+  background: rgba(251, 191, 36, 0.17);
+  border-bottom: 1.5px solid rgba(217, 119, 6, 0.55);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+.kw-metric {
+  font-weight: 700;
+  color: #0369a1;
+}
+.kw-contrast {
+  font-weight: 700;
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-color: rgba(185, 28, 28, 0.38);
+  text-underline-offset: 3px;
+}
+.kw-label {
+  font-weight: 700;
+  color: var(--ink);
+}
+.takeaway-card .kw-core,
+.trap-box .kw-core {
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom-color: rgba(180, 83, 9, 0.55);
 }
 
 .card-title {

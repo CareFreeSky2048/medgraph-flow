@@ -10,6 +10,147 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   }[c]));
 
+  const stripMd = v => String(v ?? '').replace(/\*\*([^*\n]+?)\*\*/g, '$1');
+
+  const ACRO_STOP = new Set(['VS', 'OR', 'AND', 'THE', 'FOR', 'NO', 'OK', 'IN', 'ON', 'AT', 'TO', 'OF', 'BY', 'IS', 'ARE', 'AS']);
+
+  function collectRuleMatches(text, rules) {
+    const candidates = [];
+    for (const rule of rules) {
+      const re = new RegExp(rule.re.source, rule.re.flags);
+      let m;
+      while ((m = re.exec(text)) !== null) {
+        if (!m[0]) {
+          re.lastIndex += 1;
+          continue;
+        }
+        const sub = rule.group ? m[rule.group] : m[0];
+        if (!sub) continue;
+        const offset = rule.group ? m[0].lastIndexOf(sub) : 0;
+        const start = m.index + Math.max(0, offset);
+        const end = start + sub.length;
+        if (rule.acroCheck && ACRO_STOP.has(sub.toUpperCase())) continue;
+        candidates.push({ start, end, cls: rule.cls, prio: rule.prio, token: sub });
+      }
+    }
+    return candidates;
+  }
+
+  function highlightPlainSegment(text, opts = {}) {
+    if (!text) return '';
+    const mode = opts.mode || 'prose';
+    const baseMaxSpans = opts.maxSpans ?? (mode === 'matrix_cell' ? 2 : (mode === 'cloze_outside' ? 1 : 3));
+    const maxRatio = opts.maxRatio ?? (mode === 'matrix_cell' ? 0.38 : 0.30);
+
+    const primaryRules = [
+      {
+        cls: 'kw-contrast',
+        prio: 1,
+        re: /(?:而非|区别于|并非|唯独|绝非|恰恰相反|失代偿|不可逆|禁止|绝对不应期|假阳性|假阴性)/g,
+      },
+      {
+        cls: 'kw-label',
+        prio: 2,
+        group: 1,
+        re: /(?:^|[。；;\n①②③④⑤⑥⑦⑧⑨⑩])\s*([^\n，,。；;：:=＝（）()]{2,14}[：:])/g,
+      },
+      {
+        cls: 'kw-core',
+        prio: 2,
+        group: 1,
+        re: /(?:^|[。；;\n])\s*([^\n，,。；;=＝（）()]{2,14})\s*(?==|＝)/g,
+      },
+      {
+        cls: 'kw-metric',
+        prio: 3,
+        re: /(?:pH\s*\d+(?:\.\d+)?(?:\s*[-–~]\s*\d+(?:\.\d+)?)?|[><≥≤＜＞≈]\s*\d+(?:\.\d+)?(?:\s*[-–~～/]\s*\d+(?:\.\d+)?)?(?:\s*(?:%|‰|g\/L|mg\/dL|mmol\/L|μmol\/L|mEq\/L|mV|ms|nm|μm|um|mm|cm|kDa|bp|aa|℃|mmHg|kPa|mL|L|ATP|NADH|NADPH|h|d|min|s|周|天|小时|倍|个|分子|条))?|\d+(?:\.\d+)?(?:\s*[-–~～至]\s*\d+(?:\.\d+)?)?\s*(?:%|‰|g\/L|mg\/dL|mmol\/L|μmol\/L|mEq\/L|mV|ms|nm|μm|um|mm|cm|kDa|bp|aa|℃|mmHg|kPa|mL|ATP|NADH|NADPH|高能磷酸键|天|周|小时)|[^\s，,。；;（）()、→：:=＋+/]{1,8}[↑↓])/g,
+      },
+    ];
+
+    if (mode !== 'cloze_outside' && !opts.hasExplicit) {
+      primaryRules.push({
+        cls: 'kw-core',
+        prio: 4,
+        group: 2,
+        acroCheck: true,
+        re: /(^|[^A-Za-z0-9])([A-Za-z][A-Za-z0-9\-α-ωΑ-Ω]*[⁺⁻²³₁₂]+[A-Za-z0-9\-⁺⁻²³₁₂]*|[A-Z]{2,7}(?:[-/][A-Z0-9α-ωΑ-ΩⅠⅡⅢⅣⅤ]{1,5})?|cAMP|cGMP|mRNA|rRNA|tRNA|miRNA|eNOS|iNOS|nNOS)(?=[^A-Za-z0-9]|$)/g,
+      });
+    }
+
+    let cands = collectRuleMatches(text, primaryRules);
+    if (!cands.length && mode !== 'cloze_outside' && !opts.hasExplicit && text.length >= 22) {
+      cands = collectRuleMatches(text, [
+        {
+          cls: 'kw-core',
+          prio: 5,
+          re: /[^\s，,。；;（）()、→：:“”"'为系呈致使得而并因故或与及将把被在于对由是从则]{2,5}(?:升高|降低|受阻|衰竭|扩张|增高|下降|坏死|凋亡|渗出|变性|化生|转移|增生)/g,
+        },
+      ]);
+    }
+
+    if (!cands.length) return esc(text);
+    cands.sort((a, b) => a.prio - b.prio || a.start - b.start || (b.end - b.start) - (a.end - a.start));
+
+    const kept = [];
+    const seenTokens = new Set();
+    let usedChars = 0;
+    const totalLen = Math.max(text.length, 1);
+
+    for (const c of cands) {
+      if (kept.length >= baseMaxSpans) break;
+      if (kept.some(k => c.start < k.end && c.end > k.start)) continue;
+      if (c.prio >= 3 && seenTokens.has(c.token)) continue;
+      const len = c.end - c.start;
+      const nextRatio = (usedChars + len) / totalLen;
+      if (kept.length > 0 && nextRatio > maxRatio) continue;
+      if (kept.length === 0 && nextRatio > 0.65 && len > 14) continue;
+      kept.push(c);
+      seenTokens.add(c.token);
+      usedChars += len;
+    }
+
+    if (!kept.length) return esc(text);
+    kept.sort((a, b) => a.start - b.start);
+
+    let out = '';
+    let pos = 0;
+    for (const k of kept) {
+      if (k.start > pos) out += esc(text.slice(pos, k.start));
+      out += `<span class="${k.cls}">${esc(text.slice(k.start, k.end))}</span>`;
+      pos = k.end;
+    }
+    if (pos < text.length) out += esc(text.slice(pos));
+    return out;
+  }
+
+  function renderRichText(rawText, opts = {}) {
+    const src = String(rawText ?? '');
+    if (!src) return '';
+    if (settings.highlightKeywords === false) return esc(stripMd(src));
+
+    const parts = src.split(/(\*\*[^*\n]{1,48}?\*\*)/g);
+    const hasExplicit = parts.some(p => p.startsWith('**') && p.endsWith('**') && p.length > 4);
+    if (opts.mode === 'stem') {
+      return parts.map(part => {
+        if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+          return `<span class="kw-core">${esc(part.slice(2, -2))}</span>`;
+        }
+        return esc(part);
+      }).join('');
+    }
+
+    const segOpts = hasExplicit
+      ? { ...opts, hasExplicit: true, maxSpans: Math.min(opts.maxSpans ?? 1, 1) }
+      : opts;
+
+    return parts.map(part => {
+      if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+        return `<span class="kw-core">${esc(part.slice(2, -2))}</span>`;
+      }
+      return highlightPlainSegment(part, segOpts);
+    }).join('');
+  }
+
   let graph = null;
   let progress = null;
   let settings = S.loadSettings();
@@ -136,11 +277,16 @@
 
   function renderClozeBullet(text, bulletIdx) {
     let localIdx = 0;
-    return esc(text).replace(/\{\{(.+?)\}\}/g, (_, inner) => {
-      const cid = `${bulletIdx}_${localIdx++}`;
-      const isOpen = cardState.openClozes.has(cid);
-      return `<button type="button" class="cloze-pill ${isOpen ? 'open' : ''}" data-act="toggle-cloze" data-cid="${cid}" aria-expanded="${isOpen}">${inner}</button>`;
-    });
+    const segments = String(text ?? '').split(/(\{\{.+?\}\})/g);
+    return segments.map(seg => {
+      if (seg.startsWith('{{') && seg.endsWith('}}') && seg.length > 4) {
+        const inner = seg.slice(2, -2);
+        const cid = `${bulletIdx}_${localIdx++}`;
+        const isOpen = cardState.openClozes.has(cid);
+        return `<button type="button" class="cloze-pill ${isOpen ? 'open' : ''}" data-act="toggle-cloze" data-cid="${cid}" aria-expanded="${isOpen}">${esc(stripMd(inner))}</button>`;
+      }
+      return renderRichText(seg, { mode: 'cloze_outside', maxSpans: 1 });
+    }).join('');
   }
 
   function renderQuizBlock(quiz, labelPrefix = '🎯 高阶反转诊断') {
@@ -151,16 +297,16 @@
         if (idx === quiz.answer_idx) cls += ' correct';
         else if (idx === cardState.quizSelectedIdx) cls += ' wrong';
       }
-      return `<button type="button" class="${cls}" data-act="answer-quiz" data-idx="${idx}">${String.fromCharCode(65 + idx)}. ${esc(opt)}</button>`;
+      return `<button type="button" class="${cls}" data-act="answer-quiz" data-idx="${idx}">${String.fromCharCode(65 + idx)}. ${esc(stripMd(opt))}</button>`;
     }).join('');
     const rescueTip = cardState.quizAttempted && !cardState.quizFirstTryCorrect && quiz.remedial_node_id
       ? '<div class="quiz-rescue-tip">🧭 已定位前置根因节点：点下方 🔴 可自动触发诊断补漏岔路</div>'
       : '';
     return `
       <div class="quiz-card">
-        <p class="quiz-stem">${labelPrefix}：${esc(quiz.stem)}</p>
+        <p class="quiz-stem">${labelPrefix}：${renderRichText(quiz.stem, { mode: 'stem' })}</p>
         <div class="quiz-options">${opts}</div>
-        ${cardState.quizAttempted ? `<div class="quiz-explain"><strong>解析：</strong>${esc(quiz.explain)}${rescueTip}</div>` : ''}
+        ${cardState.quizAttempted ? `<div class="quiz-explain"><strong>解析：</strong>${renderRichText(quiz.explain)}${rescueTip}</div>` : ''}
       </div>
     `;
   }
@@ -196,13 +342,13 @@
             <span>第 ${i + 1} 步 · ${esc(st.cue)}</span>
             ${st.mechanism_tag ? `<span class="flow-tag">${esc(st.mechanism_tag)}</span>` : ''}
           </div>
-          <p class="flow-reveal-text">${esc(st.reveal)}</p>
+          <p class="flow-reveal-text">${renderRichText(st.reveal)}</p>
         </div>
       `).join('');
 
       const nextBtn = shown < steps.length
-        ? `<button type="button" class="flow-next-btn" data-act="next-flow-step">👇 推演第 ${shown + 1}/${steps.length} 步：${esc(steps[shown].cue)}</button>`
-        : `<div class="takeaway-card"><strong>💡 核心结论：</strong>${esc(node.payload.takeaway)}</div>`;
+        ? `<button type="button" class="flow-next-btn" data-act="next-flow-step">👇 推演第 ${shown + 1}/${steps.length} 步：${esc(stripMd(steps[shown].cue))}</button>`
+        : `<div class="takeaway-card"><strong>💡 核心结论：</strong>${renderRichText(node.payload.takeaway)}</div>`;
 
       const expandAll = shown < steps.length
         ? `<div class="cloze-toolbar"><button type="button" class="mini-btn" data-act="expand-all-flow">展开全部 ${steps.length} 步</button></div>`
@@ -218,12 +364,12 @@
           <button type="button" class="mini-btn" data-act="toggle-all-cloze">${allOpen ? '全部遮罩练习' : '全部翻开核对'}</button>
         </div>
         <ul class="cloze-list">${bullets}</ul>
-        ${node.payload.trap_note ? `<div class="trap-box"><strong>⚠️ 临床陷阱 / 易混点：</strong>${esc(node.payload.trap_note)}</div>` : ''}
+        ${node.payload.trap_note ? `<div class="trap-box"><strong>⚠️ 临床陷阱 / 易混点：</strong>${renderRichText(node.payload.trap_note)}</div>` : ''}
       `;
       if (node.payload.quiz) html += renderQuizBlock(node.payload.quiz, '🎯 结构功能反转测');
     } else if (node.node_type === 'comparison_matrix') {
-      const cols = (node.payload.columns || []).map(c => `<th>${esc(c)}</th>`).join('');
-      const rows = (node.payload.rows || []).map(row => `<tr>${row.map(cell => `<td>${esc(cell)}</td>`).join('')}</tr>`).join('');
+      const cols = (node.payload.columns || []).map(c => `<th>${esc(stripMd(c))}</th>`).join('');
+      const rows = (node.payload.rows || []).map(row => `<tr>${row.map(cell => `<td>${renderRichText(cell, { mode: 'matrix_cell', maxSpans: 2 })}</td>`).join('')}</tr>`).join('');
       html = `
         <div class="matrix-wrap"><table class="matrix-table"><thead><tr>${cols}</tr></thead><tbody>${rows}</tbody></table></div>
         ${renderQuizBlock(node.payload.quiz, '⚡ 秒测')}
@@ -249,14 +395,14 @@
     const bridgeHtml = resumed.recap?.bridge_text
       ? `<div class="bridge-box">
            <span class="bridge-tag">${esc(resumed.recap.relation_label || '逻辑衔接')}</span>
-           <span>${esc(resumed.recap.bridge_text)}</span>
+           <span>${renderRichText(resumed.recap.bridge_text, { maxSpans: 2 })}</span>
          </div>`
       : '';
 
     const recapHtml = resumed.recap?.prev_anchor
       ? `<details class="recap-details" ${resumed.recap.idle_minutes >= 20 ? 'open' : ''}>
            <summary>⏱️ 10秒前情提要（接续自「${esc(resumed.recap.prev_title)}」）</summary>
-           <p>${esc(resumed.recap.prev_anchor)}</p>
+           <p>${renderRichText(resumed.recap.prev_anchor, { maxSpans: 2 })}</p>
          </details>`
       : '';
 
@@ -324,15 +470,19 @@
       comparison_matrix: '⚖️ 对比表 + 秒测',
     }[curNode.node_type] || '') + (hasOptQuiz ? ' + 🎯反转测' : '');
 
+    const kwOn = settings.highlightKeywords !== false;
     $('card-stage').innerHTML = `
       <div class="card-meta-row">
         <span class="subj-badge subj-${esc(curNode.subject)}">${esc(R.SUBJECT_LABELS[curNode.subject] || curNode.subject)}</span>
         <span class="tier-badge tier-${esc(curNode.syllabus_tier)}">${esc(R.TIER_LABELS[curNode.syllabus_tier] || curNode.syllabus_tier)}</span>
         <span>${R.STATUS_META[curState.status]?.dot || '⚪'}</span>
-        <span class="type-badge">${typeLabel}</span>
+        <span class="card-meta-right">
+          <span class="type-badge">${typeLabel}</span>
+          <button type="button" class="kw-toggle-btn ${kwOn ? 'on' : ''}" data-act="toggle-keywords" aria-pressed="${kwOn}" title="切换非胶囊句关键词高亮">${kwOn ? '✨ 重点' : '纯文本'}</button>
+        </span>
       </div>
       <h1 class="card-title">${esc(curNode.title)}</h1>
-      <p class="anchor-summary">${esc(curNode.anchor_summary)}</p>
+      <p class="anchor-summary">${renderRichText(curNode.anchor_summary, { maxSpans: 3 })}</p>
       ${renderNodeBody(curNode)}
       <div class="source-chip">📄 课件溯源：${esc((curNode.source_slides || []).join(' · ') || '教学大纲核心条目')}</div>
     `;
@@ -416,7 +566,7 @@
             ${sMeta.dot} ${isExplicit ? '已选岔路：' : '推荐邻域：'}${esc(activePreviewItem.node.title)}
             <span style="font-size:11px;font-weight:600;color:#b45309">（${rMeta.icon} ${esc(rMeta.label)} · ${esc(sMeta.label)}）</span>
           </div>
-          <div class="galaxy-preview-bridge">${esc(activePreviewItem.edge.bridge_text)}</div>
+          <div class="galaxy-preview-bridge">${renderRichText(activePreviewItem.edge.bridge_text, { maxSpans: 2 })}</div>
           <div class="galaxy-preview-actions">
             <button type="button" class="primary-btn" data-act="jump-detour" data-id="${esc(activePreviewItem.node.id)}" data-edge="${esc(activePreviewItem.edge.id)}">🌿 进入此岔路探索</button>
           </div>
@@ -591,6 +741,13 @@
     }
     if (act === 'open-sync') {
       renderSyncModal();
+      return;
+    }
+    if (act === 'toggle-keywords') {
+      settings.highlightKeywords = (settings.highlightKeywords === false);
+      S.saveSettings(settings);
+      renderStage();
+      showToast(settings.highlightKeywords === false ? '已切换为纯文本无提示模式' : '已开启知识句关键词突出显示');
       return;
     }
     if (act === 'next-flow-step') {

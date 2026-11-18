@@ -688,6 +688,88 @@ def main():
         with Image.open(saved_path) as check_im:
             assert max(check_im.size) <= 2048, f"Expected <=2048px downscale, got {check_im.size}"
 
+    # 8g. Non-cloze '**关键词**' concise emphasis passes audit while bold in options/cloze/sprawl triggers warnings
+    clean_bold_delta = {
+        "nodes": [
+            {
+                "id": "biochem_clean_bold_demo",
+                "title": "非胶囊精标测试卡",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_017"],
+                "syllabus_tier": "core_underlined",
+                "node_type": "mechanism_flow",
+                "anchor_summary": "**CPS-Ⅰ**为尿素循环启动限速酶。",
+                "source_slides": ["test#P1"],
+                "payload": {
+                    "steps": [
+                        {"cue": "启动步", "reveal": "在肝细胞线粒体基质内由**CPS-Ⅰ**耗2 ATP催化氨与碳酸氢根缩合生成氨基甲酰磷酸。", "mechanism_tag": "启动"},
+                        {"cue": "限速步", "reveal": "转移至胞质后由**精氨酸代琥珀酸合成酶**决定整个尿素循环的速率瓶颈。", "mechanism_tag": "限速"},
+                    ],
+                    "takeaway": "肝线粒体启动步骤需要**N-乙酰谷氨酸(AGA)**必需别构激活才能推进循环。",
+                    "quiz": {
+                        "stem": "下列哪项正确描述尿素循环启动？",
+                        "options": ["CPS-Ⅰ定位于线粒体", "CPS-Ⅱ位于线粒体基质", "精氨酸酶在脑中高表达", "谷氨酰胺酶定位于溶酶体"],
+                        "answer_idx": 0,
+                        "remedial_node_id": "biochem_urea_cycle",
+                        "explain": "**CPS-Ⅰ**定位于肝线粒体，需要AGA别构激活。",
+                    },
+                },
+            }
+        ],
+        "edges": [
+            {
+                "id": "e_clean_bold_prereq",
+                "source": "biochem_urea_cycle",
+                "target": "biochem_clean_bold_demo",
+                "relation_type": "prerequisite",
+                "strength": 0.9,
+                "bridge_text": "尿素循环线粒体启动步骤需要AGA触发酶活转换避免血氨堆积。",
+            }
+        ],
+    }
+    _, cb_stats = merge_delta_into_graph(graph, clean_bold_delta)
+    assert cb_stats["logic_audit"]["warnings"] == [], cb_stats["logic_audit"]["warnings"]
+
+    bad_bold_delta = {
+        "nodes": [
+            {
+                "id": "biochem_bad_bold_demo",
+                "title": "滥用加粗测试卡",
+                "subject": "biochem",
+                "syllabus_refs": ["syl_biochem_017"],
+                "syllabus_tier": "core_underlined",
+                "node_type": "structure_cloze",
+                "anchor_summary": "**整段全都被恶意加粗超过四十五个百分点毫无重点区分意义**",
+                "source_slides": ["test#P2"],
+                "payload": {
+                    "bullets": ["关键酶为{{**CPS-Ⅰ**}}并消耗ATP"],
+                    "quiz": {
+                        "stem": "以下哪个选项泄题？",
+                        "options": ["选项包含**加粗**", "正常对称干扰乙", "正常对称干扰丙", "正常对称干扰丁"],
+                        "answer_idx": 1,
+                        "remedial_node_id": "biochem_urea_cycle",
+                        "explain": "选项不得含**。",
+                    },
+                },
+            }
+        ],
+        "edges": [
+            {
+                "id": "e_bad_bold_prereq",
+                "source": "biochem_urea_cycle",
+                "target": "biochem_bad_bold_demo",
+                "relation_type": "prerequisite",
+                "strength": 0.9,
+                "bridge_text": "验证选项加粗、胶囊内加粗以及整段滥用标粗审计告警规则。",
+            }
+        ],
+    }
+    _, bb_stats = merge_delta_into_graph(graph, bad_bold_delta)
+    bb_warns = bb_stats["logic_audit"]["warnings"]
+    assert any("Quiz markup leak in options" in w for w in bb_warns), bb_warns
+    assert any("Bold markup inside cloze pill" in w for w in bb_warns), bb_warns
+    assert any("Bold sprawl risk" in w for w in bb_warns), bb_warns
+
     print("PASS test_ingest: logic-first context, thread grafting, V2 visual/syllabus/quiz audit, and lossless merge verified.")
 
 

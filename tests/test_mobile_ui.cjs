@@ -196,6 +196,41 @@ async function check(label, fn) {
     assert.deepEqual(pageErrors, []);
   });
 
+  await check('non-cloze keyword emphasis highlights flow/matrix/trap safely, avoids quiz options & cloze pills, and toggles live', async () => {
+    await page.locator('[data-act="open-atlas"]').click();
+    await page.locator('[data-act="atlas-tab"][data-tab="syllabus"]').click();
+    await page.locator('[data-act="svg-jump"][data-id="biochem_protein_colloid_salting_out"]').click();
+    await page.waitForFunction(() => document.querySelector('.card-title')?.textContent?.includes('胶体双稳定'));
+    await page.locator('[data-act="expand-all-flow"], [data-act="toggle-all-cloze"]').first().click().catch(() => {});
+
+    const bodyTxt = await page.locator('#card-stage').innerText();
+    assert(!bodyTxt.includes('**'), 'Raw markdown ** delimiters must not leak onto rendered card');
+    assert((await page.locator('#card-stage .kw-core, #card-stage .kw-metric, #card-stage .kw-label, #card-stage .kw-contrast').count()) >= 2, 'Expected semantic keyword highlights on prose/trap/anchor');
+    assert.equal(await page.locator('.quiz-opt .kw-core, .quiz-opt .kw-metric, .quiz-opt .kw-contrast, .quiz-opt .kw-label').count(), 0, 'Quiz options must NEVER highlight keywords');
+    assert.equal(await page.locator('.cloze-pill .kw-core, .cloze-pill .kw-metric, .cloze-pill .kw-contrast, .cloze-pill .kw-label').count(), 0, 'Cloze pills must remain isolated interactive chips');
+    await page.screenshot({ path: path.join(SHOT_DIR, '08-mobile-keyword-highlights.png'), fullPage: false });
+
+    // Verify mechanism_flow card with explicit ** in quiz.stem + heuristic highlights in steps
+    await page.locator('[data-act="open-atlas"]').click();
+    await page.locator('[data-act="atlas-tab"][data-tab="syllabus"]').click();
+    await page.locator('[data-act="svg-jump"][data-id="biochem_protein_primary_anfinsen"]').click();
+    await page.waitForFunction(() => document.querySelector('.card-title')?.textContent?.includes('Anfinsen'));
+    await page.locator('[data-act="expand-all-flow"]').click();
+    const flowTxt = await page.locator('#card-stage').innerText();
+    assert(!flowTxt.includes('**'), 'Explicit ** inside quiz.stem must render cleanly without asterisks');
+    assert((await page.locator('.flow-reveal-text .kw-core, .flow-reveal-text .kw-metric, .takeaway-card .kw-core, .takeaway-card .kw-contrast, .quiz-stem .kw-core').count()) >= 2);
+    await page.screenshot({ path: path.join(SHOT_DIR, '09-mobile-flow-keyword-highlights.png'), fullPage: false });
+
+    // Live toggle off -> zero keyword highlights -> toggle back on
+    await page.locator('[data-act="toggle-keywords"]').click();
+    assert.equal(await page.locator('#card-stage .kw-core, #card-stage .kw-metric, #card-stage .kw-contrast, #card-stage .kw-label').count(), 0, 'Toggling off must render clean plain text');
+    assert(!(await page.locator('#card-stage').innerText()).includes('**'), 'Toggling off must strip raw ** cleanly');
+    await page.locator('[data-act="toggle-keywords"]').click();
+    assert((await page.locator('#card-stage .kw-core, #card-stage .kw-metric, #card-stage .kw-contrast, #card-stage .kw-label').count()) >= 2);
+    assert.deepEqual(externalRequests, []);
+    assert.deepEqual(pageErrors, []);
+  });
+
   await browser.close();
   console.log(`\nAll ${passed} mobile UI Playwright tests passed.`);
 })();

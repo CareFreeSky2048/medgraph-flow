@@ -889,7 +889,7 @@ def build_prompt_text(
 
 ## 逻辑拆解与高阶测试硬性准则（V2）
 1. **看图读拓扑，严禁猜破碎文字**：凡标有 `🖼️ MUST_VIEW` 或含机理流程图/曲线/对比表图/显微照片的页，必须用 `read_file` 直接看图；核心机理总图/曲线/典型显微图用 `ingest_slides.py --mode crop-asset` 裁出保存至 `data/assets/*.webp` 并挂载 `diagram_assets`。
-2. **打破 PPT 页序、单卡单步认知负荷**：每卡聚焦 1 个因果推进/结构格局/易混对偶（30–45秒读完）。`structure_cloze` $\\le 5$ bullets，`mechanism_flow` 2–4 steps。严禁标题超过 26 字或带 `...`/`…`。
+2. **打破 PPT 页序、单卡单步认知负荷与非胶囊关键词精标**：每卡聚焦 1 个因果推进/结构格局/易混对偶（30–45秒读完）。`structure_cloze` $\\le 5$ bullets，`mechanism_flow` 2–4 steps。严禁标题超过 26 字或带 `...`/`…`。非胶囊陈述句（`reveal` / `takeaway` / `comparison_matrix` 单元格 / `anchor_summary` / `trap_note` / `quiz.explain`）可用 `**关键词**` 标出每句 1–2 个真考点（严禁用于 `quiz.options` 防泄题，也严禁在 `{{{{胶囊}}}}` 内加 `**` 或整段加粗）。
 3. **可选高阶反转诊断层（防泄题铁律）**：除 `comparison_matrix` 必带 `quiz` 外，建议为核心 `mechanism_flow` / `structure_cloze` 选配 1 道机制反推或临床断点题 `quiz`（可指定 `remedial_node_id` 指向前修根因，答错 🔴 时精准直达回溯）。**所有 4 个选项长度与语法结构必须对称**（把“因为……”留给 `explain`，严禁正确项比干扰项明显更长），且整批题目的 `answer_idx` 必须在 `0/1/2/3` 之间均衡打散（严禁全放 `0`）！
 4. **诊断补漏锚点与 `bridge_text` 因果检验**：重要新节点配入向 `prerequisite` / `structural_basis`（若需开荒自动前置，设 `strength >= 0.90`；🔴 诊断回溯至少 `>= 0.85`）；`ordered_steps` 相邻边方向必须 `prev -> next`（仅 `contrast_with` 允许双向）。
 
@@ -1237,8 +1237,41 @@ def audit_logic_quality(
     extreme_length_tell_nodes: list[str] = []
     quiz_bilateral_asym_nodes: list[str] = []
     quiz_because_tell_nodes: list[str] = []
+    quiz_bold_option_nodes: list[str] = []
+    bold_sprawl_nodes: list[str] = []
+    bold_in_cloze_nodes: list[str] = []
     dense_card_warnings: list[str] = []
     newly_covered_refs = set()
+
+    def _check_bold_hygiene(nid: str, nd: dict) -> None:
+        pay = nd.get("payload") or {}
+        prose_blocks: list[str] = [str(nd.get("anchor_summary", ""))]
+        if nd.get("node_type") == "mechanism_flow":
+            prose_blocks.extend(str(st.get("reveal", "")) for st in pay.get("steps", []))
+            prose_blocks.append(str(pay.get("takeaway", "")))
+        elif nd.get("node_type") == "comparison_matrix":
+            for row in pay.get("rows", []):
+                prose_blocks.extend(str(cell) for cell in row)
+        elif nd.get("node_type") == "structure_cloze":
+            for b in pay.get("bullets", []):
+                b_str = str(b)
+                if any("**" in inner for inner in re.findall(r"\{\{(.+?)\}\}", b_str)):
+                    bold_in_cloze_nodes.append(nid)
+                prose_blocks.append(re.sub(r"\{\{.+?\}\}", "", b_str))
+            if pay.get("trap_note"):
+                prose_blocks.append(str(pay.get("trap_note")))
+        if (pay.get("quiz") or {}).get("explain"):
+            prose_blocks.append(str(pay["quiz"]["explain"]))
+        for blk in prose_blocks:
+            spans = re.findall(r"\*\*([^*\n]+?)\*\*", blk)
+            if not spans:
+                continue
+            plain_len = len(re.sub(r"\*\*([^*\n]+?)\*\*", r"\1", blk).strip())
+            bold_len = sum(len(sp) for sp in spans)
+            if plain_len >= 26 and (bold_len / plain_len > 0.45 or (len(spans) >= 4 and plain_len < 80)):
+                if nid not in bold_sprawl_nodes:
+                    bold_sprawl_nodes.append(nid)
+                break
 
     def _tally_quiz(nid: str, quiz_obj: dict | None):
         nonlocal quiz_nodes_added, remedial_quiz_nodes
@@ -1249,6 +1282,8 @@ def audit_logic_quality(
             remedial_quiz_nodes += 1
         ans_i = quiz_obj.get("answer_idx")
         opts = quiz_obj.get("options", [])
+        if opts and any(re.search(r"\*\*[^*\n]+?\*\*", str(o)) for o in opts):
+            quiz_bold_option_nodes.append(nid)
         if isinstance(ans_i, int) and opts and 0 <= ans_i < len(opts):
             quiz_ans_counts[ans_i] += 1
             opt_lens = [len(str(o)) for o in opts]
@@ -1288,6 +1323,7 @@ def audit_logic_quality(
         if nd["node_type"] == "comparison_matrix":
             comparison_cards_added += 1
         _tally_quiz(nid, (nd.get("payload") or {}).get("quiz"))
+        _check_bold_hygiene(nid, nd)
         _tally_assets(nid, nd.get("diagram_assets", []))
         for r in refs:
             if r not in pre_covered_refs:
@@ -1344,6 +1380,19 @@ def audit_logic_quality(
         warnings.append(
             f"Quiz rationale-in-option tell: correct option contains '因为' while distractors do not on "
             f"{quiz_because_tell_nodes}; move causal explanation into quiz.explain."
+        )
+    if quiz_bold_option_nodes:
+        warnings.append(
+            f"Quiz markup leak in options: remove '**...**' emphasis inside quiz.options on "
+            f"{quiz_bold_option_nodes} (reserve highlights for prose and quiz.explain)."
+        )
+    if bold_in_cloze_nodes:
+        warnings.append(
+            f"Bold markup inside cloze pill: do not put '**...**' inside '{{{{...}}}}' on {sorted(set(bold_in_cloze_nodes))}."
+        )
+    if bold_sprawl_nodes:
+        warnings.append(
+            f"Bold sprawl risk: over-highlighted >45% of text in {bold_sprawl_nodes}; keep '**...**' to 1-2 pivotal terms per block."
         )
 
     understand_leaks: list[str] = []
