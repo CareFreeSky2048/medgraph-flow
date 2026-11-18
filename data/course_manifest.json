@@ -192,7 +192,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\人体解剖学_第一章_基础医学班 20260906.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -200,7 +200,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\260910 基础医学班 躯干骨及连接.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -208,7 +208,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\03 基础医学 颅骨及其连结 0913.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -216,7 +216,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\04 基础医学 上肢骨及骨联接 260915.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -224,7 +224,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\05 基础医学 下肢骨及其连结 20260920.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
