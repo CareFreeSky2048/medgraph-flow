@@ -11,6 +11,7 @@ APP_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(APP_DIR))
 
 from ingest_slides import (  # noqa: E402
+    _resolve_pdf_render_dpi,
     build_prompt_text,
     crop_asset_image,
     extract_courseware,
@@ -760,7 +761,7 @@ def main():
                 "target": "biochem_bad_bold_demo",
                 "relation_type": "prerequisite",
                 "strength": 0.9,
-                "bridge_text": "验证选项加粗、胶囊内加粗以及整段滥用标粗审计告警规则。",
+                "bridge_text": "**桥接文字也故意大段全标粗超过四十五个百分点触发审计拦截检查**",
             }
         ],
     }
@@ -769,6 +770,23 @@ def main():
     assert any("Quiz markup leak in options" in w for w in bb_warns), bb_warns
     assert any("Bold markup inside cloze pill" in w for w in bb_warns), bb_warns
     assert any("Bold sprawl risk" in w for w in bb_warns), bb_warns
+    assert any("Bridge bold sprawl risk" in w for w in bb_warns), bb_warns
+
+    # 8h. Portrait multi-up PDFs auto-select 280 DPI while landscape slide decks stay 150 DPI
+    with tempfile.TemporaryDirectory() as tmp7:
+        portrait_pdf = Path(tmp7) / "handout_portrait.pdf"
+        landscape_pdf = Path(tmp7) / "slides_landscape.pdf"
+        pw = PdfWriter()
+        pw.add_blank_page(width=595, height=842)
+        with open(portrait_pdf, "wb") as fh:
+            pw.write(fh)
+        lw = PdfWriter()
+        lw.add_blank_page(width=960, height=540)
+        with open(landscape_pdf, "wb") as fh:
+            lw.write(fh)
+        assert _resolve_pdf_render_dpi(portrait_pdf) == 280
+        assert _resolve_pdf_render_dpi(landscape_pdf) == 150
+        assert _resolve_pdf_render_dpi(portrait_pdf, explicit_dpi=200) == 200
 
     print("PASS test_ingest: logic-first context, thread grafting, V2 visual/syllabus/quiz audit, and lossless merge verified.")
 

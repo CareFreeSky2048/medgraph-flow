@@ -263,12 +263,30 @@ def extract_pdf(path: Path) -> list[dict]:
     return _finalize_slide_pages(raw_pages, visual_dir=None)
 
 
-def render_pdf_visual_pages(pdf_path: Path, pages: list[dict], visual_dir: Path, dpi: int = 150) -> int:
+def _resolve_pdf_render_dpi(pdf_path: Path, explicit_dpi: int | None = None) -> int:
+    """Use 280 DPI automatically for portrait PDFs (typically 2-up/4-up multi-slide handouts) so cropped figures remain sharp."""
+    if explicit_dpi is not None:
+        return int(explicit_dpi)
+    try:
+        from pypdf import PdfReader
+
+        reader = PdfReader(str(pdf_path))
+        if reader.pages:
+            box = reader.pages[0].mediabox
+            if float(box.height) > float(box.width) * 1.1:
+                return 280
+    except Exception:
+        pass
+    return 150
+
+
+def render_pdf_visual_pages(pdf_path: Path, pages: list[dict], visual_dir: Path, dpi: int | None = None) -> int:
     """Rasterize flagged diagram/image-heavy PDF pages using Poppler pdftoppm for multimodal reading."""
     pdftoppm = shutil.which("pdftoppm")
     if not pdftoppm:
         return 0
     visual_dir.mkdir(parents=True, exist_ok=True)
+    effective_dpi = _resolve_pdf_render_dpi(pdf_path, dpi) if any(p.get("needs_vision") for p in pages) else 150
     rendered = 0
     for p in pages:
         if not p.get("needs_vision"):
@@ -282,7 +300,7 @@ def render_pdf_visual_pages(pdf_path: Path, pages: list[dict], visual_dir: Path,
         prefix = visual_dir / f"_tmp_p{pg:03d}"
         try:
             subprocess.run(
-                [pdftoppm, "-png", "-r", str(dpi), "-f", str(pg), "-l", str(pg), str(pdf_path), str(prefix)],
+                [pdftoppm, "-png", "-r", str(effective_dpi), "-f", str(pg), "-l", str(pg), str(pdf_path), str(prefix)],
                 check=True,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
@@ -477,19 +495,19 @@ def render_pptx_via_com_pdf(pptx_path: Path, pages: list[dict], visual_dir: Path
         shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
-def extract_courseware(path: Path, visual_dir: Path | None = None, render_visuals: bool = False) -> list[dict]:
+def extract_courseware(path: Path, visual_dir: Path | None = None, render_visuals: bool = False, dpi: int | None = None) -> list[dict]:
     if not path.exists():
         raise FileNotFoundError(f"Courseware not found: {path}")
     suffix = path.suffix.lower()
     if suffix == ".pptx":
         pages = extract_pptx(path, visual_dir=visual_dir if render_visuals else None)
         if render_visuals and visual_dir is not None:
-            render_pptx_via_com_pdf(path, pages, visual_dir)
+            render_pptx_via_com_pdf(path, pages, visual_dir, dpi=dpi or 150)
         return pages
     if suffix == ".pdf":
         pages = extract_pdf(path)
         if render_visuals and visual_dir is not None:
-            render_pdf_visual_pages(path, pages, visual_dir)
+            render_pdf_visual_pages(path, pages, visual_dir, dpi=dpi)
         return pages
     if suffix == ".docx":
         return extract_docx(path)
@@ -1184,6 +1202,7 @@ def audit_logic_quality(
     warnings = []
     orphan_nodes = []
     unanchored_core = []
+    bold_sprawl_edges: list[str] = []
     cross_discipline_edges = 0
     rescue_anchors = 0
     contrast_edges = 0
@@ -1192,6 +1211,14 @@ def audit_logic_quality(
         for inc_th in delta.get("threads", [])
         for step in inc_th.get("ordered_steps", [])[:3]
     }
+
+    def _has_bold_sprawl(text: str) -> bool:
+        spans = re.findall(r"\*\*([^*\n]+?)\*\*", str(text or ""))
+        if not spans:
+            return False
+        plain_len = len(re.sub(r"\*\*([^*\n]+?)\*\*", r"\1", str(text or "")).strip())
+        bold_len = sum(len(sp) for sp in spans)
+        return plain_len >= 26 and (bold_len / plain_len > 0.45 or (len(spans) >= 4 and plain_len < 80))
 
     for e in delta.get("edges", []):
         src = id_remap.get(e["source"], e["source"])
@@ -1224,6 +1251,8 @@ def audit_logic_quality(
         bt = e.get("bridge_text", "").strip()
         if any(bt.startswith(p) for p in FILLER_BRIDGE_PREFIXES) or len(bt) < 12:
             warnings.append(f"Weak filler bridge_text on edge {e.get('id')}: '{bt}'")
+        elif _has_bold_sprawl(bt):
+            bold_sprawl_edges.append(str(e.get("id") or f"{src}->{dst}"))
 
     ungrounded_core = []
     missing_assets = []
@@ -1262,16 +1291,9 @@ def audit_logic_quality(
                 prose_blocks.append(str(pay.get("trap_note")))
         if (pay.get("quiz") or {}).get("explain"):
             prose_blocks.append(str(pay["quiz"]["explain"]))
-        for blk in prose_blocks:
-            spans = re.findall(r"\*\*([^*\n]+?)\*\*", blk)
-            if not spans:
-                continue
-            plain_len = len(re.sub(r"\*\*([^*\n]+?)\*\*", r"\1", blk).strip())
-            bold_len = sum(len(sp) for sp in spans)
-            if plain_len >= 26 and (bold_len / plain_len > 0.45 or (len(spans) >= 4 and plain_len < 80)):
-                if nid not in bold_sprawl_nodes:
-                    bold_sprawl_nodes.append(nid)
-                break
+        if any(_has_bold_sprawl(blk) for blk in prose_blocks):
+            if nid not in bold_sprawl_nodes:
+                bold_sprawl_nodes.append(nid)
 
     def _tally_quiz(nid: str, quiz_obj: dict | None):
         nonlocal quiz_nodes_added, remedial_quiz_nodes
@@ -1394,6 +1416,10 @@ def audit_logic_quality(
         warnings.append(
             f"Bold sprawl risk: over-highlighted >45% of text in {bold_sprawl_nodes}; keep '**...**' to 1-2 pivotal terms per block."
         )
+    if bold_sprawl_edges:
+        warnings.append(
+            f"Bridge bold sprawl risk: over-highlighted >45% of text on edge(s) {bold_sprawl_edges}; keep '**...**' to 1-2 pivotal terms."
+        )
 
     understand_leaks: list[str] = []
     for inc_th in delta.get("threads", []):
@@ -1470,11 +1496,12 @@ def extract_and_write_context(
     chunk_size: int = 25,
     mode: str = "extract-context",
     render_visuals: bool = False,
+    dpi: int | None = None,
 ) -> dict:
     """Extract courseware pages + visuals and write partitioned markdown context files."""
     meta = resolve_lecture_metadata(slide_path, subject)
     visual_dir = out_dir / "visuals" / slide_path.stem
-    pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=render_visuals)
+    pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=render_visuals, dpi=dpi)
     if not pages:
         raise RuntimeError(f"No slides/pages found in {slide_path}.")
     primary_subj = meta["primary_subject"]
@@ -1516,6 +1543,7 @@ def batch_extract_pending(
     chunk_size: int = 25,
     render_visuals: bool = False,
     force: bool = False,
+    dpi: int | None = None,
 ) -> dict:
     """One-shot batch extraction for all pending lectures in course_manifest.json."""
     if not manifest_path.exists():
@@ -1544,6 +1572,7 @@ def batch_extract_pending(
                 chunk_size=chunk_size,
                 mode="extract-context",
                 render_visuals=render_visuals,
+                dpi=dpi,
             )
             extracted += 1
             print(
@@ -1563,6 +1592,7 @@ def main():
     parser.add_argument("--manifest", default=str(DATA_DIR / "course_manifest.json"), help="Manifest JSON path for --mode batch-extract")
     parser.add_argument("--force", action="store_true", help="Re-extract even if *_part1_context.md exists (for --mode batch-extract)")
     parser.add_argument("--render-visuals", action="store_true", help="Rasterize visual/diagram PDF pages or dump PPTX images into inbox/visuals/")
+    parser.add_argument("--dpi", type=int, default=None, help="Override PDF visual rasterization DPI (default: auto 280 portrait / 150 landscape)")
     parser.add_argument("--delta", help="Path to delta_graph.json (for --mode merge or api output)")
     parser.add_argument("--image", help="Source image path for --mode crop-asset")
     parser.add_argument("--box", default="full", help="Normalized crop box 'x1,y1,x2,y2' (0..1) or 'full' for --mode crop-asset")
@@ -1593,6 +1623,7 @@ def main():
             chunk_size=args.chunk_size,
             render_visuals=args.render_visuals,
             force=args.force,
+            dpi=args.dpi,
         )
         print(f"Batch extract finished: {json.dumps(summary, ensure_ascii=False)}")
         return
@@ -1625,6 +1656,7 @@ def main():
             chunk_size=args.chunk_size,
             mode=args.mode,
             render_visuals=args.render_visuals,
+            dpi=args.dpi,
         )
         suffix_tag = "context" if args.mode == "extract-context" else "prompt_pack"
         print(
@@ -1638,7 +1670,7 @@ def main():
     if args.mode == "api":
         meta = resolve_lecture_metadata(slide_path, args.subject)
         visual_dir = out_dir / "visuals" / slide_path.stem
-        pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=args.render_visuals)
+        pages = extract_courseware(slide_path, visual_dir=visual_dir, render_visuals=args.render_visuals, dpi=args.dpi)
         if not pages:
             raise RuntimeError(f"No slides/pages found in {slide_path}.")
         primary_subj = meta["primary_subject"]

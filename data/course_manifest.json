@@ -72,7 +72,7 @@
       "sub_subjects": ["histology"],
       "path": "C:\\Users\\32461\\Desktop\\20260928眼耳皮肤（基础医学分论）.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
@@ -80,7 +80,7 @@
       "sub_subjects": ["embryology", "histology"],
       "path": "C:\\Users\\32461\\Desktop\\胚胎学总论（基础医学分论，2025）(1).pptx",
       "format": ".pptx",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "integrated_basic_medicine",
