@@ -227,6 +227,17 @@ async function check(label, fn) {
     assert(!(await page.locator('#card-stage').innerText()).includes('**'), 'Toggling off must strip raw ** cleanly');
     await page.locator('[data-act="toggle-keywords"]').click();
     assert((await page.locator('#card-stage .kw-core, #card-stage .kw-metric, #card-stage .kw-contrast, #card-stage .kw-label').count()) >= 2);
+
+    // Intra-card interaction (e.g. answering quiz while scrolled down) MUST preserve scroll; rating dock MUST snap to top
+    await page.locator('[data-act="answer-quiz"]').first().scrollIntoViewIfNeeded();
+    const preQuizY = await page.evaluate(() => window.scrollY);
+    assert(preQuizY >= 200, 'Expected scrolled position before intra-card quiz tap');
+    await page.locator('[data-act="answer-quiz"]').first().click();
+    assert((await page.evaluate(() => window.scrollY)) >= 150, 'Intra-card quiz answer must NOT snap page back to top');
+
+    // Tapping bottom rating dock while scrolled down MUST auto-scroll new card cleanly back to top!
+    await page.locator('[data-act="rate"][data-rating="mastered"]').click();
+    assert.equal(await page.evaluate(() => window.scrollY), 0, 'Rating transition must auto-scroll back to top');
     assert.deepEqual(externalRequests, []);
     assert.deepEqual(pageErrors, []);
   });

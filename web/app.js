@@ -409,14 +409,25 @@
     $('reconnect-strip').innerHTML = crumbsHtml + bridgeHtml + recapHtml;
   }
 
-  function renderStage() {
+  function scrollToStageTop() {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+
+  function renderStage(opts = {}) {
     const idx = R.indexGraph(graph);
     const curStep = R.getCurrentStep(progress);
     const resumed = R.resumeSession(graph, progress, Date.now());
     const curNode = curStep ? idx.nodeMap.get(curStep.node_id) : null;
+    const prevNodeId = cardState.nodeId;
+    const nextNodeId = curNode ? curNode.id : null;
+    const nodeChanged = Boolean(prevNodeId && nextNodeId !== prevNodeId);
 
     if (curNode && cardState.nodeId !== curNode.id) {
       resetCardInteraction(curNode);
+    } else if (!curNode) {
+      cardState.nodeId = null;
     }
 
     // Mode pill & detour banner
@@ -449,6 +460,7 @@
       $('btn-jump-galaxy').textContent = '🧭 邻域星系 (0)';
       $('queue-progress').textContent = '已完成本轮';
       $('rating-bar').classList.add('hidden');
+      if (nodeChanged || opts.scrollTop) scrollToStageTop();
       return;
     }
 
@@ -505,6 +517,9 @@
     `;
 
     updateImplicitHint();
+    if (nodeChanged || opts.scrollTop) {
+      scrollToStageTop();
+    }
   }
 
   function renderGalaxyBoard(centerId) {
@@ -851,13 +866,13 @@
         });
         persistProgress();
         showToast(`🤖 已自动规划补漏岔路：先补「${diag.target_title}」`);
-        renderStage();
+        renderStage({ scrollTop: true });
         return;
       }
       persistProgress();
       const label = R.STATUS_META[rating]?.label || rating;
       showToast(curStep.in_detour ? `已记录「${label}」· 可继续探邻或点上方返回主线` : `已记录「${label}」`);
-      renderStage();
+      renderStage({ scrollTop: true });
       return;
     }
     if (act === 'jump-detour' || act === 'svg-jump') {
