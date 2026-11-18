@@ -232,7 +232,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\06 基础医学 肌学总论 头颈肌 0922.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -240,7 +240,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\07 基础医学 肌学总论 头颈 躯干肌.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -248,7 +248,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\07 基础医学-运动系统 肌学 上下肢 李倩.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
