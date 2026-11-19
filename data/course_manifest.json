@@ -304,7 +304,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\感觉器官-视器.ppt",
       "format": ".ppt",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -312,7 +312,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\感觉器官-位听觉.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
