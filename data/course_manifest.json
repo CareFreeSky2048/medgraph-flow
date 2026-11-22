@@ -280,7 +280,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\13 14 基础医学 心脏.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -288,7 +288,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\15 脉管学总论-动脉 李倩.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
@@ -296,7 +296,7 @@
       "sub_subjects": ["anatomy"],
       "path": "C:\\Users\\32461\\Desktop\\16 基础医学 静脉 淋巴.pdf",
       "format": ".pdf",
-      "status": "pending"
+      "status": "ingested_v2"
     },
     {
       "curriculum_id": "systematic_anatomy",
