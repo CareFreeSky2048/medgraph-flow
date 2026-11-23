@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "title": "复旦基础医学跨学科知识图谱（MedGraph Flow）",
-  "generated_at": "2026-11-22T11:38:36+08:00",
+  "generated_at": "2026-11-23T17:30:57+08:00",
   "syllabus": [
     {
       "id": "syl_histology_001",
@@ -10018,13 +10018,19 @@
       "node_type": "comparison_matrix",
       "anchor_summary": "胞质GAPDH产生的NADH无法直接穿透线粒体内膜，须经α-磷酸甘油穿梭(产1.5 ATP)或苹果酸-天冬氨酸穿梭(产2.5 ATP)送入呼吸链，决定1葡萄糖总产30或32 ATP。",
       "source_slides": [
-        "糖代谢2026.pdf#P42,P90-P94"
+        "糖代谢2026.pdf#P42,P90-P94",
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P134-P140"
       ],
       "diagram_assets": [
         {
           "path": "assets/biochem_malate_aspartate_shuttle_p93.webp",
           "caption": "苹果酸-天冬氨酸穿梭：苹果酸脱氢酶(MDH)与天冬氨酸转氨酶(AST)配合两大膜载体无损耗转运胞质NADH至线粒体基质",
           "source_page": 93
+        },
+        {
+          "path": "assets/biochem_ox_glycerophosphate_shuttle.webp",
+          "caption": "α-磷酸甘油穿梭：胞质NADH还原磷酸二羟丙酮穿外膜后，经内膜外侧FAD依赖酶交电子予CoQ(QH₂)产1.5 ATP",
+          "source_page": 136
         }
       ],
       "payload": {
@@ -34275,6 +34281,822 @@
         }
       },
       "added_at": "2026-11-22T11:36:48+08:00"
+    },
+    {
+      "id": "biochem_ox_concepts_stages_high_energy",
+      "title": "生物氧化三阶段、高能磷酸键与ATP能量枢纽",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_034"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "糖脂蛋白经三阶段汇成NADH/FADH₂入呼吸链；高能键(>25kJ/mol)借底物或氧化磷酸化捕获为ATP。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P3-P5,P14-P28"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_three_stages.webp",
+          "caption": "生物氧化三阶段全景：糖/脂/氨基酸经第一阶段生成乙酰CoA，第二阶段入TCA生成CO₂与NADH/FADH₂，第三阶段进入线粒体内膜呼吸链与ATP合酶",
+          "source_page": 4
+        },
+        {
+          "path": "assets/biochem_ox_atp_high_energy.webp",
+          "caption": "ATP能量枢纽：氧化磷酸化与底物水平磷酸化捕获高能键(~P)，借磷酸肌酸储能并驱动细胞五大耗能做功",
+          "source_page": 21
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "三大营养素彻底分解为CO₂与H₂O时，碳骨架与还原当量是如何分三阶段汇总的？",
+            "reveal": "糖脂蛋白在第一阶段降解为**乙酰CoA**；第二阶段经TCA循环脱羧产CO₂并生成大量NADH/FADH₂；第三阶段还原当量入线粒体内膜**电子传递链**与O₂成水并驱动ATP合成。",
+            "mechanism_tag": "三阶段汇流"
+          },
+          {
+            "cue": "何谓高能磷酸键(~P)？哪些代谢物水解释放的自由能比ATP更高，足以合成ATP？",
+            "reveal": "水解ΔG°'放能**>25 kJ/mol**的键称高能键（ATP→ADP为**-30.5 kJ/mol**）。磷酸烯醇式丙酮酸(-61.9)、氨基甲酰磷酸(-51.4)、1,3-BPG(-49.3)及磷酸肌酸(-43.1)的键能均高于ATP。",
+            "mechanism_tag": "高能键能阶"
+          },
+          {
+            "cue": "除呼吸链外，细胞如何靠单步酶促反应直接生成ATP(GTP)并借激酶周转高能键？",
+            "reveal": "**底物水平磷酸化**借高能磷酸键或硫酯键直接将~P转给ADP/GDP，含糖酵解PGK/PK及TCA**琥珀酰CoA合成酶**；核苷二磷酸激酶促ATP与UTP/CTP/GTP互换，腺苷酸激酶促2ADP↔ATP+AMP。",
+            "mechanism_tag": "底物磷酸化与激酶"
+          },
+          {
+            "cue": "骨骼肌和脑组织极度耗能时，为何不直接囤积巨量ATP而是依赖磷酸肌酸缓冲？",
+            "reveal": "肌酸经**肌酸激酶**可逆结合~P生成**磷酸肌酸**(-43.1 kJ/mol)，在不扰动ATP/ADP代谢调控比值的前提下作为储能缓冲库；高能键随后经ATP供给机械/渗透/化学/电能及热能。",
+            "mechanism_tag": "磷酸肌酸储能库"
+          }
+        ],
+        "takeaway": "生物氧化分三阶段逐步释能，以>25 kJ/mol高能键与ATP/磷酸肌酸网络承接底物水平与氧化磷酸化供能。",
+        "quiz": {
+          "stem": "若用抑制剂完全阻断线粒体呼吸链的电子传递，细胞内仍能直接由代谢中间物高能键生成ATP或GTP的机制是？",
+          "options": [
+            "肌酸激酶逆向水解氨基甲酰磷酸高能键",
+            "底物水平磷酸化直接转移高能基团造ATP",
+            "过氧化物酶体需氧脱氢酶偶联生成GTP",
+            "微粒体CYP450加单氧酶催化ADP磷酸化"
+          ],
+          "answer_idx": 1,
+          "explain": "呼吸链受阻时氧化磷酸化停摆，但糖酵解的磷酸甘油酸激酶(PGK)、丙酮酸激酶(PK)及TCA循环的琥珀酰CoA合成酶仍可借**底物水平磷酸化**将高能磷酸键或硫酯键直接转移给ADP/GDP产出少量ATP/GTP（肌酸激酶底物是磷酸肌酸而非氨基甲酰磷酸）。",
+          "remedial_node_id": "biochem_glycolysis_pathway_atp"
+        }
+      },
+      "added_at": "2026-11-23T17:29:45+08:00"
+    },
+    {
+      "id": "biochem_ox_electron_carriers_cofactors",
+      "title": "线粒体五类电子与氢载体分子开关对比",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_034"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "区分NAD⁺双电子游离穿梭、FMN/FAD与CoQ单双电子转换开关、以及Fe-S与Cyt血红素单电子直传。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P32-P48"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_flavin_redox.webp",
+          "caption": "FMN/FAD异咯嗪环三态可逆转换：经FMNH·(FADH·)半醌自由基中间体完成单、双电子分步传递",
+          "source_page": 38
+        },
+        {
+          "path": "assets/biochem_ox_coq_redox.webp",
+          "caption": "泛醌(CoQ)三种氧化还原态：苯醌Q经半醌自由基(QH·)转为二氢泛醌(QH₂)，在线粒体内膜自由穿梭",
+          "source_page": 42
+        },
+        {
+          "path": "assets/biochem_ox_heme_abc.webp",
+          "caption": "血红素a/b/c结构差异：侧链修饰（法尼基与CHO等）及血红素c与Cys巯基共价硫醚键连接决定吸收光谱差异",
+          "source_page": 45
+        }
+      ],
+      "payload": {
+        "columns": [
+          "载体与活性基团",
+          "电子/氢传递模式",
+          "结构特征与移动性"
+        ],
+        "rows": [
+          [
+            "NAD⁺ / NADP⁺ (烟酰胺环)",
+            "单步**双电子**氢阴离子(:H⁻)",
+            "Vit B₃衍生；水溶性**可酶间移动**，五价↔三价氮转换释1H⁺"
+          ],
+          [
+            "FMN / FAD (异咯嗪环)",
+            "**单/双电子**分步转换(FMNH·)",
+            "Vit B₂衍生；**紧密共价**结合黄素蛋白，不可离开酶蛋白"
+          ],
+          [
+            "铁硫中心 Fe-S (Fe₂S₂/Fe₄S₄)",
+            "**单电子**直接传递(Fe²⁺↔Fe³⁺)",
+            "非血红素铁配位Cys巯基与无机硫；**整合嵌于**复合体蛋白内"
+          ],
+          [
+            "泛醌 CoQ / Q₁₀ (苯醌环)",
+            "**单/双电子**耦合转换(QH·)",
+            "10异戊二烯长**疏水侧链**；在脂双层内**自由移动**穿梭"
+          ],
+          [
+            "细胞色素 Cyt a/b/c (血红素)",
+            "**单电子**直接传递(Fe³⁺↔Fe²⁺)",
+            "铁卟啉侧链与连接异致光谱不同；唯**Cyt c水溶性**游离P侧"
+          ]
+        ],
+        "quiz": {
+          "stem": "呼吸链上游NADH每次同时脱下2个电子，下游Fe-S与Cyt只能逐个传递1个电子，完成“双电子向单电子”降档转换的桥梁载体是？",
+          "options": [
+            "利用游离烟酰胺环直接分步单电子转移",
+            "依靠血红素卟啉侧链变化容纳一对电子",
+            "通过膜间隙水溶性Cyt c双聚体交替接力",
+            "借FMN异咯嗪环与CoQ半醌自由基分步过渡"
+          ],
+          "answer_idx": 3,
+          "explain": "NAD⁺只能以氢阴离子(:H⁻ = H⁺+2e⁻)一次性转移2个电子；FMN/FAD的异咯嗪环与泛醌CoQ的苯醌环均具有稳定半醌自由基态(FMNH·、QH·)，故能充当**单/双电子转换开关**，顺畅衔接**Fe-S与细胞色素**单电子流。",
+          "remedial_node_id": "biochem_enzyme_cofactors_vitamins"
+        }
+      },
+      "added_at": "2026-11-23T17:29:45+08:00"
+    },
+    {
+      "id": "biochem_ox_complex_i_ii_entry",
+      "title": "复合体I、II入口与CoQ代谢池分流",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_034"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "structure_cloze",
+      "anchor_summary": "复合体I收NADH电子传给Q并泵出4H⁺；复合体II(SDH)收琥珀酸电子入Q但无质子泵，并与多酶共汇CoQ池。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P50-P58"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_complex_i.webp",
+          "caption": "复合体I（NADH脱氢酶）：L形结构分矩阵臂与膜臂，2e⁻沿FMN→Fe-S(N-2)→Q传递QH₂并跨膜泵出4H⁺",
+          "source_page": 53
+        },
+        {
+          "path": "assets/biochem_ox_complex_ii.webp",
+          "caption": "复合体II（琥珀酸脱氢酶）：4个全核编码亚基含FAD、3个Fe-S中心及防电子泄漏产生ROS的血红素b₅₆₆",
+          "source_page": 55
+        },
+        {
+          "path": "assets/biochem_ox_coq_pool.webp",
+          "caption": "CoQ代谢池汇聚：除复合体I与II外，线粒体α-磷酸甘油、脂酰CoA(经ETF)、胆碱与二氢乳清酸脱氢酶均直接汇入Q",
+          "source_page": 57
+        }
+      ],
+      "payload": {
+        "bullets": [
+          "**复合体Ⅰ(NADH脱氢酶)**含{{45}}个亚基(7 mtDNA/38 nDNA)，分N(NADH氧化)、Q(泛醌还原)、P(质子转运)三模块，路径为{{NADH→FMN→Fe-S→CoQ}}。",
+          "复合体Ⅰ每传递2个电子将{{4个H⁺}}从基质(N侧)泵至膜间隙(P侧)；主要NADH供体含TCA三脱氢酶、{{PDH}}、β-羟脂酰CoA与β-羟丁酸脱氢酶。",
+          "**复合体Ⅱ({{琥珀酸脱氢酶}})**共{{4}}个全核编码亚基(0 mtDNA/4 nDNA)：2个亲水亚基含FAD与3个Fe-S中心，2个疏水亚基锚定内膜。",
+          "复合体Ⅱ催化{{琥珀酸→FAD→Fe-S→CoQ}}，因自由能释放较小故{{无质子泵}}功能；**血红素b₅₆₆**辅基专职结合漏出电子以防生成活性氧。",
+          "内膜{{CoQ代谢池}}除复合体Ⅰ与Ⅱ外，还经FAD/ETF直接汇聚线粒体α-磷酸甘油脱氢酶、{{脂酰CoA脱氢酶}}、胆碱脱氢酶及二氢乳清酸脱氢酶。"
+        ],
+        "trap_note": "α-磷酸甘油与脂酰CoA脱氢酶生成的FADH₂经独立黄素通道直入**CoQ代谢池**，不经过复合体Ⅱ(琥珀酸脱氢酶)，同样跳过复合体Ⅰ泵站。",
+        "quiz": {
+          "stem": "若基因突变仅使复合物Ⅱ中的血红素b₅₆₆辅基失活（主链FAD与3个Fe-S中心尚存），线粒体最可能出现的功能异常是？",
+          "options": [
+            "电子传递链漏电子增多并诱发活性氧爆发",
+            "复合体Ⅱ跨膜泵出基质质子数减半为2个",
+            "线粒体α-磷酸甘油无法再向CoQ交付电子",
+            "基质侧NADH氧化速率随琥珀酸积聚停摆"
+          ],
+          "answer_idx": 0,
+          "explain": "复合体Ⅱ本身**无H⁺泵功能**，且线粒体α-磷酸甘油脱氢酶直入CoQ池不经复合体Ⅱ；**血红素b₅₆₆**在复合体Ⅱ疏水端负责捕获传递途中的外漏电子，其失活使单电子直接漏给O₂引发活性氧(ROS)损伤。",
+          "remedial_node_id": "biochem_ox_electron_carriers_cofactors"
+        }
+      },
+      "added_at": "2026-11-23T17:29:45+08:00"
+    },
+    {
+      "id": "biochem_ox_complex_iii_q_cycle",
+      "title": "复合体III结构、Q循环分叉与Cyt c交接",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_034"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "复合体III借QP/QN双位点与半醌中间体执行两轮Q循环，每净氧化1分子QH₂向膜间隙释放4H⁺并还原2 Cyt c。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P59-P62"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_q_cycle.webp",
+          "caption": "复合体III的Q循环双轮氧化过程：QP位点两分子QH₂分叉递电子至Rieske Fe-S→c₁→c与bL→bH→QN位点，净向P侧释4H⁺并还原2 Cyt c",
+          "source_page": 62
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "复合体III(Cyt c还原酶)由哪些氧化还原中心构成，分别负责高电位出口还是跨膜循环？",
+            "reveal": "含11亚基(1 mtDNA/10 nDNA)，核心为含**bL(b₅₆₆)/bH(b₅₆₂)**及QP/QN双位点的Cyt b、可摆动**Rieske Fe-S蛋白**与Cyt c₁，外接膜间隙唯一水溶性蛋白Cyt c。",
+            "mechanism_tag": "复合体III构筑"
+          },
+          {
+            "cue": "第1分子QH₂进入膜间隙侧QP位点时，2个电子为何分道扬镳而非同时传给Cyt c？",
+            "reveal": "第1分子QH₂向P侧释放2H⁺转为Q，2e⁻在QP分叉：1e⁻走高电位**Rieske Fe-S→Cyt c₁**还原1分子Cyt c；另1e⁻走低电位bL→bH至QN位点把Q还原为半醌**·Q⁻**。",
+            "mechanism_tag": "首轮氧化分叉"
+          },
+          {
+            "cue": "第2分子QH₂在QP位点重复氧化时，留在QN位点的不稳定半醌·Q⁻如何完成闭环？",
+            "reveal": "第2分子QH₂氧化再向P侧释2H⁺，1e⁻同样经Fe-S→c₁还原第2分子Cyt c；另1e⁻经bL→bH抵QN位点，从基质侧吸收**2个N侧H⁺**将·Q⁻彻底还原为再生**QH₂**。",
+            "mechanism_tag": "次轮再生闭环"
+          },
+          {
+            "cue": "两轮反应消耗2分子QH₂并再生1分子QH₂后，复合体III对质子梯度的净贡献是多少？",
+            "reveal": "净氧化1分子QH₂并将2e⁻依次交付2分子水溶性**Cyt c**，同时向胞质侧(膜间隙P侧)净释放**4个H⁺**，起到强效质子泵作用。",
+            "mechanism_tag": "净计量与质子泵"
+          }
+        ],
+        "takeaway": "Q循环借高/低电位电子分叉与QN半醌中继，解决双电子QH₂向单电子Cyt c的交接难题，净运2e⁻向P侧释4H⁺。",
+        "quiz": {
+          "stem": "若特异性阻断剂完全封堵复合体III基质侧的QN位点（阻断Q→·Q⁻→QH₂过程），Q循环中直接停滞的关键环节是？",
+          "options": [
+            "复合体Ⅰ的FMN无法再将电子递给Fe-S簇",
+            "水溶性Cyt c无法与复合体Ⅳ的CuA结合",
+            "低电位路径bL→bH电子回流与QH₂再生受阻",
+            "Rieske铁硫蛋白立即失去与Cyt c₁结合"
+          ],
+          "answer_idx": 2,
+          "explain": "QN位点位于基质侧(N侧)，负责接收经**Cyt bL→bH**低电位支路回流的电子以生成半醌·Q⁻并再生成QH₂；封堵QN将立刻阻塞低电位电子通路并使Q循环周转停滞，诱发电子泄漏。",
+          "remedial_node_id": "biochem_ox_electron_carriers_cofactors"
+        }
+      },
+      "added_at": "2026-11-23T17:29:45+08:00"
+    },
+    {
+      "id": "biochem_ox_complex_iv_oxygen",
+      "title": "复合体IV双核中心、O₂安全还原与质子泵",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_034"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "Cyt c氧化酶经CuA→Cyt a→Cyt a₃-CuB路径四步单电子还原O₂为2H₂O防ROS逸出，每2e⁻泵出2H⁺并耗2底物H⁺。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P63-P67"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_complex_iv.webp",
+          "caption": "复合体IV（细胞色素c氧化酶）：电子依次经Cyt c→CuA→Cyt a→Cyt a₃-CuB传给O₂，每2e⁻向P侧泵2H⁺并耗基质2H⁺成H₂O",
+          "source_page": 66
+        },
+        {
+          "path": "assets/biochem_ox_o2_reduction.webp",
+          "caption": "血红素a₃-CuB双核中心四步单电子安全还原O₂过程：历经Fe²⁺-CuB⁺结合O₂、过氧桥、Fe⁴⁺=O²⁻及-OH中间态生成2H₂O防ROS逸出",
+          "source_page": 67
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "复合物IV(Cyt c氧化酶)共13亚基，哪3个线粒体编码亚基承载全部电子传递中心？",
+            "reveal": "亚基Ⅰ、Ⅱ、Ⅲ由**mtDNA编码**承担核心功能（共3 mtDNA/10 nDNA）。亚基Ⅱ含2个Cu与Cys巯基配位的CuA双核中心；亚基Ⅰ含Cyt a与**Cyt a₃-CuB双核中心**。",
+            "mechanism_tag": "双核中心架构"
+          },
+          {
+            "cue": "水溶性Cyt c携带单个电子抵达膜间隙P侧后，依次经过哪些金属中心抵达O₂结合点？",
+            "reveal": "单电子按Cyt c → **CuA → Cyt a → Cyt a₃-CuB** → O₂顺序传导，依托Fe³⁺↔Fe²⁺与Cu²⁺↔Cu⁺单电子跃迁将还原力聚向膜内活性口袋。",
+            "mechanism_tag": "内部电子传导"
+          },
+          {
+            "cue": "为什么细胞色素c氧化酶必须死死钳住O₂直到完成4电子还原，而不是中途释放超氧化物？",
+            "reveal": "a₃-CuB收2e⁻成Fe²⁺-CuB⁺并结合O₂呈**过氧桥**；第3e⁻与2H⁺打断O-O键现**Fe⁴⁺=O²⁻**中间态，第4e⁻与2H⁺成双-OH态释放2H₂O，锁闭中间体防ROS逸出。",
+            "mechanism_tag": "四步安全防ROS"
+          },
+          {
+            "cue": "复合体IV每传递1对(2个)电子还原½ O₂时，如何同时改变膜两侧质子分布？",
+            "reveal": "每传递2e⁻将**2个H⁺**从基质泵入膜间隙(P侧)，同时在基质侧消耗**2个底物H⁺**与½ O₂生成H₂O（若按4e⁻还原1分子O₂计，则泵出4H⁺并消耗4H⁺生成2H₂O）。",
+            "mechanism_tag": "泵质子与成水计量"
+          }
+        ],
+        "takeaway": "复合体IV借CuA→Cyt a→Cyt a₃-CuB四步单电子锁闭还原O₂生成水，每2e⁻净向P侧泵2H⁺并耗基质2H⁺。",
+        "quiz": {
+          "stem": "当某毒物与复合体IV的Cyt a₃-CuB双核中心高亲和不可逆结合并封堵电子向O₂转移时，直接发生的后果是？",
+          "options": [
+            "过氧化氢酶加速分解基质水生成分子氧",
+            "上游载体滞留还原态且质子泵驱动停摆",
+            "Q循环继续将半醌电子单向送给Cyt c",
+            "复合体Ⅱ接管终端氧化职责直接还原O₂"
+          ],
+          "answer_idx": 1,
+          "explain": "复合体IV是两条氧化呼吸链共同的唯一终端出口。一旦**Cyt a₃-CuB**双核中心被阻断，电子流全线塞车，上游Cyt c、复合体III、CoQ及NADH全部滞留在**还原态**，质子泵跨膜梯度随即崩塌。",
+          "remedial_node_id": "biochem_ox_complex_iii_q_cycle"
+        }
+      },
+      "added_at": "2026-11-23T17:29:45+08:00"
+    },
+    {
+      "id": "biochem_ox_two_respiratory_chains",
+      "title": "两条氧化呼吸链排列顺序与电位热力学门槛",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_034"
+      ],
+      "syllabus_tier": "master",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "呼吸链按标准氧化还原电位E₀'由低到高排列；NADH链经I/III/IV泵10H⁺，琥珀酸链经II/III/IV泵6H⁺。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P68-P75"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_two_chains.webp",
+          "caption": "两条氧化呼吸链全序与质子泵位点：NADH链经I(4H⁺)/III(4H⁺)/IV(2H⁺)共泵10H⁺；琥珀酸链从II(0H⁺)入Q经III/IV共泵6H⁺",
+          "source_page": 49
+        }
+      ],
+      "payload": {
+        "columns": [
+          "比较维度",
+          "NADH氧化呼吸链",
+          "琥珀酸(FADH₂)氧化呼吸链"
+        ],
+        "rows": [
+          [
+            "电子传递顺序",
+            "NADH→**复合体I**→Q→III→Cyt c→IV→O₂",
+            "琥珀酸→**复合体II**→Q→III→Cyt c→IV→O₂"
+          ],
+          [
+            "电位递增序(E₀')",
+            "**-0.32V**(NAD)→-0.219(FMN)→+0.06V(Q)",
+            "**-0.219V**(FAD)→+0.06V(Q)→+0.254(c)→+0.816V(O₂)"
+          ],
+          [
+            "自由能ΔG°'=-nFΔE₀'",
+            "ΔE₀'=+1.14V → **-220 kJ/mol**(-52.6 kcal)",
+            "跳过I段(-0.32→+0.06V)，**释能少约1/3**"
+          ],
+          [
+            "泵出H⁺与偶联ATP",
+            "4+4+2 = **10 H⁺** → 约 2.5 ATP",
+            "0+4+2 = **6 H⁺** → 约 1.5 ATP"
+          ],
+          [
+            "偶联位点热力学门槛",
+            "**I/III/IV**电位落差大，足以驱动质子泵合成ATP",
+            "II至Q电位差过小，属于**非质子泵**位点"
+          ]
+        ],
+        "quiz": {
+          "stem": "已知Cyt c₁(E₀'=+0.22V)与Cyt a₃(E₀'=+0.35V)，依据呼吸链排序律与热力学公式ΔG°'=-nFΔE₀'，电子自发传递与质子泵偶联的判据是？",
+          "options": [
+            "电子由高电位Cyt a₃流向低电位Cyt c₁，ΔE₀'为负",
+            "只要ΔE₀'为正且不小于+0.05V即可驱动Ⅱ泵质子",
+            "电子由低电位向高电位流，大跨度正ΔE₀'足驱ATP合成",
+            "电子按亚基分子量递增排序，与ΔE₀'正负无直接关联"
+          ],
+          "answer_idx": 2,
+          "explain": "标准氧化还原电位E₀'越负还原性越强，越正氧化性越强，故电子自发由**低E₀'流向高E₀'**（-0.32V NADH→+0.816V O₂）。依ΔG°'=-nFΔE₀'(F=23.06 kcal/V·mol)，只有复合体**I、III、IV**跨段的较大正ΔE₀'放能才足以推动质子泵并超越ATP合成能垒(+30.5 kJ/mol)。",
+          "remedial_node_id": "biochem_ox_complex_i_ii_entry"
+        }
+      },
+      "added_at": "2026-11-23T17:29:45+08:00"
+    },
+    {
+      "id": "biochem_ox_features_nonmitochondrial_enzymes",
+      "title": "体内外氧化特征及四类氧酶体系对比",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_033"
+      ],
+      "syllabus_tier": "understand",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "生物氧化温和逐步放能且加水脱氢产H₂O/CO₂；非线粒体氧酶分产H₂O氧化酶、产H₂O₂需氧脱氢酶及加单/双氧酶。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P6-P13"
+      ],
+      "payload": {
+        "columns": [
+          "反应/酶系类别",
+          "催化受体与化学机制",
+          "关键产物与代表实例"
+        ],
+        "rows": [
+          [
+            "**生物氧化**与体外燃烧对比",
+            "温和条件、**酶促逐步放能**；借加水脱氢间接获氧",
+            "同耗O₂放总热，但高效捕获**ATP**（脱羧产CO₂）"
+          ],
+          [
+            "氧化酶 (金属辅基)",
+            "借Cu/Fe辅基将电子**直接传给O₂**",
+            "直接还原成**H₂O**（抗坏血酸氧化酶、Cyt c氧化酶）"
+          ],
+          [
+            "需氧脱氢酶 (黄素酶)",
+            "以**FMN/FAD**为辅基直接脱氢并还原O₂",
+            "直接生成**H₂O₂**（L-氨基酸氧化酶产亚氨酸→α-酮酸+NH₃）"
+          ],
+          [
+            "CYP450 **加单氧酶**",
+            "需**NADPH**供氢，O₂一原子羟化底物、一原子成水",
+            "药物毒物生物转化及肝**胆固醇7α-羟化**（混合功能氧化酶）"
+          ],
+          [
+            "**加双氧酶** / 不需氧酶",
+            "加双氧酶将O₂两原子全入底物；不需氧酶传NAD(P)⁺/FAD",
+            "**色氨酸加双氧酶**(Fe²⁺开环成N-甲酰犬尿氨酸)；PDH/SDH"
+          ]
+        ],
+        "quiz": {
+          "stem": "微粒体CYP450混合功能氧化酶将脂溶性药物或胆固醇羟化时，消耗1分子O₂后其中两个氧原子的最终去向是？",
+          "options": [
+            "两个氧原子均直接结合还原为两分子过氧化氢",
+            "两个氧原子全部插入碳双键促芳香环裂解开环",
+            "两个氧原子全部在金属辅基上直接还原成水",
+            "一原子掺入底物羟基，另一原子与NADPH成水"
+          ],
+          "answer_idx": 3,
+          "explain": "微粒体**CYP450加单氧酶**(混合功能氧化酶)以**NADPH**提供还原当量，将1分子O₂拆分为二：一个氧原子加入底物形成羟基（如胆固醇7α-羟化），另一个氧原子则被还原为副产物H₂O；而把O₂双原子全并入底物的是加双氧酶。",
+          "remedial_node_id": "biochem_ox_concepts_stages_high_energy"
+        }
+      },
+      "added_at": "2026-11-23T17:29:45+08:00"
+    },
+    {
+      "id": "biochem_ox_chemiosmotic_gradient",
+      "title": "化学渗透假说、质子梯度与嵴连接限域",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_035"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "**Mitchell化学渗透学说**揭示电子传递泵出H⁺铸成**ΔΨ+ΔpH**约200kJ/mol梯度，驱动ATP合成。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P76-P85"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_chemiosmotic_gradient.webp",
+          "caption": "质子电化学梯度双组分：跨膜电位差(ΔΨ，外正内负)与质子浓度差(ΔpH，胞质侧偏酸/基质侧偏碱)共储约200 kJ/mol能量",
+          "source_page": 81
+        },
+        {
+          "path": "assets/biochem_ox_cristae_junction.webp",
+          "caption": "线粒体内膜嵴连接(MICOS/OPA1)限域效应：嵴内局部pH约7.3而基质pH 7.9，ATP合酶二聚体列阵嵴尖高效捕获质子",
+          "source_page": 82
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "概念起点：呼吸链释放的自由能为何不直接磷酸化ADP，而要经过氧化磷酸化偶联中介？",
+            "reveal": "**氧化磷酸化**指电子传递释放能量偶联ADP磷酸化生成ATP（体内主要产能方式）。因NADH氧化放能分散在多步复合体且ATP合酶不直接接触底物，需先经**质子泵**将氧化能转换为跨膜势能。",
+            "mechanism_tag": "偶联磷酸化概念"
+          },
+          {
+            "cue": "Mitchell 化学渗透假说中，跨线粒体内膜存储能量的质子电化学梯度由哪两项构成？",
+            "reveal": "复合体I/III/IV将H⁺泵出至膜间隙，形成**跨膜电位差(ΔΨ)**（胞质侧正、基质侧负）与**质子浓度梯度(ΔpH)**（胞质侧偏酸、基质侧偏碱），合称ΔμH⁺，NADH氧化可蓄能约 200 kJ/mol。",
+            "mechanism_tag": "ΔμH⁺ = ΔΨ + ΔpH"
+          },
+          {
+            "cue": "若膜间隙质子自由扩散至全细胞，梯度如何保真？嵴连接微结构扮演什么角色？",
+            "reveal": "内膜对H⁺高度不透；**MICOS与OPA1**把守线粒体**嵴连接**构成限域微区室，将嵴内局部pH稳在 7.3（基质7.9），使嵴尖列阵的ATP合酶二聚体就近捕获H⁺高效回流。",
+            "mechanism_tag": "嵴连接限域微室"
+          }
+        ],
+        "takeaway": "**化学渗透学说**的本质是能量两次换能：电子传递化学能先转为跨膜质子电化学势(**ΔΨ+ΔpH**)，再借嵴微区室集中推动H⁺回流合成ATP。",
+        "quiz": {
+          "stem": "体外重建仅含纯化呼吸链复合体I–IV、CoQ、Cyt c与F₀F₁-ATP合酶的磷脂囊泡，若囊泡膜预先被去污剂穿孔使其对H⁺自由通透，加入NADH、O₂、ADP和Pi后最可能出现的结果是？",
+          "options": [
+            "电子传递完全中断，O₂消耗速率立即降为零",
+            "质子电化学梯度维持不变，ATP合酶照常合成",
+            "呼吸链继续耗氧传递电子，但无法生成ATP",
+            "复合体II替代复合体I逆向泵出质子维持偶联"
+          ],
+          "answer_idx": 2,
+          "explain": "依据Mitchell化学渗透学说，完整且对H⁺不透的线粒体内膜是维持**ΔΨ与ΔpH**电化学梯度的前提。膜穿孔后质子刚泵出即漏回，电子传递虽不再受质子梯度背压反倒加快耗氧，但因无法建立质子驱动力而不能驱动ATP合成。",
+          "remedial_node_id": "biochem_tca_cycle_steps_energy"
+        }
+      },
+      "added_at": "2026-11-23T17:30:57+08:00"
+    },
+    {
+      "id": "biochem_ox_atp_synthase_boyer",
+      "title": "F₀F₁-ATP合酶定子转子与结合变构",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_035"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "structure_cloze",
+      "anchor_summary": "**F₀F₁-ATP合酶**靠a-c环质子驱动转子旋转，使3个β亚基按**O/L/T**轮替每120°释放1 ATP。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P83-P96"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_atp_synthase_rotor.webp",
+          "caption": "复合体V(ATP合酶)定子(a,b₂,α₃,β₃,δ)与转子(c₉₋₁₂,γ,ε)机械马达结构及电镜重构模型",
+          "source_page": 87
+        },
+        {
+          "path": "assets/biochem_ox_boyer_binding_change.webp",
+          "caption": "Paul Boyer结合变构机制：γ亚基每旋转120°推动3个β亚基在开放(O)、疏松(L)、紧密(T)三种构象间周期性转换",
+          "source_page": 93
+        }
+      ],
+      "payload": {
+        "bullets": [
+          "复合体V分区定位：亲水{{F₁ (α₃β₃γδε)}}伸向基质催化合成ATP（催化位点在β亚基）；疏水{{F₀ (ab₂c₉₋₁₂)}}嵌于内膜构筑跨膜质子通道（17亚基含2个mtDNA编码，含寡霉素敏感赋予蛋白OSCP）。",
+          "分子马达定子与转子：{{定子 (a, b₂, α₃, β₃, δ)}}由b₂+δ外柄锁住α₃β₃不随转；{{转子 (c₉₋₁₂, γ, ε)}}在质子流推动下相对定子旋转，宛如水轮发电机。",
+          "质子半通道驱动旋转：膜间隙H⁺经a亚基{{胞质侧半通道}}质子化c亚基{{Asp61 (61位天冬氨酸)}}，中和负电荷令c环旋转一圈后经基质侧半通道去质子释放H⁺，带动γ·ε中心轴转动。",
+          "Boyer结合变构机制：不对称{{γ亚基}}旋转每120°同步切换3个β亚基构象——{{O(开放型)}}释ATP并结合ADP+Pi、{{L(疏松型)}}疏松结合底物、{{T(紧密型)}}缩合生成ATP；旋转一周360°共合成{{3分子ATP}}。"
+        ],
+        "trap_note": "**b₂与δ(含OSCP)**是防α₃β₃空转的机械外柄：一旦切断b₂或δ，转子虽转动却无法撬动β亚基O/L/T构象跃迁；**γ亚基每转120°**释放1 ATP而非合成3 ATP。",
+        "quiz": {
+          "stem": "若通过定点突变将F₀F₁-ATP合酶c亚基跨膜区第61位天冬氨酸(Asp61)替换为不带电且无法可逆结合质子的丙氨酸(Ala)，该酶复合物最直接丧失的功能环节是？",
+          "options": [
+            "H⁺无法质子化c环致使c环与γ亚基停止旋转",
+            "β亚基催化中心丧失结合ADP与Pi的化学结构",
+            "2个b亚基与δ亚基断裂导致α₃β₃六聚体解体",
+            "呼吸链复合体I向膜间隙泵出质子的方向逆转"
+          ],
+          "answer_idx": 0,
+          "explain": "质子回流依赖a亚基双半通道与**c亚基保守Asp61**的质子化-去质子化循环：质子化中和Asp61负电荷才能使c环越过疏水脂双层旋转并驱动γ轴。突变为Ala后质子无法装载到c环上，分子马达立即卡死。",
+          "remedial_node_id": "biochem_ox_chemiosmotic_gradient"
+        }
+      },
+      "added_at": "2026-11-23T17:30:57+08:00"
+    },
+    {
+      "id": "biochem_ox_coupling_sites_po_ratio",
+      "title": "氧化磷酸化偶联部位与P/O比值核算",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_035",
+        "syl_biochem_034"
+      ],
+      "syllabus_tier": "familiar",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "仅**复合体I/III/IV**自由能降跨30.5kJ/mol阈值可泵H⁺偶联，现代**P/O比值**为NADH=2.5、FADH₂=1.5。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P97-P105"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_coupling_sites_po.webp",
+          "caption": "呼吸链三区段电位差(ΔE⁰')与自由能降(ΔG⁰' = -nFΔE⁰')对比：仅复合体I、III、IV跨越30.5 kJ/mol成为偶联部位",
+          "source_page": 102
+        },
+        {
+          "path": "assets/biochem_ox_po_experiment_table.webp",
+          "caption": "离体线粒体实验实测底物P/O比值表（β-羟丁酸2.4~2.8、琥珀酸1.7、抗坏血酸0.88、Cyt c 0.61~0.68）",
+          "source_page": 99
+        }
+      ],
+      "payload": {
+        "columns": [
+          "呼吸链区段/底物",
+          "ΔE⁰'与ΔG⁰'",
+          "质子泵与偶联判定",
+          "P/O比值与ATP核算"
+        ],
+        "rows": [
+          [
+            "NADH→O₂ 全链 (β-羟丁酸)",
+            "总电位跨度 1.14 V；涵盖三大放能跃迁区段",
+            "经复合体**I/III/IV**依次泵出4+4+2=10 H⁺",
+            "实测 2.4~2.8；净计 **2.5 ATP** (10÷4=2.5)"
+          ],
+          [
+            "复合体 I 段 (NAD⁺~CoQ)",
+            "电位跨度 0.36 V；标准自由能降 **-69.5** kJ/mol",
+            "放能远超+30.5 kJ/mol，泵出 **4 H⁺**（第一偶联部位）",
+            "单独贡献约 1.0 ATP（FADH₂链跳过此段）"
+          ],
+          [
+            "琥珀酸→O₂ (经复合体 II)",
+            "琥珀酸~CoQ电位差小，<30.5 kJ/mol",
+            "复合体 II **无质子泵**；仅经III/IV泵出4+2=6 H⁺",
+            "实测 1.7；净计 **1.5 ATP** (6÷4=1.5)"
+          ],
+          [
+            "复合体 III 段 (CoQ~Cyt c)",
+            "电位跨度 0.21 V；标准自由能降 **-36.7** kJ/mol",
+            "足跨30.5 kJ/mol阈值，泵出 **4 H⁺**（第二偶联部位）",
+            "与I段相当，约贡献 1.0 ATP"
+          ],
+          [
+            "复合体 IV 段 (Cyt aa₃~O₂)",
+            "电位跨度 0.53 V；标准自由能降 **-112** kJ/mol",
+            "末段最大能落，泵出 **2 H⁺**（第三偶联部位）",
+            "抗坏血酸实测 0.88；Cyt c 实测 **0.61~0.68**"
+          ]
+        ],
+        "quiz": {
+          "stem": "离体线粒体实验中加入鱼藤酮彻底阻断复合体I，随后改用过量抗坏血酸直接向Cyt c供电子并供给充足O₂、ADP与Pi，此时测得体系P/O比值与ATP生成变化最接近？",
+          "options": [
+            "P/O比值约为2.5，因抗坏血酸等效于NADH全链",
+            "P/O比值约为1.5，因电子经由CoQ跨越III与IV",
+            "P/O比值为0，因抗坏血酸完全不经过任何偶联部位",
+            "P/O比值约0.5–0.9，仅跨越复合体IV泵出2个质子"
+          ],
+          "answer_idx": 3,
+          "explain": "抗坏血酸直接还原Cyt c（绕过被鱼藤酮阻断的复合体I及复合体III），电子仅经**复合体IV**（第三偶联部位，ΔG⁰'=-112 kJ/mol）传给O₂并泵出2 H⁺（每ATP约需4 H⁺），故课件P99表实测抗坏血酸**P/O比值为0.88**（约0.5–0.9）。",
+          "remedial_node_id": "biochem_ox_atp_synthase_boyer"
+        }
+      },
+      "added_at": "2026-11-23T17:30:57+08:00"
+    },
+    {
+      "id": "biochem_ox_oxphos_regulation_mtdna",
+      "title": "呼吸控制、甲亢产热与mtDNA遗传特征",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_036"
+      ],
+      "syllabus_tier": "understand",
+      "node_type": "structure_cloze",
+      "anchor_summary": "体内受**ADP/ATP**呼吸控制主导，T₃增耗ATP与UCP1产热；**mtDNA高突变**致高耗能器官病。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P106,P130-P131"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_thyroid_thermogenesis.webp",
+          "caption": "甲状腺激素(T₃)双轨产热机制：上调细胞膜Na⁺-K⁺-ATP酶加速耗ATP生ADP，并经T₃Rβ-RXR转录激活UCP1/UCP3解偶联",
+          "source_page": 130
+        },
+        {
+          "path": "assets/biochem_ox_mtdna_organs.webp",
+          "caption": "线粒体DNA突变临床受累谱：高度集中于脑、视网膜、耳蜗、心脏、肝、肾、胰岛及骨骼肌等高耗能器官",
+          "source_page": 131
+        }
+      ],
+      "payload": {
+        "bullets": [
+          "核心呼吸控制调节：正常人体氧化磷酸化速率主要受{{ADP/ATP比值}}及NADH/NAD⁺驱动；耗能↑使ADP↑，立即推动ATP合酶耗散H⁺梯度并加速呼吸链耗氧，ATP充裕时则反向刹车（呼吸控制）。",
+          "甲状腺激素(T₃)产热双机制：T₃结合核受体T₃Rβ-RXR，既诱导质膜{{Na⁺-K⁺-ATP酶}}表达加速ATP分解为ADP↑，又诱导{{UCP1/UCP3}}表达增加解偶联漏热，致机体耗氧量与产热同步飙升。",
+          "mtDNA高突变率三大根因：线粒体是{{活性氧(ROS)}}主要产区且mtDNA紧邻受损；呈{{裸露环状}}缺组蛋白保护与完善修复；线粒体脂含量高易蓄积{{嗜脂性毒物}}损伤DNA。",
+          "mtDNA病遗传与临床规律：受精卵线粒体源自卵细胞呈{{母系遗传}}；同细胞混存野生与突变体称{{异质性}}，突变比例突破器官临界即现{{阈值效应}}，率先波及脑、眼、耳、心肌与骨骼肌。"
+        ],
+        "trap_note": "甲亢患者耗氧量和产热齐升，并非呼吸链自身缺陷，而是**T₃双通路**既增Na⁺-K⁺泵ATP周转又增UCP解偶联，将氧化磷酸化推向高负荷。",
+        "quiz": {
+          "stem": "某母亲携带低比例致病性mtDNA点突变且临床完全无症状，其所生两子中长子呈严重肌无力伴乳酸酸中毒，次子仅轻度运动不耐受。造成同一家系母系传递子代表型悬殊的最关键遗传学机制是？",
+          "options": [
+            "Y染色体基因沉默放大线粒体拷贝突变速率",
+            "卵子分配突变mtDNA占比跨越不同阈值效应",
+            "长子核基因组独立编码呼吸链全部复合体亚基",
+            "母系印记导致次子主动清除突变型线粒体基因"
+          ],
+          "answer_idx": 1,
+          "explain": "线粒体DNA随卵细胞呈**母系遗传**且存在**异质性**（野生型与突变型共存）。卵裂随机分配使子代不同组织继承不等比例的突变mtDNA；仅当突变拷贝比例突破某高耗能器官的能量代偿临界点（阈值效应）时才显性发病。",
+          "remedial_node_id": "biochem_ox_coupling_sites_po_ratio"
+        }
+      },
+      "added_at": "2026-11-23T17:30:57+08:00"
+    },
+    {
+      "id": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "title": "三类氧化磷酸化影响物、UCP1与硬肿症",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_036"
+      ],
+      "syllabus_tier": "understand",
+      "node_type": "comparison_matrix",
+      "anchor_summary": "阻断剂双降氧耗与ATP，**寡霉素**卡死F₀连坐电子流，**DNP/UCP1**消梯度使氧耗飙升且能量化热。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P105,P107-P129"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_inhibitors_summary.webp",
+          "caption": "线粒体呼吸链四处电子阻断位点(I/II/III/IV)、解偶联剂(UCP1/DNP/FCCP)及ATP合酶抑制剂(DCCD/寡霉素)靶点总览",
+          "source_page": 129
+        },
+        {
+          "path": "assets/biochem_ox_ucp1_thermogenesis.webp",
+          "caption": "棕色脂肪UCP1适应性产热机制：受游离脂肪酸激活开启质子漏，绕过ATP合酶将质子势能直接转化为热能防寒",
+          "source_page": 121
+        }
+      ],
+      "payload": {
+        "columns": [
+          "影响物类别",
+          "代表物与作用靶点",
+          "电子流/耗氧 vs 梯度",
+          "ATP/P/O与临床关联"
+        ],
+        "rows": [
+          [
+            "呼吸链阻断剂 (I–III)",
+            "I:**鱼藤酮**/粉蝶霉素A/异戊巴比妥；II:萎锈灵/TTFA；III:**抗霉素A**(QN)/粘噻唑菌醇(QP)",
+            "下游电子流阻断，**耗氧量下降**，质子泵出减少",
+            "ATP↓；阻断位点上游载体呈**高度还原态**易溢漏ROS"
+          ],
+          [
+            "呼吸链阻断剂 (IV)",
+            "**CN⁻/N₃⁻**结合氧化型Cyt a₃(Fe³⁺)；**CO/H₂S**结合还原型Cyt a₃(Fe²⁺)",
+            "末端氧还原卡死，**耗氧与梯度**双双归零",
+            "ATP枯竭引发组织中毒性缺氧（如苦杏仁苷产HCN中毒）"
+          ],
+          [
+            "ATP合酶抑制剂",
+            "**寡霉素**(结合F₀ c环依赖OSCP)；**DCCD**(共价封堵c亚基Glu59)",
+            "H⁺无法回流致梯度反压，**电子传递与耗氧**同步↓",
+            "ATP↓；仅加**DNP**拆梯度后可恢复氧耗但仍不产ATP"
+          ],
+          [
+            "外源解偶联剂",
+            "**2,4-二硝基苯酚(DNP)**、FCCP、双香豆素、过量阿司匹林(及拟Pi砷酸盐)",
+            "破坏ΔΨ与ΔpH消除背压，**电子流与耗氧**加速↑",
+            "ATP↓、**P/O比值↓**；能量化热致高热、呼吸急促、潮红"
+          ],
+          [
+            "内源UCP1与硬肿症",
+            "棕色/米色脂肪**UCP1(产热素)**；游离脂肪酸(+)激活、嘌呤核苷酸(ATP/GDP)(-)抑制",
+            "开启**质子漏**绕过ATP合酶进行非战栗产热",
+            "新生儿无寒战靠BAT御寒；早产BAT少致**寒冷硬肿症**(四不症)"
+          ]
+        ],
+        "quiz": {
+          "stem": "向离体完整线粒体悬液先后依次加入琥珀酸、ADP+Pi以及足量寡霉素，此时耗氧速率与ATP合成几乎完全停滞；若继续向该反应体系滴加2,4-二硝基苯酚(DNP)，紧接着可测得的指标变化为？",
+          "options": [
+            "耗氧速率与ATP合成均保持完全停滞",
+            "耗氧速率与ATP合成同步回升至正常",
+            "耗氧速率急速回升，但ATP合成仍为零",
+            "质子电化学梯度翻倍且电子流逆向倒流"
+          ],
+          "answer_idx": 2,
+          "explain": "**寡霉素**堵死F₀质子通道后，呼吸链本身并未受损，只是因跨膜质子梯度无法消散反压迫使电子传递停摆；加入**DNP**作为脂溶性H⁺载体消散质子梯度后，呼吸链解除背压立即加速耗氧，但F₀仍被寡霉素堵死且梯度已消散，故ATP合成仍为零。",
+          "remedial_node_id": "biochem_ox_chemiosmotic_gradient"
+        }
+      },
+      "added_at": "2026-11-23T17:30:57+08:00"
+    },
+    {
+      "id": "biochem_ox_membrane_transport_integrated",
+      "title": "线粒体内膜ANT/PiC转运与双穿梭整合",
+      "subject": "biochem",
+      "syllabus_refs": [
+        "syl_biochem_036"
+      ],
+      "syllabus_tier": "understand",
+      "node_type": "mechanism_flow",
+      "anchor_summary": "**ANT**生电交换ATP⁴⁻/ADP³⁻(受苍术苷/米酵菌酸阻断)与**PiC**合耗1H⁺，统筹胞质双穿梭净产能。",
+      "source_slides": [
+        "生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf#P132-P141"
+      ],
+      "diagram_assets": [
+        {
+          "path": "assets/biochem_ox_ant_pic_transport.webp",
+          "caption": "线粒体内膜ANT(ADP³⁻进/ATP⁴⁻出)与PiC(H₂PO₄⁻/H⁺同向共转运)协同ATP合酶(3H⁺)以共4H⁺输出1分子胞质可用ATP",
+          "source_page": 140
+        }
+      ],
+      "payload": {
+        "steps": [
+          {
+            "cue": "跨膜通透门禁：为何<10kDa小分子能进膜间隙，NADH与ATP却无法自由穿越线粒体内膜？",
+            "reveal": "线粒体外膜含**孔蛋白(VDAC)**允许<10 kDa物质自由通过；内膜疏水无孔，必须借助特异**内膜转运蛋白**对代谢物、Pi、腺苷酸及脂酰肉碱实施高选择性受控转运。",
+            "mechanism_tag": "外膜孔蛋白 vs 内膜载体"
+          },
+          {
+            "cue": "腺苷酸转位酶(ANT)如何借膜电位把基质ATP⁴⁻送向胞质？何种毒素可将其致命锁死？",
+            "reveal": "**ANT**严格1:1交换ADP³⁻进基质与ATP⁴⁻出胞质，每次净向胞质输出1个负电荷由ΔΨ强力驱动。植物毒**苍术苷与米酵菌酸**强抑ANT，使ATP滞留基质并耗尽ADP。",
+            "mechanism_tag": "ANT生电交换与双毒素"
+          },
+          {
+            "cue": "磷酸盐载体(PiC)与ANT共同消耗多少质子势能？它如何与胞质NADH双穿梭统筹净ATP？",
+            "reveal": "**PiC**将H₂PO₄⁻与H⁺同向运入基质，连同ANT生电耗散折合1 H⁺/ATP，叠加合酶自身3 H⁺总计**4 H⁺/ATP**。胞质NADH借双穿梭汇入该链并由ANT统一外运。",
+            "mechanism_tag": "4 H⁺/ATP · 穿梭统筹"
+          }
+        ],
+        "takeaway": "线粒体内膜选择性载体将电子传递与胞外供能锁成整体：**4 H⁺/ATP**总账本与**胞质NADH双穿梭**共同决定了细胞净产能效率。",
+        "quiz": {
+          "stem": "误食浸泡变质黑木耳引发米酵菌酸（Bongkrekic acid）急性中毒后，患者肝肾线粒体呼吸链复合体与ATP合酶本身结构完整，但细胞质ATP骤降且线粒体耗氧随之抑制，其最直接的分子卡点是？",
+          "options": [
+            "抑制磷酸盐载体导致基质无机磷酸完全溢出胞外",
+            "阻断ATP-ADP转位酶使ATP滞留且基质缺ADP",
+            "共价破坏c环Glu59阻断质子经半通道回流",
+            "穿孔线粒体内膜制造质子漏令全部能量化热"
+          ],
+          "answer_idx": 1,
+          "explain": "**米酵菌酸**与**苍术苷**均为腺苷酸转位酶(ANT)强抑制剂。阻断ANT后，胞质ADP³⁻无法入基质、基质新合成的ATP⁴⁻无法出胞质，基质因缺ADP迅速停摆ATP合酶及呼吸链，同时胞质能量枯竭引发多器官衰竭。",
+          "remedial_node_id": "biochem_cytosolic_nadh_shuttles"
+        }
+      },
+      "added_at": "2026-11-23T17:30:57+08:00"
     }
   ],
   "edges": [
@@ -44373,6 +45195,278 @@
       "relation_type": "causal_next",
       "strength": 0.85,
       "bridge_text": "面静脉起自内眦静脉与眼上静脉吻合并经无瓣通道逆通**海绵窦**，下续注入**颈内静脉**，构成眼眶与面部感染颅内扩散双向网。"
+    },
+    {
+      "id": "e_ox_stages_to_carriers",
+      "source": "biochem_ox_concepts_stages_high_energy",
+      "target": "biochem_ox_electron_carriers_cofactors",
+      "relation_type": "causal_next",
+      "strength": 0.92,
+      "bridge_text": "生物氧化前两阶段汇集的NADH与FADH₂进入第三阶段氧化呼吸链后，必须依托五类特性迥异的电子载体完成从双电子到单电子的接力传递。"
+    },
+    {
+      "id": "e_ox_carriers_to_ci_ii",
+      "source": "biochem_ox_electron_carriers_cofactors",
+      "target": "biochem_ox_complex_i_ii_entry",
+      "relation_type": "prerequisite",
+      "strength": 0.92,
+      "bridge_text": "先厘清NAD⁺双电子传递、FMN/FAD与CoQ单双电子分步转换及Fe-S单电子直传的化学基础，才能理解复合体I和II两条入口各自的酶构筑与质子泵差异。"
+    },
+    {
+      "id": "e_ox_ci_ii_to_ciii",
+      "source": "biochem_ox_complex_i_ii_entry",
+      "target": "biochem_ox_complex_iii_q_cycle",
+      "relation_type": "causal_next",
+      "strength": 0.92,
+      "bridge_text": "复合体I、II及其他线粒体黄素酶把还原力统一汇入疏水CoQ代谢池生成QH₂，后者在脂双层自由扩散抵达复合体III启动Q循环。"
+    },
+    {
+      "id": "e_ox_ciii_to_civ",
+      "source": "biochem_ox_complex_iii_q_cycle",
+      "target": "biochem_ox_complex_iv_oxygen",
+      "relation_type": "causal_next",
+      "strength": 0.92,
+      "bridge_text": "复合体III通过Q循环将电子经Rieske Fe-S与Cyt c₁逐个交付给膜间隙水溶性蛋白Cyt c，后者穿梭游走把单电子递给复合体IV的CuA中心。"
+    },
+    {
+      "id": "e_ox_civ_to_chains",
+      "source": "biochem_ox_complex_iv_oxygen",
+      "target": "biochem_ox_two_respiratory_chains",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "掌握复合体IV四步安全还原O₂与每对电子泵出2H⁺的终端收口后，即可串联两条氧化呼吸链完整顺序并按标准电位ΔE₀'核算质子泵与自由能门槛。"
+    },
+    {
+      "id": "e_ox_ci_ii_to_chains",
+      "source": "biochem_ox_complex_i_ii_entry",
+      "target": "biochem_ox_two_respiratory_chains",
+      "relation_type": "causal_next",
+      "strength": 0.85,
+      "bridge_text": "复合体I与复合体II对Q传递电子时的自由能落差与质子泵有无，直接决定了NADH链(10H⁺)与琥珀酸链(6H⁺)这两条分支的总质子输出差异。"
+    },
+    {
+      "id": "e_ox_stages_to_nonmito",
+      "source": "biochem_ox_concepts_stages_high_energy",
+      "target": "biochem_ox_features_nonmitochondrial_enzymes",
+      "relation_type": "causal_next",
+      "strength": 0.78,
+      "bridge_text": "明确体内主供能线粒体三阶段呼吸链后，可侧翼拓展非线粒体氧酶系（如产H₂O₂的需氧脱氢酶与不产能但参与生物转化的CYP450加单/双氧酶）。"
+    },
+    {
+      "id": "e_ox_civ_contrast_nonmito",
+      "source": "biochem_ox_complex_iv_oxygen",
+      "target": "biochem_ox_features_nonmitochondrial_enzymes",
+      "relation_type": "contrast_with",
+      "strength": 0.72,
+      "bridge_text": "线粒体复合体IV作为氧化酶将电子传给O₂成水并跨膜泵出H⁺耦联合成ATP，而胞质/过氧化物酶体非线粒体氧化酶与需氧脱氢酶虽同样耗O₂生成H₂O或H₂O₂却不耦联ATP合成。"
+    },
+    {
+      "id": "e_cofactors_to_ox_carriers",
+      "source": "biochem_enzyme_cofactors_vitamins",
+      "target": "biochem_ox_electron_carriers_cofactors",
+      "relation_type": "prerequisite",
+      "strength": 0.92,
+      "bridge_text": "维生素B₃（烟酰胺）衍生的NAD⁺/NADP⁺与维生素B₂（核黄素）衍生的FMN/FAD及金属辅基，构成呼吸链脱氢酶与电子载体的核心催化辅因子。"
+    },
+    {
+      "id": "e_glycolysis_to_ox_stages",
+      "source": "biochem_glycolysis_pathway_atp",
+      "target": "biochem_ox_concepts_stages_high_energy",
+      "relation_type": "causal_next",
+      "strength": 0.86,
+      "bridge_text": "糖酵解中1,3-BPG和PEP催化产生ATP是细胞最典型的底物水平磷酸化，而生成的丙酮酸与NADH随即作为第一阶段产物汇入线粒体有氧氧化。"
+    },
+    {
+      "id": "e_pdh_to_ox_ci_ii",
+      "source": "biochem_pdh_complex_mechanism",
+      "target": "biochem_ox_complex_i_ii_entry",
+      "relation_type": "causal_next",
+      "strength": 0.86,
+      "bridge_text": "线粒体基质内的丙酮酸脱氢酶复合体(PDH)脱氢产生的NADH无需跨膜穿梭，直接在基质侧进入复合体I启动NADH呼吸链。"
+    },
+    {
+      "id": "e_tca_to_ox_ci_ii",
+      "source": "biochem_tca_cycle_steps_energy",
+      "target": "biochem_ox_complex_i_ii_entry",
+      "relation_type": "causal_next",
+      "strength": 0.9,
+      "bridge_text": "TCA循环每轮产生的3 NADH汇入复合体I，而第6步催化琥珀酸脱氢的琥珀酸脱氢酶本身正是嵌入线粒体内膜的呼吸链复合体II。"
+    },
+    {
+      "id": "e_fa_beta_to_ox_chains",
+      "source": "biochem_fa_beta_oxidation_shuttle",
+      "target": "biochem_ox_two_respiratory_chains",
+      "relation_type": "causal_next",
+      "strength": 0.86,
+      "bridge_text": "脂肪酸每轮β-氧化在基质生成的1 NADH经I→III→IV链产2.5 ATP，而脂酰CoA脱氢酶生成的FADH₂经ETF入CoQ池走6H⁺通路产1.5 ATP。"
+    },
+    {
+      "id": "e_nonmito_to_chol_bile",
+      "source": "biochem_ox_features_nonmitochondrial_enzymes",
+      "target": "biochem_cholesterol_transformation_bile",
+      "relation_type": "causal_next",
+      "strength": 0.65,
+      "bridge_text": "非线粒体微粒体CYP450加单氧酶家族中的胆固醇7α-羟化酶消耗NADPH和O₂羟化胆固醇，开启肝脏合成胆汁酸的主去路。"
+    },
+    {
+      "id": "e_ox_stages_to_physio_atp_cp",
+      "source": "biochem_ox_concepts_stages_high_energy",
+      "target": "physio_energy_substrates_atp_cp",
+      "relation_type": "cross_discipline",
+      "strength": 0.78,
+      "bridge_text": "【跨学科枢纽】生化高能键网络中的磷酸肌酸(-43.1 kJ/mol)可逆转移机制，在生理学能量代谢中直接承接骨骼肌与脑组织的瞬时ATP缓冲贮备。"
+    },
+    {
+      "id": "e_ox_ciii_to_patho_ros",
+      "source": "biochem_ox_complex_iii_q_cycle",
+      "target": "patho_injury_ros_er_stress_targets",
+      "relation_type": "cross_discipline",
+      "strength": 0.72,
+      "bridge_text": "【跨学科枢纽】缺氧或阻塞Q循环时半醌中间体(·Q⁻)积累并单电子漏给O₂生成超氧阴离子等ROS，成为病理学线粒体、膜脂质与DNA氧化损伤的主要内源元凶。"
+    },
+    {
+      "id": "e_ox_civ_to_patho_phagocytosis",
+      "source": "biochem_ox_complex_iv_oxygen",
+      "target": "patho_inflam_phagocytosis_killing",
+      "relation_type": "cross_discipline",
+      "strength": 0.72,
+      "bridge_text": "【跨学科对比】复合体IV借Cyt a₃-CuB四电子安全还原O₂产水严防ROS，反衬中性粒细胞吞噬时故意借NADPH氧化酶单电子造O₂⁻/H₂O₂引发呼吸爆发杀菌。"
+    },
+    {
+      "id": "e_ox_chains_to_chemiosmotic",
+      "source": "biochem_ox_two_respiratory_chains",
+      "target": "biochem_ox_chemiosmotic_gradient",
+      "relation_type": "causal_next",
+      "strength": 0.92,
+      "bridge_text": "电子沿**NADH氧化呼吸链**(泵出10 H⁺)与**琥珀酸氧化呼吸链**(泵出6 H⁺)传递释放自由能，在不可通透的内膜两侧建起跨膜质子电化学梯度。"
+    },
+    {
+      "id": "e_ox_chemiosmotic_to_atp_synthase",
+      "source": "biochem_ox_chemiosmotic_gradient",
+      "target": "biochem_ox_atp_synthase_boyer",
+      "relation_type": "causal_next",
+      "strength": 0.92,
+      "bridge_text": "质子电化学梯度(**ΔΨ+ΔpH**)储存约200 kJ/mol势能，驱动H⁺经F₀F₁-ATP合酶**a亚基半通道**顺梯度回流，推动转子旋转并催化ATP合成。"
+    },
+    {
+      "id": "e_ox_atp_synthase_to_coupling_po",
+      "source": "biochem_ox_atp_synthase_boyer",
+      "target": "biochem_ox_coupling_sites_po_ratio",
+      "relation_type": "causal_next",
+      "strength": 0.9,
+      "bridge_text": "ATP合酶旋转一周合成3分子ATP且连同转运约耗**4 H⁺/ATP**，由此将I/III/IV泵质子数直接换算为**NADH=2.5、FADH₂=1.5**的实测P/O比值。"
+    },
+    {
+      "id": "e_ox_tca_to_coupling_po",
+      "source": "biochem_tca_cycle_steps_energy",
+      "target": "biochem_ox_coupling_sites_po_ratio",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "三羧酸循环每圈输出3 NADH与1 FADH₂的**10 ATP净产能**计数，正是基于**NADH(2.5)与FADH₂(1.5)**跨越三大偶联部位的现代P/O换算法则。"
+    },
+    {
+      "id": "e_ox_shuttles_to_coupling_po",
+      "source": "biochem_cytosolic_nadh_shuttles",
+      "target": "biochem_ox_coupling_sites_po_ratio",
+      "relation_type": "causal_next",
+      "strength": 0.78,
+      "bridge_text": "胞质NADH经**苹果酸-天冬氨酸穿梭**入基质产2.5 ATP而经**α-磷酸甘油穿梭**交CoQ仅产1.5 ATP，直接体现呼吸链起点跨越偶联部位数的差异。"
+    },
+    {
+      "id": "e_ox_shuttles_to_membrane_transport",
+      "source": "biochem_cytosolic_nadh_shuttles",
+      "target": "biochem_ox_membrane_transport_integrated",
+      "relation_type": "causal_next",
+      "strength": 0.78,
+      "bridge_text": "胞质NADH双穿梭依赖内膜**苹果酸-α-KG**与**谷氨酸-天冬氨酸**转运体，与ANT(ATP⁴⁻/ADP³⁻)及PiC共同构成线粒体内膜选择性载体协同网络。"
+    },
+    {
+      "id": "e_ox_coupling_po_to_membrane_transport",
+      "source": "biochem_ox_coupling_sites_po_ratio",
+      "target": "biochem_ox_membrane_transport_integrated",
+      "relation_type": "causal_next",
+      "strength": 0.85,
+      "bridge_text": "ATP合酶合成1 ATP本身耗3 H⁺，计入**PiC同向转运**与ANT生电交换后总净耗**4 H⁺**，直接决定了最终向胞质输出的P/O=2.5与1.5。"
+    },
+    {
+      "id": "e_ox_coupling_po_to_regulation",
+      "source": "biochem_ox_coupling_sites_po_ratio",
+      "target": "biochem_ox_oxphos_regulation_mtdna",
+      "relation_type": "causal_next",
+      "strength": 0.84,
+      "bridge_text": "体内氧化磷酸化并非全速空转，而是由**ADP/ATP比值**(呼吸控制)、**甲状腺激素**诱导的ATP消耗/UCP1及mtDNA完整编码共同动态调控。"
+    },
+    {
+      "id": "e_ox_chemiosmotic_to_inhibitors",
+      "source": "biochem_ox_chemiosmotic_gradient",
+      "target": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "relation_type": "causal_next",
+      "strength": 0.84,
+      "bridge_text": "氧化磷酸化依赖电子传递—质子梯度—ATP合酶三环紧扣，任何阻断电子流、封堵F₀通道或制造**质子漏**的毒物与内源UCP1都将改写氧耗与产热结局。"
+    },
+    {
+      "id": "e_ox_atp_synthase_to_inhibitors",
+      "source": "biochem_ox_atp_synthase_boyer",
+      "target": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.82,
+      "bridge_text": "**寡霉素**与**DCCD**直接封堵F₀质子半通道及c亚基Glu残基使转子停转，质子梯度积压反压迫使呼吸链电子传递同步停摆。"
+    },
+    {
+      "id": "e_ox_membrane_transport_to_inhibitors",
+      "source": "biochem_ox_membrane_transport_integrated",
+      "target": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "relation_type": "contrast_with",
+      "strength": 0.76,
+      "bridge_text": "**苍术苷/米酵菌酸**在腺苷酸转运环节阻断ANT，与**寡霉素**直接堵死F₀通道均会导致ATP合成与氧耗双停，须与DNP解偶联氧耗升高的表型严格鉴别。"
+    },
+    {
+      "id": "e_ox_physio_ucp_to_biochem_uncouplers",
+      "source": "physio_heat_production_organs_ucp",
+      "target": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "relation_type": "cross_discipline",
+      "strength": 0.75,
+      "bridge_text": "生理学中棕色脂肪组织(**BAT**)非战栗产热的分子引擎正是线粒体内膜**UCP1解偶联质子漏**，受游离脂肪酸激活与嘌呤核苷酸抑制，并解释新生儿寒冷硬肿症易感性。"
+    },
+    {
+      "id": "e_ox_coupling_po_to_physio_atp_cp",
+      "source": "biochem_ox_coupling_sites_po_ratio",
+      "target": "physio_energy_substrates_atp_cp",
+      "relation_type": "cross_discipline",
+      "strength": 0.75,
+      "bridge_text": "呼吸链三大偶联部位按**NADH=2.5、FADH₂=1.5**将营养物质氧化能精准铸入**ATP**，直接供应生理学中的直接能量货币及肌脑磷酸肌酸(CP)缓冲库。"
+    },
+    {
+      "id": "e_ox_physio_nak_to_biochem_thyroid",
+      "source": "physio_membrane_transport",
+      "target": "biochem_ox_oxphos_regulation_mtdna",
+      "relation_type": "cross_discipline",
+      "strength": 0.75,
+      "bridge_text": "**甲状腺激素(T₃)**通过上调生理学核心泵蛋白**Na⁺-K⁺-ATP酶**表达加速ATP水解生ADP，从而借呼吸控制机制强力拉动线粒体氧化磷酸化耗氧与产热。"
+    },
+    {
+      "id": "e_ox_inhibitors_to_patho_hypoxia",
+      "source": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "target": "patho_injury_hypoxia_membrane_cascade",
+      "relation_type": "causal_next",
+      "strength": 0.78,
+      "bridge_text": "CN⁻、CO与H₂S阻断复合体IV引发**组织中毒性缺氧**，直接引爆病理学中**ATP枯竭→钙超载**的膜损伤级联。"
+    },
+    {
+      "id": "e_ox_inhibitors_to_patho_ros",
+      "source": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "target": "patho_injury_ros_er_stress_targets",
+      "relation_type": "cross_discipline",
+      "strength": 0.72,
+      "bridge_text": "呼吸链I/III阻断使上游FMN/Fe-S/半醌自由基处于**高度还原态**并发生单电子溢漏生成O₂⁻·，构成病理学细胞内**ROS氧化损伤**的主要线粒体来源。"
+    },
+    {
+      "id": "e_ox_mtdna_to_patho_ros",
+      "source": "biochem_ox_oxphos_regulation_mtdna",
+      "target": "patho_injury_ros_er_stress_targets",
+      "relation_type": "cross_discipline",
+      "strength": 0.72,
+      "bridge_text": "线粒体电子传递漏出的**ROS**直接攻击紧邻、裸露无组蛋白保护的**mtDNA**诱发高频率突变，反过来加剧呼吸链缺陷与氧化应激恶性循环。"
     }
   ],
   "threads": [
@@ -46556,6 +47650,49 @@
         {
           "node_id": "anat_vasc_lymph_lumbar_intestinal_trunks",
           "incoming_edge_id": "e_lymph_celiac_to_trunks_bottom"
+        }
+      ]
+    },
+    {
+      "id": "thread_biological_oxidation",
+      "title": "生物化学主线 ⑥：生物氧化三阶段与高能键 → 呼吸链复合物与Q循环 → 化学渗透ATP合酶 → 抑制解偶联与内膜转运",
+      "subject": "biochem",
+      "ordered_steps": [
+        {
+          "node_id": "biochem_ox_concepts_stages_high_energy",
+          "incoming_edge_id": null
+        },
+        {
+          "node_id": "biochem_ox_electron_carriers_cofactors",
+          "incoming_edge_id": "e_ox_stages_to_carriers"
+        },
+        {
+          "node_id": "biochem_ox_complex_i_ii_entry",
+          "incoming_edge_id": "e_ox_carriers_to_ci_ii"
+        },
+        {
+          "node_id": "biochem_ox_complex_iii_q_cycle",
+          "incoming_edge_id": "e_ox_ci_ii_to_ciii"
+        },
+        {
+          "node_id": "biochem_ox_complex_iv_oxygen",
+          "incoming_edge_id": "e_ox_ciii_to_civ"
+        },
+        {
+          "node_id": "biochem_ox_two_respiratory_chains",
+          "incoming_edge_id": "e_ox_civ_to_chains"
+        },
+        {
+          "node_id": "biochem_ox_chemiosmotic_gradient",
+          "incoming_edge_id": "e_ox_chains_to_chemiosmotic"
+        },
+        {
+          "node_id": "biochem_ox_atp_synthase_boyer",
+          "incoming_edge_id": "e_ox_chemiosmotic_to_atp_synthase"
+        },
+        {
+          "node_id": "biochem_ox_coupling_sites_po_ratio",
+          "incoming_edge_id": "e_ox_atp_synthase_to_coupling_po"
         }
       ]
     }

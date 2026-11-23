@@ -393,6 +393,14 @@
       "path": "C:\\Users\\32461\\Desktop\\2026-基医-氨基酸代谢-3.pdf",
       "format": ".pdf",
       "status": "ingested_v2"
+    },
+    {
+      "curriculum_id": "biochemistry",
+      "subject": "biochem",
+      "sub_subjects": ["biochem"],
+      "path": "C:\\Users\\32461\\Desktop\\生物氧化-2026-黄海艳-定稿-4学时-基础医学.pdf",
+      "format": ".pdf",
+      "status": "ingested_v2"
     }
   ]
 }
