@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "title": "复旦基础医学跨学科知识图谱（MedGraph Flow）",
-  "generated_at": "2026-11-23T17:30:57+08:00",
+  "generated_at": "2026-11-24T11:10:12+08:00",
   "syllabus": [
     {
       "id": "syl_histology_001",
@@ -6772,7 +6772,19 @@
           "右心房3入口1出口：上腔静脉口、下腔静脉口、{{冠状窦口}}，经{{三尖瓣}}入右心室。",
           "左心室壁厚9–12mm（约为心房肌3倍），经{{二尖瓣复合体}}接左房血，经主动脉瓣射血。"
         ],
-        "trap_note": "左心衰时左室射血受阻，血液逆向淤积在左房与肺静脉（肺淤血）；右心衰时右室/右房压力升高，血液逆向淤积在上下腔静脉（体循环/肝淤血）。"
+        "trap_note": "左心衰时左室射血受阻，血液逆向淤积在左房与肺静脉（肺淤血）；右心衰时右室/右房压力升高，血液逆向淤积在上下腔静脉（体循环/肝淤血）。",
+        "quiz": {
+          "stem": "二尖瓣重度狭窄患者左心室充盈与向主动脉射血显著受阻，而右心室泵血功能尚属正常，其最先突出的跨系统循环淤血表现是？",
+          "options": [
+            "肺静脉回流受阻致肺淤血与粉红色泡沫痰",
+            "肝窦压力剧增致慢性肝淤血与槟榔肝形成",
+            "下腔静脉压力升高引起双下肢凹陷性水肿",
+            "冠状窦血运停滞直接诱发乳头肌脂肪变性"
+          ],
+          "answer_idx": 0,
+          "explain": "心各腔仅单一出口，左心受阻时肺静脉血液无法顺畅汇入**左心房**，压力逆向传导率先引发肺淤血及肺泡水肿；而肝淤血与下肢水肿属于**右心衰竭**体循环淤血表现。",
+          "remedial_node_id": "anat_vasc_heart_systemic_pulmonary"
+        }
       }
     },
     {
@@ -6910,7 +6922,19 @@
           "门管区三联管（Portal triad）：{{小叶间静脉}}(PV)、小叶间动脉(HA)、小叶间胆管(BD)。",
           "肝血窦壁与肝细胞之间为{{窦周隙(Disse间隙)}}，内含贮脂细胞（{{肝星状细胞}}），激活后可合成胶原导致肝纤维化。"
         ],
-        "trap_note": "由于血氧自周边1区流向中央3区递减，右心衰逆流压迫时，中央静脉周围3区最先、最重受累；1区相对缺氧较轻而先发生脂肪变性。"
+        "trap_note": "由于血氧自周边1区流向中央3区递减，右心衰逆流压迫时，中央静脉周围3区最先、最重受累；1区相对缺氧较轻而先发生脂肪变性。",
+        "quiz": {
+          "stem": "门管区小叶间静脉血经肝血窦向心流向中央静脉。慢性右心衰竭引发持续肝淤血时，肝小叶内最先因新鲜氧耗尽而发生萎缩或坏死的区域是？",
+          "options": [
+            "紧邻门管区周边的第1带肝细胞优先坏死",
+            "紧邻中央静脉周围第3带肝细胞最先坏死",
+            "胆小管与肝板外侧的肝星状细胞率先凋亡",
+            "全小叶全部三带肝细胞同时均匀凝固坏死"
+          ],
+          "answer_idx": 1,
+          "explain": "肝小叶微循环决定血流携氧从门管区（1区）向**中央静脉（3区）**递减。右心衰血液回流受阻时中央静脉淤血缺氧最重，故3区肝细胞最先萎缩坏死，1区相对耐受而以**脂肪变性**为主，呈红黄相间的槟榔肝。",
+          "remedial_node_id": "anat_portal_vein_system"
+        }
       }
     },
     {
@@ -6992,7 +7016,19 @@
           "吻合2（直肠路径）：门静脉 → 肠系膜下静脉 → 直肠上静脉 → {{直肠静脉丛}} → 直肠下/肛静脉 → 髂内静脉 → 下腔静脉（曲张致{{便血}}）。",
           "吻合3（脐周路径）：门静脉 → {{附脐静脉}} → 脐周静脉网 → 胸腹壁/腹壁上静脉（入上腔）及腹壁浅/下静脉（入下腔），形成“海蛇头”征。"
         ],
-        "trap_note": "门体分流开放虽缓解门脉高压，但使肠道吸收的氨与胺类未经肝解毒直接进入体循环，诱发高血氨与肝性脑病！"
+        "trap_note": "门体分流开放虽缓解门脉高压，但使肠道吸收的氨与胺类未经肝解毒直接进入体循环，诱发高血氨与肝性脑病！",
+        "quiz": {
+          "stem": "失代偿期肝硬化患者门静脉压急剧升高后突然呕出大量鲜血，其门腔侧支吻合破裂出血直接走行的上行逆流途径是？",
+          "options": [
+            "脾静脉经肠系膜上静脉汇入下腔静脉分支",
+            "附脐静脉经腹壁浅静脉网汇入腋与股静脉",
+            "胃左静脉经食管静脉丛吻合注入奇静脉系",
+            "直肠上静脉经直肠下静脉肛静脉入髂内系"
+          ],
+          "answer_idx": 2,
+          "explain": "**门静脉系**无功能性静脉瓣，高压时血液经三大吻合支逆流分流：呕鲜血对应**胃左静脉→食管静脉丛→奇静脉（→上腔静脉）**破裂；腹壁静脉曲张走附脐静脉；便血走直肠静脉丛。",
+          "remedial_node_id": "anat_vein_characteristics"
+        }
       }
     },
     {
@@ -7233,7 +7269,8 @@
             "临床上可输入谷氨酸盐辅助降低血氨"
           ],
           "answer_idx": 2,
-          "explain": "谷氨酰胺的合成（谷氨酰胺合成酶，耗ATP）与水解（谷氨酰胺酶）由不同酶催化，各自不可逆。"
+          "explain": "谷氨酰胺的合成（谷氨酰胺合成酶，耗ATP）与水解（谷氨酰胺酶）由不同酶催化，各自不可逆。",
+          "remedial_node_id": "biochem_transamination_deamination"
         }
       },
       "diagram_assets": [
@@ -7985,7 +8022,8 @@
             "全部扩散进入血液由肾脏原形排出"
           ],
           "answer_idx": 1,
-          "explain": "与ACh靠酶快速水解不同，NA主要靠突触前膜主动再摄取（摄取1）终止作用并可重新入囊泡再利用。"
+          "explain": "与ACh靠酶快速水解不同，NA主要靠突触前膜主动再摄取（摄取1）终止作用并可重新入囊泡再利用。",
+          "remedial_node_id": "histo_chemical_synapse"
         }
       }
     },
@@ -8412,7 +8450,19 @@
           "深浅分工：{{浅静脉}}位于皮下浅筋膜内不与动脉伴行，临床常用于静脉注射、输液与采血；{{深静脉}}多与同名动脉伴行。",
           "特殊静脉：{{硬脑膜窦}}壁无平滑肌且无瓣膜（颅外骨折或感染易致颅内出血或扩散）；板障静脉与导静脉沟通颅内外。"
         ],
-        "trap_note": "并非所有静脉血都是低氧静脉血：左右共4条肺静脉流回左心房的都是含氧丰富的动脉血！"
+        "trap_note": "并非所有静脉血都是低氧静脉血：左右共4条肺静脉流回左心房的都是含氧丰富的动脉血！",
+        "quiz": {
+          "stem": "关于体循环静脉的解剖结构共性及特殊部位静脉分布规律，下列机制判读最准确的一项是？",
+          "options": [
+            "四肢全部深浅静脉管腔均严格禁止互相交通",
+            "人体全身所有静脉段内壁均生有单向静脉瓣",
+            "深静脉壁较伴行动脉显著更厚以抗高压逆流",
+            "四肢远端常呈两支深静脉伴行同名动脉分布"
+          ],
+          "answer_idx": 3,
+          "explain": "静脉壁薄腔大、吻合丰富；四肢远端常**两支深静脉伴行一条同名动脉**，且**面静脉、门静脉及硬脑膜窦**均缺乏功能性静脉瓣，是临床逆流扩散与压差反流的解剖基础。",
+          "remedial_node_id": "anat_vasc_heart_cv_vessels"
+        }
       }
     },
     {
@@ -8448,7 +8498,19 @@
             "mechanism_tag": "海绵窦颅内蔓延"
           }
         ],
-        "takeaway": "记忆核心：面部危险三角禁挤压——缺乏静脉瓣 + 眼上静脉/翼静脉丛直接交通海绵窦。"
+        "takeaway": "记忆核心：面部危险三角禁挤压——缺乏静脉瓣 + 眼上静脉/翼静脉丛直接交通海绵窦。",
+        "quiz": {
+          "stem": "鼻根至两侧口角三角区内发生疖肿后严禁暴力挤压，细菌栓子最可能顺面静脉逆行诱发颅内海绵窦血栓性静脉炎的关键解剖通道是？",
+          "options": [
+            "经颈外静脉穿破颈筋膜逆行注入乙状窦内",
+            "经内眦静脉与眼上静脉穿过眶上裂入海绵窦",
+            "经胸导管乳糜池顺流进入左静脉角再入颅内",
+            "经板障静脉与枕静脉吻合反向穿枕大孔入窦"
+          ],
+          "answer_idx": 1,
+          "explain": "面部“危险三角”内**面静脉**缺乏阻挡逆流的功能性静脉瓣；挤压感染灶后静脉压逆向升高，细菌经**内眦静脉→眼上静脉→眶上裂**（或经翼静脉丛→卵圆孔）直接扩散入颅内海绵窦。",
+          "remedial_node_id": "anat_vein_characteristics"
+        }
       }
     },
     {
@@ -8471,7 +8533,19 @@
           "{{贵要静脉 (Basilic v.)}}：起自手背静脉网尺侧 → 沿前臂及臂内侧（肱二头肌内侧沟）上行 → 在臂中点穿深筋膜注入{{肱静脉}}（或直接续为腋静脉，较直且口径大，常选作PICC置管）。",
           "{{肘正中静脉 (Median cubital v.)}}：在肘窝处由头静脉斜向内上连向贵要静脉，粗短浅表且有深穿支固定不易滑动，是临床静脉{{采血和注射}}首选部位。"
         ],
-        "trap_note": "口诀：“头外侧、贵要内、正中肘窝连两家”；注意贵要静脉因径直汇入腋静脉→锁骨下静脉→上腔静脉，是经外周中心静脉置管(PICC)的首选。"
+        "trap_note": "口诀：“头外侧、贵要内、正中肘窝连两家”；注意贵要静脉因径直汇入腋静脉→锁骨下静脉→上腔静脉，是经外周中心静脉置管(PICC)的首选。",
+        "quiz": {
+          "stem": "临床为肿瘤患者行经外周静脉穿刺中心静脉置管（PICC）时，穿刺上肢浅静脉常首选行于前臂与臂部尺侧且较直顺入肱或腋静脉的血管，该血管是？",
+          "options": [
+            "桡侧行于三角胸大肌间沟的头静脉主干",
+            "起自足背静脉弓外侧绕外踝的小隐静脉",
+            "沿手背静脉网尺侧上行的贵要静脉主干",
+            "肘窝斜向连结头与贵要的肘正中静脉桥"
+          ],
+          "answer_idx": 2,
+          "explain": "上肢三大浅静脉分工明确：尺侧**贵要静脉**管径粗、行径相对较直并直接注入肱或腋静脉，为 PICC 首选；**头静脉**沿桡侧经三角胸大肌间沟穿锁胸筋膜直角入腋静脉；肘正中静脉主要用于采血输液。",
+          "remedial_node_id": "anat_vein_characteristics"
+        }
       }
     },
     {
@@ -8520,7 +8594,8 @@
             "腹股沟韧带下方外侧"
           ],
           "answer_idx": 1,
-          "explain": "记住“大内前、小外后”：大隐静脉恒定行于内踝前方，小隐静脉行于外踝后方。"
+          "explain": "记住“大内前、小外后”：大隐静脉恒定行于内踝前方，小隐静脉行于外踝后方。",
+          "remedial_node_id": "anat_lower_ankle_mortise_sprain"
         }
       }
     },
@@ -8673,7 +8748,8 @@
             "结缔组织细胞同样具有极性可直接转化为复层鳞状上皮"
           ],
           "answer_idx": 1,
-          "explain": "上皮组织无血管而有极性，必须依靠基膜下方富含血管、淋巴管与未分化间充质细胞的疏松结缔组织弥散供氧供能并参与修复。"
+          "explain": "上皮组织无血管而有极性，必须依靠基膜下方富含血管、淋巴管与未分化间充质细胞的疏松结缔组织弥散供氧供能并参与修复。",
+          "remedial_node_id": "histo_epith_tissue_polarity_features"
         }
       },
       "added_at": "2026-11-16T21:40:08+08:00"
@@ -11923,7 +11999,7 @@
           ],
           "answer_idx": 0,
           "explain": "人体缺乏Δ⁹以上（Δ¹²、Δ¹⁵）去饱和酶，且ω-3、ω-6、ω-9三族不饱和脂肪酸不能互变；油酸(ω-9)无法转化为亚油酸(ω-6)及下游花生四烯酸，进而影响PG/TX/LT合成。",
-          "remedial_node_id": "biochem_enzyme_specificity_kinetics_factors"
+          "remedial_node_id": "biochem_fa_synthesis_citrate_fasn"
         }
       },
       "added_at": "2026-11-17T09:15:28+08:00"
@@ -36648,7 +36724,7 @@
       "id": "e_enz_allo_to_pfk1",
       "source": "biochem_enzyme_allosteric_regulation",
       "target": "biochem_pfk1_pfk2_switch",
-      "relation_type": "prerequisite",
+      "relation_type": "causal_next",
       "strength": 0.88,
       "bridge_text": "糖酵解主限速酶 PFK-1 正是典型的多亚基别构酶：高 ATP/柠檬酸稳定 T 态使曲线右移抑制，而 AMP 与 F-2,6-BP 推向 R 态左移强力激活。"
     },
@@ -36800,7 +36876,7 @@
       "id": "e_ppp_to_fa_synth",
       "source": "biochem_pentose_phosphate_pathway",
       "target": "biochem_fa_synthesis_citrate_fasn",
-      "relation_type": "prerequisite",
+      "relation_type": "causal_next",
       "strength": 0.88,
       "bridge_text": "FASN每合成1分子16碳软脂酸需在β-酮脂酰与烯脂酰两步还原消耗14分子NADPH，其中绝大多数专靠胞液磷酸戊糖途径氧化阶段提供。"
     },
@@ -36832,7 +36908,7 @@
       "id": "e_allosteric_to_acc_switch",
       "source": "biochem_enzyme_allosteric_regulation",
       "target": "biochem_lipid_acc_cpt1_reciprocal_switch",
-      "relation_type": "prerequisite",
+      "relation_type": "causal_next",
       "strength": 0.88,
       "bridge_text": "柠檬酸与异柠檬酸使胞液无活性ACC二聚体聚合成活性纤维多聚体，而长链脂酰CoA反馈抑制聚合，这是别构调节协调碳流向的典型范例。"
     },
@@ -36904,7 +36980,7 @@
       "id": "e_ppp_to_cholesterol",
       "source": "biochem_pentose_phosphate_pathway",
       "target": "biochem_cholesterol_synthesis_hmgcoa",
-      "relation_type": "prerequisite",
+      "relation_type": "causal_next",
       "strength": 0.86,
       "bridge_text": "每从头合成1分子27碳胆固醇须在HMG-CoA还原酶及后续环化步骤净耗16分子NADPH，高度仰赖磷酸戊糖途径持续供氢。"
     },
@@ -42177,7 +42253,7 @@
       "source": "anat_heart_chambers",
       "target": "anat_visc_resp_lung_lobes_hilum_root",
       "relation_type": "structural_basis",
-      "strength": 0.85,
+      "strength": 0.8,
       "bridge_text": "右心室泵出的肺动脉与回流左心房的4条肺静脉经纵隔横穿肺门肺根进出肺实质，决定肺根V-A-B空间顺序。"
     },
     {
@@ -42259,14 +42335,6 @@
       "relation_type": "structural_basis",
       "strength": 0.85,
       "bridge_text": "膈构成纵隔下界并借T12/T10/T8三大裂孔，让后纵隔的胸主动脉、胸导管、食管与迷走神经贯通至腹腔。"
-    },
-    {
-      "id": "e_resp_mediastinum_to_heart",
-      "source": "anat_visc_resp_mediastinum_divisions",
-      "target": "anat_heart_chambers",
-      "relation_type": "structural_basis",
-      "strength": 0.85,
-      "bridge_text": "下纵隔心包包裹区（中纵隔）为心脏四腔及升主动脉、肺动脉干根部提供固定保护腔室并与前界心包裸区毗邻。"
     },
     {
       "id": "e_intro_to_visc_surface",
@@ -44614,8 +44682,8 @@
     },
     {
       "id": "e_vasc_portal_anast_to_hepatic_cong",
-      "source": "anat_vasc_vein_portal_features_anastomoses",
-      "target": "patho_hepatic_congestion",
+      "source": "patho_hepatic_congestion",
+      "target": "anat_vasc_vein_portal_features_anastomoses",
       "relation_type": "cross_discipline",
       "strength": 0.86,
       "bridge_text": "【跨学科桥接】右心衰致慢性肝淤血发展为**淤血性肝硬化**时阻塞肝血窦，反向迫使上述三大**门腔吻合**高压开放出血。"
@@ -45467,6 +45535,1342 @@
       "relation_type": "cross_discipline",
       "strength": 0.72,
       "bridge_text": "线粒体电子传递漏出的**ROS**直接攻击紧邻、裸露无组蛋白保护的**mtDNA**诱发高频率突变，反过来加剧呼吸链缺陷与氧化应激恶性循环。"
+    },
+    {
+      "id": "e_aud_c_tca_to_fa_synth",
+      "source": "biochem_tca_regulation_hub",
+      "target": "biochem_fa_synthesis_citrate_fasn",
+      "relation_type": "causal_next",
+      "strength": 0.9,
+      "bridge_text": "高能荷抑制异柠檬酸脱氢酶使柠檬酸溢出线粒体，借**柠檬酸-丙酮酸穿梭**与ACLY裂解供胞液乙酰CoA，并激活**ACC**启动脂肪酸合成。"
+    },
+    {
+      "id": "e_aud_e_abd_aorta_to_common_iliac",
+      "source": "anat_vasc_art_abdominal_aorta_framework",
+      "target": "anat_vasc_art_common_iliac_bifurcation",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "腹主动脉下行至**L4椎体下缘**终分为左右髂总动脉，再于骶髂关节前方分叉并被**输尿管**前跨形成第2狭窄高危区。"
+    },
+    {
+      "id": "e_aud_e_carriers_to_complex_iii",
+      "source": "biochem_ox_electron_carriers_cofactors",
+      "target": "biochem_ox_complex_iii_q_cycle",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "**CoQ双/单电子转换开关**与血红素铁硫簇的传荷特性，直接驱动复合体III经QP/QN双位点与**bL→bH**分叉完成Q循环。"
+    },
+    {
+      "id": "e_aud_e_fh4_to_methionine",
+      "source": "biochem_one_carbon_fh4",
+      "target": "biochem_methionine_sam_cycle",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "掌握**FH₄一碳基团**互变去向，才能解释缺Vit B₁₂时**N⁵-CH₃-FH₄**脱甲基受阻引发不可逆甲基陷阱。"
+    },
+    {
+      "id": "e_aud_e_forearm_layout_to_posterior",
+      "source": "anat_musc_limb_forearm_layout",
+      "target": "anat_musc_limb_forearm_posterior",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "前臂**后群10肌全受桡神经支配**与外上髁起止铁律，是精准定位解剖**鼻烟窝**肌腱边界及手舟骨压痛的基础。"
+    },
+    {
+      "id": "e_aud_e_granulation_to_wound_healing",
+      "source": "patho_granulation_tissue_angiogenesis",
+      "target": "patho_wound_healing_first_vs_second",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "**肉芽组织**内新生毛细血管供养与**肌成纤维细胞**收缩微丝，直接决定二期愈合大创面的填补及伤口缩小。"
+    },
+    {
+      "id": "e_aud_e_humerus_grooves_to_forearm_layout",
+      "source": "anat_upper_humerus_nerve_grooves",
+      "target": "anat_musc_limb_forearm_layout",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "肱骨**内外上髁总起点**决定前臂屈伸肌群分布，而贴骨走行的**桡/尺神经沟**直接解释肱桡肌与尺侧肌的支配规律。"
+    },
+    {
+      "id": "e_aud_e_inflam_overview_to_acute_chronic",
+      "source": "patho_inflam_overview_lesions",
+      "target": "patho_inflam_acute_vs_chronic",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "所有炎症均兼具**变质、渗出与增生**三大基本病变，急慢性炎症实质是三者在时相与优势组分上的分流。"
+    },
+    {
+      "id": "e_aud_e_larynx_cartilage_to_cavity",
+      "source": "anat_visc_resp_larynx_cartilages_membranes",
+      "target": "anat_visc_resp_laryngeal_cavity_sections",
+      "relation_type": "structural_basis",
+      "strength": 0.9,
+      "bridge_text": "完整坚硬的**环状软骨环**束缚喉腔下段外扩空间，导致小儿**声门下腔**黏膜下水肿只能向内隆起而迅速窒息。"
+    },
+    {
+      "id": "e_aud_e_left_chambers_to_coronary",
+      "source": "anat_vasc_heart_left_chambers",
+      "target": "anat_vasc_heart_coronary_arteries",
+      "relation_type": "structural_basis",
+      "strength": 0.9,
+      "bridge_text": "左心室流出道根部的左右**主动脉窦**是左右冠状动脉的唯一开口起点，决定心室舒张期冠脉灌注与优势型血供分布。"
+    },
+    {
+      "id": "e_aud_e_neuro_overview_to_glia",
+      "source": "histo_neuro_tissue_overview",
+      "target": "histo_neuro_glia_comparison",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "神经组织**双发生源分工**直接决定了CNS少突/星形/小胶质与PNS神经嵴**施万细胞**在成鞘及再生上的结构差异。"
+    },
+    {
+      "id": "e_aud_e_osteocyte_to_osteon",
+      "source": "histo_bone_osteoblast_osteocyte",
+      "target": "histo_long_bone_lamellae_osteon",
+      "relation_type": "structural_basis",
+      "strength": 0.9,
+      "bridge_text": "骨细胞胞突借**骨小管**与缝隙连接构成辐射通网，使密质骨**骨单位**能由中央管逐层向外供养并在黏合线折返。"
+    },
+    {
+      "id": "e_aud_e_ribs_to_intercostals_nvb",
+      "source": "anat_trunk_sternum_ribs_cage_elements",
+      "target": "anat_musc_ax_intercostals_nvb",
+      "relation_type": "structural_basis",
+      "strength": 0.9,
+      "bridge_text": "肋骨下缘内面的**肋沟**精确庇护肋间后**V-A-N**束，决定胸腔穿刺必须紧贴下一肋上缘进针以避开血管神经。"
+    },
+    {
+      "id": "e_aud_e_ribs_to_thoracic_aorta",
+      "source": "anat_trunk_sternum_ribs_cage_elements",
+      "target": "anat_vasc_art_thoracic_aorta_intercostal",
+      "relation_type": "structural_basis",
+      "strength": 0.9,
+      "bridge_text": "第3–11肋下缘**肋沟**是胸主动脉发出的肋间后动脉V-A-N贴壁保护槽，决定肩胛线胸穿沿下一肋上缘进针的安全法则。"
+    },
+    {
+      "id": "e_aud_e_skull_age_to_fontanelles",
+      "source": "anat_skull_divisions_age_overview",
+      "target": "anat_skull_neonatal_fontanelles",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "脑面颅比例随年龄由**新生儿8:1**演进至成人2:1的发育规律，对应**前后囟按时骨化闭合**及临床脱水触诊判读。"
+    },
+    {
+      "id": "e_aud_e_small_intestine_to_jejunum_ileum",
+      "source": "anat_visc_small_intestine_overview",
+      "target": "anat_visc_jejunum_ileum_diff",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "十二指肠接**Treitz韧带**后依次延续近端2/5空肠与远端3/5回肠，从而展开血管弓密度与**集合淋巴滤泡**的鉴别。"
+    },
+    {
+      "id": "e_aud_e_sphenoid_to_fossae",
+      "source": "anat_skull_sphenoid_temporal_ethmoid",
+      "target": "anat_skull_cranial_fossae_layout",
+      "relation_type": "structural_basis",
+      "strength": 0.9,
+      "bridge_text": "**蝶骨小翼**与**颞骨岩部**上缘作为刚性骨脊划定颅前中后三窝阶梯界限，并决定岩部骨折致颞叶挫伤与耳漏。"
+    },
+    {
+      "id": "e_aud_e_sphenoid_to_nasal_sinuses",
+      "source": "anat_skull_sphenoid_temporal_ethmoid",
+      "target": "anat_skull_nasal_cavity_sinuses",
+      "relation_type": "structural_basis",
+      "strength": 0.9,
+      "bridge_text": "**筛骨筛板与迷路**围成鼻腔顶及上中鼻甲，而**蝶骨体蝶窦**紧邻鞍底并经蝶筛隐窝通入鼻腔构成经蝶手术走廊。"
+    },
+    {
+      "id": "e_aud_e_tp53_rb_to_viral",
+      "source": "patho_tumor_suppressors_tp53_rb",
+      "target": "patho_tumor_viral_carcinogenesis",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "明确**p53守卫凋亡**与**RB锁死E2F**正常闸门机制，方能看穿HPV E6/E7蛋白无基因突变废除双刹车的致癌逻辑。"
+    },
+    {
+      "id": "e_aud_e_vascular_to_leukocyte",
+      "source": "patho_inflam_vascular_cascade",
+      "target": "patho_inflam_leukocyte_emigration",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "细动脉扩张后血浆渗出致**血流变慢停滞**，白细胞方能靠边滚转并经内皮配体激活**整合素**稳黏游出。"
+    },
+    {
+      "id": "e_aud_d_lymph_cap_to_mets",
+      "source": "anat_vasc_lymph_composition_capillaries",
+      "target": "patho_tumor_invasion_metastasis_cascade",
+      "relation_type": "structural_basis",
+      "strength": 0.89,
+      "bridge_text": "毛细淋巴管呈盲端叠瓦排列且**无基膜与周细胞**，癌细胞突破上皮基膜后极易经宽大内皮间隙侵入，成上皮癌首选**淋巴道转移**的超微基础。"
+    },
+    {
+      "id": "e_aud_d_osteogenesis_to_fracture",
+      "source": "histo_osteogenesis_mechanisms",
+      "target": "patho_fracture_healing_and_factors",
+      "relation_type": "structural_basis",
+      "strength": 0.89,
+      "bridge_text": "骨性骨痂生成直接重演组胚双轨成骨程序：血供充足处骨祖细胞行**膜内成骨**直化编织骨，断端缺氧区软骨痂则经**软骨内成骨**血管侵入置换。"
+    },
+    {
+      "id": "e_aud_a_ais_to_refractory_threshold",
+      "source": "histo_neuro_soma_ultrastructure",
+      "target": "physio_excitability_refractory_cycle",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "神经元**轴丘与轴突始段**无尼氏体却高密度聚集**电压门控Na⁺通道**，使始段阈电位最低并成为生理动作电位的起始触发区。"
+    },
+    {
+      "id": "e_aud_a_humerus_to_forearm_extensors",
+      "source": "anat_upper_humerus_nerve_grooves",
+      "target": "anat_musc_limb_forearm_posterior",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.88,
+      "bridge_text": "肱骨中段**桡神经沟**骨折损伤桡神经主干，使前臂后群伸腕伸指肌全瘫致**垂腕畸形**，有别于旋后肌管卡压骨间后神经仅失伸指。"
+    },
+    {
+      "id": "e_aud_a_myelin_to_length_constant",
+      "source": "histo_neuro_myelin_ultrastructure",
+      "target": "physio_local_vs_action_potential",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "胶质膜螺旋板层大幅抬高结间体**膜电阻Rm**并降低**膜电容Cm**，延长长度常数λ令局部电流无衰减跃至下一郎飞结激发动作电位。"
+    },
+    {
+      "id": "e_aud_a_retina_to_gpcr_gt",
+      "source": "histo_eye_retina_relay_fovea",
+      "target": "physio_gpcr_second_messengers",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "视杆细胞外段膜盘镶嵌**视紫红质**（7次跨膜GPCR），感光后激活**Gt蛋白-PDE**降解cGMP关闭Na⁺通道完成超极化换能。"
+    },
+    {
+      "id": "e_aud_a_thorax_to_pleura_pressure",
+      "source": "anat_trunk_thoracic_cage_apertures_motion",
+      "target": "anat_visc_resp_pleura_cavity_recesses",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "吸气肌**提肋外翻**与降膈同步扩大胸廓三径，牵拉壁胸膜外扩并加深密闭**胸膜腔负压**，形成驱动肺泡通气的跨壁压力差。"
+    },
+    {
+      "id": "e_aud_b_coronary_to_coag_necrosis",
+      "source": "anat_vasc_heart_coronary_arteries",
+      "target": "patho_necrosis_types",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "冠状动脉急性闭塞来不及形成侧支代偿，以**前室间支(LAD)**供血的左室前壁及室间隔前2/3最易缺血发生**凝固性坏死**。"
+    },
+    {
+      "id": "e_aud_b_endothelial_junctions_to_emigration",
+      "source": "histo_epith_lateral_junctions",
+      "target": "patho_inflam_leukocyte_emigration",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "平时靠**紧密连接**封闭细胞间隙、**中间连接**锚定终末微丝；炎性刺激促使内皮细胞收缩拉开间隙，为白细胞借PECAM-1游出打开通路。"
+    },
+    {
+      "id": "e_aud_b_epith_type_to_exudative_inflam",
+      "source": "histo_epith_covering_classification",
+      "target": "patho_inflam_acute_exudative_types",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "单层扁平**间皮**衬覆浆膜腔易聚积浆液或纤维蛋白（绒毛心）；咽喉**复层扁平**与气管假复层纤毛上皮差异决定白喉咽固膜与气管浮膜。"
+    },
+    {
+      "id": "e_aud_b_larynx_subglottic_to_edema",
+      "source": "anat_visc_resp_laryngeal_cavity_sections",
+      "target": "patho_edema_raas_and_organ_lesions",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "喉腔最窄处**声门裂**紧邻黏膜下疏松的**声门下腔**且外受完整环状软骨限制，小儿急性喉炎或过敏水肿骤胀即刻闭塞气道致窒息。"
+    },
+    {
+      "id": "e_aud_b_lymph_cap_to_inflam_spread",
+      "source": "anat_vasc_lymph_composition_capillaries",
+      "target": "patho_inflam_outcomes_spread",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "**毛细淋巴管**盲端仅由叠瓦状内皮细胞围成且**无基膜与周细胞**，大间隙高通透性使炎灶细菌轻松侵入引发淋巴管炎并向血道播散。"
+    },
+    {
+      "id": "e_aud_c_apr_saa_to_amyloid",
+      "source": "pathophys_stress_apr_app",
+      "target": "patho_amyloidosis_mechanisms",
+      "relation_type": "cross_discipline",
+      "strength": 0.88,
+      "bridge_text": "慢性应激IL-6持续驱动肝巨量合成正APP蛋白**SAA**，其错折片段以反向平行β-折叠沉积，即成**AA型淀粉样变性**。"
+    },
+    {
+      "id": "e_aud_c_beta_ox_to_gluconeogenesis",
+      "source": "biochem_fa_beta_oxidation_shuttle",
+      "target": "biochem_gluconeogenesis_bypasses",
+      "relation_type": "causal_next",
+      "strength": 0.88,
+      "bridge_text": "空腹脂肪酸β-氧化虽不能净生糖，却产生海量**乙酰CoA**与ATP/NADH，强力激活**丙酮酸羧化酶(PC)**并抑制PDH，驱动肝糖异生。"
+    },
+    {
+      "id": "e_aud_c_sam_to_phospholipid",
+      "source": "biochem_methionine_sam_cycle",
+      "target": "biochem_phospholipid_sphingolipid_metabolism",
+      "relation_type": "causal_next",
+      "strength": 0.88,
+      "bridge_text": "甲硫氨酸循环产出的**SAM**连续向**脑磷脂(PE)**提供3个甲基生成卵磷脂(PC)，维系生物膜磷脂比例及肝VLDL装配防脂肪肝。"
+    },
+    {
+      "id": "e_aud_c_urea_to_tca_hub",
+      "source": "biochem_urea_cycle",
+      "target": "biochem_tca_regulation_hub",
+      "relation_type": "causal_next",
+      "strength": 0.88,
+      "bridge_text": "尿素循环第4步裂解精氨酸代琥珀酸释出**延胡索酸**并入TCA，经苹果酸氧化再生**草酰乙酸**转氨回供天冬氨酸，构成Krebs双循环偶联。"
+    },
+    {
+      "id": "e_aud_d_axillary_to_staging",
+      "source": "anat_vasc_lymph_axillary_subclavian",
+      "target": "patho_tumor_grading_staging_diagnosis",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "乳腺外侧与中央部淋巴经**胸肌/外侧/肩胛下群→中央群→尖群**三级汇入锁骨下干（上部可直入尖群），直接划定乳癌TNM的**N分期**与清扫范围。"
+    },
+    {
+      "id": "e_aud_d_head_neck_lymph_to_mets",
+      "source": "anat_vasc_lymph_head_neck_nodes",
+      "target": "patho_tumor_invasion_metastasis_cascade",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "舌与鼻咽癌依次经颏下/下颌下或咽后结汇入**颈外侧深淋巴结**（气管旁结压迫喉返神经致声嘶）；胃食管癌逆经胸导管呈左锁骨上**Virchow结**。"
+    },
+    {
+      "id": "e_aud_e_benign_malig_to_blastomas",
+      "source": "patho_tumor_benign_vs_malignant",
+      "target": "patho_tumor_special_systems_blastomas",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "良恶性依对机体危害程度界定，因此颅腔**良性脑膜瘤**仍可压迫脑疝致死，而**淋巴造血瘤**及上皮母细胞瘤皆为恶性。"
+    },
+    {
+      "id": "e_aud_e_benign_malig_to_grading",
+      "source": "patho_tumor_benign_vs_malignant",
+      "target": "patho_tumor_grading_staging_diagnosis",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "确立**良恶性鉴别标准**（分化、核分裂与浸润转移）是术中冷冻切片快速定性及恶性肿瘤**分级分期**的前提。"
+    },
+    {
+      "id": "e_aud_e_bladder_to_prostate",
+      "source": "anat_visc_uro_bladder_morphology_trigone",
+      "target": "anat_visc_uro_prostate_anatomy_clinical",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "前列腺紧贴**膀胱颈与尿道内口**下方包裹尿道起始部，因此前列腺移行带增生直接抬高膀胱颈梗阻排尿并抹平前列腺沟。"
+    },
+    {
+      "id": "e_aud_e_bone_macro_to_humerus",
+      "source": "anat_bone_shape_macrostructure",
+      "target": "anat_upper_humerus_nerve_grooves",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "长骨近端、骨干与远端分区及**骨膜贴附神经血管**特点，是肱骨外科颈与**桡神经沟**骨折极易伤及神经的底因。"
+    },
+    {
+      "id": "e_aud_e_bone_macro_to_maxilla_mandible",
+      "source": "anat_bone_shape_macrostructure",
+      "target": "anat_skull_facial_maxilla_mandible",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "骨的**含气骨/不规则骨分类**与密松质骨膜血供改建规律，支撑上颌窦构筑及下颌骨失牙后**牙槽突废用性吸收**。"
+    },
+    {
+      "id": "e_aud_e_circ_to_left_chambers",
+      "source": "anat_vasc_heart_systemic_pulmonary",
+      "target": "anat_vasc_heart_left_chambers",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "**肺循环静脉血氧合**汇入左心房并由左心室射入体循环，一旦左房二尖瓣狭窄排血受阻，既向后压迫食管又致肺淤血。"
+    },
+    {
+      "id": "e_aud_e_cofactors_to_phe_tyr",
+      "source": "biochem_enzyme_cofactors_vitamins",
+      "target": "biochem_aromatic_phe_tyr_disorders",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "苯丙氨酸与酪氨酸羟化依赖辅因子**BH₄**而酪氨酸酶含**Cu²⁺**，辅酶差异决定白化病不阻断儿茶酚胺合成。"
+    },
+    {
+      "id": "e_aud_e_eyewall_to_conjunctiva",
+      "source": "anat_sens_eye_wall_fibrous_vascular",
+      "target": "anat_sens_eye_conjunctiva",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "纤维膜以**角膜缘**划分无血管高敏角膜与坚韧巩膜，决定球结膜只止于角膜缘而滴眼药须避开角膜注入**下结膜穹**。"
+    },
+    {
+      "id": "e_aud_e_homeostasis_to_research",
+      "source": "physio_homeostasis_feedback",
+      "target": "physio_research_levels_methods",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "先理解整体**负反馈稳态环路**，才能阐明离体心脏的纯正性效应为何在体实验会被**减压反射**逆转。"
+    },
+    {
+      "id": "e_aud_e_intro_planes_to_skull_landmarks",
+      "source": "anat_intro_position_planes_axes",
+      "target": "anat_skull_surface_bony_landmarks",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "建立标准**解剖姿势与水平面**空间坐标，才能精准定位连结眶下缘与外耳门上缘的**眶耳平面**及三叉神经体表三孔。"
+    },
+    {
+      "id": "e_aud_e_leg_core_to_popliteal",
+      "source": "anat_musc_limb_leg_core",
+      "target": "anat_musc_limb_leg_deep_popliteal",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "小腿**腓肠肌内外侧头**围成腘窝下界并覆被深层四肌，定位其深面由浅入深**神经-静脉-动脉**的创伤毗邻顺序。"
+    },
+    {
+      "id": "e_aud_e_lower_overview_to_patella_tibia",
+      "source": "anat_lower_bones_overview",
+      "target": "anat_lower_patella_tibia_fibula",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "下肢**承重稳固优先**的骨架总纲决定了内侧粗壮**胫骨**独自承担膝关节负重，而外侧细长腓骨不参与膝关节面。"
+    },
+    {
+      "id": "e_aud_e_mandible_to_genioglossus",
+      "source": "anat_skull_facial_maxilla_mandible",
+      "target": "anat_visc_genioglossus_palsy",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "下颌体后面正中**颏棘**提供颏舌肌向前下的骨性支点，单侧收缩推舌尖向对侧，故单侧瘫痪时伸舌**偏向患侧**。"
+    },
+    {
+      "id": "e_aud_e_necrosis_out_to_exudative",
+      "source": "patho_necrosis_outcomes",
+      "target": "patho_inflam_acute_exudative_types",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "渗出性炎中大量**纤维蛋白**若未能被中性粒细胞蛋白酶溶解吸收，即按坏死结局走向**肉芽机化**（如肺肉质变）。"
+    },
+    {
+      "id": "e_aud_e_oral_cavity_to_tongue",
+      "source": "anat_visc_oral_cavity_isthmus",
+      "target": "anat_visc_tongue_mucosa_papillae",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "牙弓与**咽峡**界定舌所在的固有口腔空间，其前后分区对应舌体**丝状乳头无味蕾**触觉区与舌根淋巴滤泡区。"
+    },
+    {
+      "id": "e_aud_e_pfk1_to_fructose",
+      "source": "biochem_pfk1_pfk2_switch",
+      "target": "biochem_fructose_galactose_disorders",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "理解**PFK-1**受ATP变构抑制的限速阀门，才能推知肝果糖激酶**绕过该阀门**耗竭ATP与Pi诱发低血糖。"
+    },
+    {
+      "id": "e_aud_e_svc_to_azygos",
+      "source": "anat_vasc_vein_svc_brachiocephalic_angle",
+      "target": "anat_vasc_vein_azygos_system",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "**上腔静脉**行经右肺根前方入右心房，其后壁平T4接纳跨过右肺根的**奇静脉弓**，成为下腔闭塞时最粗大的纵行代偿通路。"
+    },
+    {
+      "id": "e_aud_e_tympanic_to_ossicles",
+      "source": "anat_sens_ear_tympanic_membrane",
+      "target": "anat_sens_ear_ossicles_muscles",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "锤骨柄紧密嵌附于**鼓膜紧张部**，声波振动经锤-砧-镫杠杆传入前庭窗，并受鼓膜张肌与**镫骨肌**双向拮抗护耳。"
+    },
+    {
+      "id": "e_aud_a_iris_to_pharma_efferent",
+      "source": "anat_sens_eye_wall_fibrous_vascular",
+      "target": "pharma_efferent_transmitters",
+      "relation_type": "cross_discipline",
+      "strength": 0.87,
+      "bridge_text": "虹膜环形**瞳孔括约肌**受副交感ACh激动M受体缩瞳，放射状**瞳孔开大肌**受交感NA激动α₁受体散瞳，直观呈现传出递质拮抗。"
+    },
+    {
+      "id": "e_aud_b_pericardium_to_fibrinous_heart",
+      "source": "anat_vasc_heart_pericardium_sinuses",
+      "target": "patho_inflam_acute_exudative_types",
+      "relation_type": "structural_basis",
+      "strength": 0.87,
+      "bridge_text": "心脏搏动持续牵拉**浆膜心包**脏壁层间渗出的纤维蛋白原网形成**“绒毛心”**，未溶解则机化粘连并与纤维心包共致缩窄性限制。"
+    },
+    {
+      "id": "e_aud_b_peritoneum_absorb_to_spread",
+      "source": "anat_visc_gyn_peritoneum_concept_sex",
+      "target": "patho_inflam_outcomes_spread",
+      "relation_type": "cross_discipline",
+      "strength": 0.87,
+      "bridge_text": "腹膜借巨噬细胞及**纤维素渗出**局限粘连，而**膈下腹膜**极强吸收力迫使腹膜炎术后取半卧位引流至盆腔，防止细菌毒素速吸播散。"
+    },
+    {
+      "id": "e_aud_b_platelet_granules_to_plasma_med",
+      "source": "histo_blood_platelet",
+      "target": "patho_inflam_plasma_mediators",
+      "relation_type": "structural_basis",
+      "strength": 0.87,
+      "bridge_text": "**血小板**释放**α/δ颗粒**内纤维蛋白原、ADP与5-HT，既协同血浆凝血酶激活聚集筑网限制炎症扩散，又共同维持微血管内皮完整。"
+    },
+    {
+      "id": "e_aud_b_pleura_recess_to_effusion",
+      "source": "anat_visc_resp_pleura_cavity_recesses",
+      "target": "patho_inflam_exudate_vs_transudate",
+      "relation_type": "structural_basis",
+      "strength": 0.87,
+      "bridge_text": "胸膜炎渗出液与心衰**漏出液**均经密闭负压胸膜腔重力率先聚积于最低位**肋膈隐窝**，胸穿抽液检测蛋白及比重即可精准定性。"
+    },
+    {
+      "id": "e_aud_c_apoprotein_to_fatty_change",
+      "source": "biochem_lipoprotein_classification_apoproteins",
+      "target": "patho_fatty_change",
+      "relation_type": "cross_discipline",
+      "strength": 0.87,
+      "bridge_text": "肝内源甘油三酯须由**apo B100**装配为**VLDL**运出，载脂蛋白合成障碍或脂解过载即致TG滞留成肝脂肪变。"
+    },
+    {
+      "id": "e_aud_c_stress_axes_to_gng",
+      "source": "pathophys_stress_axes",
+      "target": "biochem_gluconeogenesis_bypasses",
+      "relation_type": "cross_discipline",
+      "strength": 0.87,
+      "bridge_text": "应激**HPA轴**糖皮质激素诱导肝PEPCK/G6Pase转录，配合**SAM轴**脂解甘油与肌蛋白分解，强力驱动糖异生升糖。"
+    },
+    {
+      "id": "e_aud_d_ivc_to_lung_mets",
+      "source": "anat_vasc_vein_ivc_iliac_course",
+      "target": "patho_tumor_invasion_metastasis_cascade",
+      "relation_type": "structural_basis",
+      "strength": 0.87,
+      "bridge_text": "下肢骨肉瘤、肾癌与盆腔癌栓及肝转移灶经肝静脉汇入**下腔静脉**，直入右心并泵入**肺毛细血管床**截留，解释体静脉系统肿瘤首选转移至肺。"
+    },
+    {
+      "id": "e_aud_d_ovary_to_lumbar_trunk",
+      "source": "anat_visc_gyn_ovary_position_ligaments",
+      "target": "anat_vasc_lymph_lumbar_intestinal_trunks",
+      "relation_type": "structural_basis",
+      "strength": 0.87,
+      "bridge_text": "卵巢淋巴管不先经盆腔髂结，而是伴卵巢血管沿**卵巢悬韧带**直上注入腹主动脉旁腰淋巴结并合成**腰干**，致卵巢癌早期高位腹膜后跳跃转移。"
+    },
+    {
+      "id": "e_aud_d_skin_dermis_to_wound_healing",
+      "source": "histo_skin_dermis_appendages_nail",
+      "target": "patho_wound_healing_first_vs_second",
+      "relation_type": "structural_basis",
+      "strength": 0.87,
+      "bridge_text": "**真皮网织层**胶原弹性网与毛囊/汗腺等**皮肤附属器**是否毁损，决定皮肤创面能否借附属器上皮再生一期愈合，抑或走肉芽瘢痕二期愈合且失附属器。"
+    },
+    {
+      "id": "e_aud_a_antagonism_to_motor_unit",
+      "source": "anat_musc_ax_origin_antagonism",
+      "target": "physio_contraction_summation_motor_unit",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "原动肌跨关节拉动止点骨须**先等长蓄力**克服阻力再转**等张缩短**，拮抗肌同步松弛并由低阈值运动单位交替维持肌紧张稳固支点。"
+    },
+    {
+      "id": "e_aud_a_atp_cp_to_crossbridge",
+      "source": "physio_energy_substrates_atp_cp",
+      "target": "physio_ec_coupling_sliding",
+      "relation_type": "causal_next",
+      "strength": 0.86,
+      "bridge_text": "肌内**磷酸肌酸(CP)**快速再生**ATP**，同步供给横桥ATP酶水解蓄能、结合新ATP解离（防尸僵）与SERCA泵回收Ca²⁺舒张。"
+    },
+    {
+      "id": "e_aud_a_hip_sciatic_to_leg_palsy",
+      "source": "anat_musc_limb_hip_core",
+      "target": "anat_musc_limb_leg_compartments",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.86,
+      "bridge_text": "梨状肌下孔卡压或臀部肌注误伤**坐骨神经**，波及其终支**腓总神经与胫神经**支配区，引起小腿肌群瘫痪与典型足下垂内翻。"
+    },
+    {
+      "id": "e_aud_a_humerus_to_nerve_regen",
+      "source": "anat_upper_humerus_nerve_grooves",
+      "target": "histo_neuro_degen_regen",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "桡神经沟或**尺神经沟**骨折断离周围神经后，远端发生**华勒变性**，吻合术后可借完整施万基膜管(Büngner带)与NGF引导轴突再生。"
+    },
+    {
+      "id": "e_aud_a_iv_disc_to_cns_pns_regen",
+      "source": "anat_trunk_iv_disc_mechanics_herniation",
+      "target": "histo_neuro_degen_regen",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "髓核后外侧突出若压迫椎间孔**脊神经根(PNS)**可借施万基膜管再生，若压毁**脊髓(CNS)**则因少突Nogo抑阻与胶质瘢痕难愈。"
+    },
+    {
+      "id": "e_aud_a_joint_to_muscle_load",
+      "source": "anat_joint_basic_auxiliary_motion",
+      "target": "physio_muscle_load_factors",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "滑膜关节面曲度、**关节囊负压**与韧带确定骨杠杆力臂，关节角度设定肌节**最适初长度（前负荷）**，外阻力矩即构成后负荷。"
+    },
+    {
+      "id": "e_aud_a_pharma_to_gpcr_messengers",
+      "source": "pharma_efferent_transmitters",
+      "target": "physio_gpcr_second_messengers",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "传出神经胆碱M受体与肾上腺素α/β受体同属**G蛋白耦联受体**，分别借Gs/Gi调控AC-cAMP或经Gq生成**IP₃释放钙离子**。"
+    },
+    {
+      "id": "e_aud_a_spindle_to_muscle_tone",
+      "source": "histo_neuro_sensory_endings",
+      "target": "physio_contraction_summation_motor_unit",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "并行于梭外肌的**肌梭**实时监测肌纤维牵张长度，经牵张反射驱动少数低阈值**运动单位**交替轮流收缩维持姿势性肌紧张。"
+    },
+    {
+      "id": "e_aud_b_agranulocytes_to_sag_storm",
+      "source": "histo_blood_agranulocytes",
+      "target": "pathophys_ep_superantigen_tcr",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "外周血**单核细胞**分化为MHC-II⁺抗原提呈细胞，**T淋巴细胞**携TCR-Vβ与之结合，成为外毒素超抗原引爆细胞因子风暴的细胞底座。"
+    },
+    {
+      "id": "e_aud_b_ampulla_stone_to_fat_necrosis",
+      "source": "anat_visc_dig2_biliary_tract_calot",
+      "target": "patho_necrosis_types",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "胆石自胆囊下移嵌顿**肝胰壶腹**（胆总管与主胰管共道）致胆汁反流激活胰酶，诱发急性胰腺炎及酶解性**脂肪坏死**形成钙皂。"
+    },
+    {
+      "id": "e_aud_b_appendix_end_artery_to_phlegmon",
+      "source": "anat_visc_dig2_large_intestine_cecum_appendix",
+      "target": "patho_inflam_suppurative_subtypes",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "阑尾系盲端细管且仅由终动脉**阑尾动脉**供血，粪石梗阻叠加溶血性链球菌产酶破坏基质，极易诱发**急性蜂窝织性阑尾炎**并穿孔。"
+    },
+    {
+      "id": "e_aud_b_coronary_to_stress_cvd",
+      "source": "anat_vasc_heart_coronary_arteries",
+      "target": "pathophys_stress_cvd_ulcer",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "掌握**左右冠状动脉**主干与优势型供血区，方能精准鉴别急性应激性心肌病（造影无狭窄）与真实**冠脉痉挛**或粥样硬化闭塞猝死。"
+    },
+    {
+      "id": "e_aud_b_end_artery_to_infarct_necrosis",
+      "source": "anat_vasc_heart_anastomosis_collateral",
+      "target": "patho_necrosis_types",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "器官动脉**侧支吻合**丰瘠决定缺血耐受度：缺乏有效吻合的**终动脉**一旦急性阻塞即无代偿，直接引爆心、肾及脾贫血性凝固性坏死。"
+    },
+    {
+      "id": "e_aud_b_iliac_compression_to_congestion",
+      "source": "anat_vasc_vein_ivc_iliac_course",
+      "target": "patho_hyperemia_types_decompression",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "**右髂总动脉**斜跨压迫薄壁低压的左髂总静脉起始部，叠加妊娠子宫或盆腔肿物外压极易触发**静脉受压淤血**及血栓形成。"
+    },
+    {
+      "id": "e_aud_c_beta_ox_to_calorimetry",
+      "source": "biochem_fa_beta_oxidation_shuttle",
+      "target": "physio_calorimetry_thermal_equiv",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "脂肪酸高度还原烃链经**β-氧化**产热39.8 kJ/g居首，但耗O₂偏高致**RQ=0.71**且氧热价(19.6 kJ/L)反低于糖。"
+    },
+    {
+      "id": "e_aud_c_beta_ox_to_fatty_change",
+      "source": "biochem_fa_beta_oxidation_shuttle",
+      "target": "patho_fatty_change",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "缺氧或乙醇抑制线粒体**CPT1与β-氧化**，使心肌与肝细胞未氧化的游离脂肪酸重酯化为甘油三酯滴蓄积，导致**虎斑心**与肝脂肪变。"
+    },
+    {
+      "id": "e_aud_c_complex_iv_to_hydropic",
+      "source": "biochem_ox_complex_iv_oxygen",
+      "target": "patho_hydropic_degeneration",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "缺氧阻断末端**复合体Ⅳ**Cyt a₃-CuB四电子还原O₂使氧化磷酸化瘫痪、ATP骤降，胞膜**Na⁺-K⁺泵**衰竭引发细胞水肿。"
+    },
+    {
+      "id": "e_aud_c_cori_to_epoc_sda",
+      "source": "biochem_cori_cycle_physiological",
+      "target": "physio_energy_factors_sda",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "运动排出的肌乳酸在恢复期借肝**Cori循环**耗6 ATP/葡萄糖异生回糖原，构成了生理学**氧债(EPOC)**额外耗氧的生化实质。"
+    },
+    {
+      "id": "e_aud_c_fa_synth_to_cholesterol",
+      "source": "biochem_fa_synthesis_citrate_fasn",
+      "target": "biochem_cholesterol_synthesis_hmgcoa",
+      "relation_type": "causal_next",
+      "strength": 0.86,
+      "bridge_text": "经**柠檬酸穿梭**与ACLY释放的胞液乙酰CoA，配合PPP供NADPH及胰岛素去磷酸化，同步推动**HMG-CoA还原酶**合成胆固醇。"
+    },
+    {
+      "id": "e_aud_d_germ_layers_to_metaplasia",
+      "source": "histo_embryo_germ_layer_derivatives",
+      "target": "patho_atrophy_metaplasia_morphology",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "三胚层拓扑分化锁定了上皮与间叶储备细胞的谱系边界，决定病理**化生严格限于同源同胚层内**（如支气管鳞化或间叶骨化生）而**不跨胚层**转分化。"
+    },
+    {
+      "id": "e_aud_e_joint_basic_to_rib_joints",
+      "source": "anat_joint_basic_auxiliary_motion",
+      "target": "anat_trunk_rib_thoracic_joints",
+      "relation_type": "prerequisite",
+      "strength": 0.86,
+      "bridge_text": "依**滑膜关节囊腔**与辅助关节盘标准，方能精确区分第1胸肋透明软骨结合与第2–7胸肋平面**滑膜微动关节**。"
+    },
+    {
+      "id": "e_aud_e_lung_root_to_hilar_nodes",
+      "source": "anat_visc_resp_lung_lobes_hilum_root",
+      "target": "anat_vasc_lymph_thoracic_wall_hilar_ext",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "支气管与肺血管经**肺门**进出肺叶构筑肺根，环绕肺根的**支气管肺门淋巴结**成为肺癌淋巴转移的第一站影像学标记。"
+    },
+    {
+      "id": "e_aud_e_lymph_cap_to_spleen",
+      "source": "anat_vasc_lymph_composition_capillaries",
+      "target": "anat_vasc_lymph_spleen_anatomy",
+      "relation_type": "prerequisite",
+      "strength": 0.86,
+      "bridge_text": "淋巴系统由各级管道与**脾脏**等淋巴器官协同组成，脾内淋巴组织滤血免疫并在门脉高压淤血时呈现锐缘**脾切迹**触诊征。"
+    },
+    {
+      "id": "e_aud_e_right_atrium_to_cardiac_veins",
+      "source": "anat_vasc_heart_right_atrium_septum",
+      "target": "anat_vasc_heart_cardiac_veins_sinus",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "右心房下腔静脉口与右房室口间的**冠状窦口**正是心大、中、小静脉回心总闸，也是逆行心停搏液灌注的入路门户。"
+    },
+    {
+      "id": "e_aud_e_stress_ros_to_apoptosis",
+      "source": "pathophys_stress_cellular_hsp_ros",
+      "target": "patho_apoptosis_mechanisms",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "细胞内**ROS氧化应激**与内质网UPR失代偿后，经线粒体**BAX打孔**释放Cyt c启动内源性凋亡通路。"
+    },
+    {
+      "id": "e_aud_a_foramina_to_brain_death",
+      "source": "anat_skull_cranial_base_foramina",
+      "target": "pathophys_brain_death_criteria_ethics",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "眶上裂、内耳门与**颈静脉孔**穿行对光/角膜/咳嗽反射脑神经，**枕骨大孔**通延髓与椎动脉，脑干反射及脑血流永久消失即判定脑死亡。"
+    },
+    {
+      "id": "e_aud_c_conformational_to_hsp",
+      "source": "biochem_molecular_vs_conformational_disease",
+      "target": "pathophys_stress_cellular_hsp_ros",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "蛋白**α→β构象错折**暴露疏水区并积聚，在细胞应激中竞争抢占**HSP70**与GRP78伴侣，激活HSF与UPR防线。"
+    },
+    {
+      "id": "e_aud_c_fa_synth_to_rq_gt1",
+      "source": "biochem_fa_synthesis_citrate_fasn",
+      "target": "physio_rq_nprq_clinical_eval",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "大量糖经PPP、PDH与**FASN缩合**转为脂肪时持续脱羧释出**CO₂**却极少耗O₂，导致实测非蛋白呼吸商RQ突破1.0。"
+    },
+    {
+      "id": "e_aud_d_pelvic_iliac_to_staging",
+      "source": "anat_vasc_lymph_pelvic_iliac_nodes",
+      "target": "patho_tumor_grading_staging_diagnosis",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "宫颈、膀胱、前列腺及直肠中下段肿瘤先入**髂内与髂外淋巴结**再汇**髂总淋巴结**上达腰结，划定盆腔肿瘤区域N分期与清扫界线。"
+    },
+    {
+      "id": "e_aud_e_lower_vein_to_ivc",
+      "source": "anat_vasc_vein_lower_limb_superficial",
+      "target": "anat_vasc_vein_ivc_iliac_course",
+      "relation_type": "causal_next",
+      "strength": 0.85,
+      "bridge_text": "大小隐静脉分别经股静脉与腘静脉汇入**髂外—髂总静脉—下腔静脉**回心，其单向向心静脉瓣决定搭桥移植时须倒置吻合。"
+    },
+    {
+      "id": "e_aud_e_macrophage_to_neuro_overview",
+      "source": "histo_lct_macrophage",
+      "target": "histo_neuro_tissue_overview",
+      "relation_type": "contrast_with",
+      "strength": 0.85,
+      "bridge_text": "神经元与多数胶质源于神经外胚层，而中枢**小胶质细胞**则同疏松CT**巨噬细胞**一样源自中胚层血单核细胞。"
+    },
+    {
+      "id": "e_aud_e_tca_to_chemiosmotic",
+      "source": "biochem_tca_cycle_steps_energy",
+      "target": "biochem_ox_chemiosmotic_gradient",
+      "relation_type": "causal_next",
+      "strength": 0.85,
+      "bridge_text": "三羧酸循环四步脱氢产出的**NADH与FADH₂**不直接生磷酸化，须经呼吸链转化为内膜**ΔΨ+ΔpH质子梯度**方能兑现10 ATP产能。"
+    },
+    {
+      "id": "e_aud_b_dvt_perforator_to_edema",
+      "source": "anat_vasc_vein_lower_limb_deep_perforators",
+      "target": "patho_edema_mechanisms",
+      "relation_type": "cross_discipline",
+      "strength": 0.83,
+      "bridge_text": "下肢**深静脉血栓**阻塞回流时，高压迫使**穿静脉瓣**向外逆流并急剧抬高毛细血管静水压，超越胶体渗透压引发下肢凹陷性水肿。"
+    },
+    {
+      "id": "e_aud_c_thyroid_oxphos_to_bmr",
+      "source": "biochem_ox_oxphos_regulation_mtdna",
+      "target": "physio_bmr_surface_law",
+      "relation_type": "cross_discipline",
+      "strength": 0.82,
+      "bridge_text": "**T₃**诱导Na⁺-K⁺-ATP酶增耗ATP生ADP驱动呼吸控制，并上调**UCP**解偶联漏热，解释甲亢BMR飙升25%–80%。"
+    },
+    {
+      "id": "e_aud_e_deamination_to_ammonia_trans",
+      "source": "biochem_transamination_deamination",
+      "target": "biochem_ammonia_transport",
+      "relation_type": "prerequisite",
+      "strength": 0.9,
+      "bridge_text": "外周组织经**联合脱氨基**在胞内释放剧毒游离NH₃后，须由**谷氨酰胺合成酶**耗ATP结合或经丙氨酸循环方能无毒入血运至肝肾。"
+    },
+    {
+      "id": "e_aud_e_glycolysis_vs_gluconeogenesis",
+      "source": "biochem_glycolysis_pathway_atp",
+      "target": "biochem_gluconeogenesis_bypasses",
+      "relation_type": "contrast_with",
+      "strength": 0.9,
+      "bridge_text": "**糖酵解**在胞质经3个不可逆限速酶净产2 ATP；**糖异生**须跨线粒体与胞质以4酶绕行3步并净耗6高能键（非简单逆转）。"
+    },
+    {
+      "id": "e_aud_e_pulm_vs_hep_congestion",
+      "source": "patho_pulmonary_congestion",
+      "target": "patho_hepatic_congestion",
+      "relation_type": "contrast_with",
+      "strength": 0.9,
+      "bridge_text": "左心衰致**肺淤血**现肺泡水肿泡沫痰与心衰细胞；右心衰致**肝淤血**累及小叶中央3区淤血配周边脂变呈槟榔肝。"
+    },
+    {
+      "id": "e_aud_e_adapt_vs_cis",
+      "source": "patho_cellular_adaptation",
+      "target": "patho_tumor_precancer_cis_progression",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "细胞适应性**化生与增生**在诱因去除后可逆复原；**异型增生至原位癌**则属克隆不可逆演变并终可突破基底膜浸润。"
+    },
+    {
+      "id": "e_aud_e_benign_malig_vs_cis",
+      "source": "patho_tumor_benign_vs_malignant",
+      "target": "patho_tumor_precancer_cis_progression",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "良恶性常规以浸润转移定局，而**原位癌**细胞虽具恶性异型性却仍困于完整**基底膜**内未发生间质浸润，尚属0期可治愈。"
+    },
+    {
+      "id": "e_aud_e_calot_vs_hepatoduodenal",
+      "source": "anat_visc_dig2_biliary_tract_calot",
+      "target": "anat_visc_gyn_lesser_omentum_triad",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "**Calot三角**由胆囊管、肝总管与肝下缘围成以定位胆囊动脉；**肝十二指肠韧带**内行右前胆总管、左前肝固有A与后门V。"
+    },
+    {
+      "id": "e_aud_e_exogenous_vs_endogenous_pyrogen",
+      "source": "pathophys_pyrogen_activators_toxins",
+      "target": "pathophys_endogenous_pyrogens_core",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "**外致热原**(耐高热LPS/外毒素)不直接穿透血脑屏障，必须先激活产EP细胞合成释放**不耐热多肽EP**方能入脑上移调定点。"
+    },
+    {
+      "id": "e_aud_e_portal_vs_ivc",
+      "source": "anat_vasc_vein_portal_features_anastomoses",
+      "target": "anat_vasc_vein_ivc_iliac_course",
+      "relation_type": "contrast_with",
+      "strength": 0.88,
+      "bridge_text": "**肝门静脉**两端皆连毛细血管且无瓣易高压逆流，经三大吻合支把本该入肝的血分流注入单端回心的**下腔静脉**与奇静脉。"
+    },
+    {
+      "id": "e_aud_e_suppurative_to_hematogenous",
+      "source": "patho_inflam_suppurative_subtypes",
+      "target": "patho_inflam_hematogenous_spread",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "化脓性灶若缺乏凝固膜局限或酶解破壁入血，**化脓菌与毒素**随血循环播散即从局部脓肿演变为败血症乃至多脏器迁徙性**脓毒败血症**。"
+    },
+    {
+      "id": "e_aud_e_synapse_to_pharma_transmitters",
+      "source": "histo_chemical_synapse",
+      "target": "pharma_efferent_transmitters",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "化学突触前膜囊泡、间隙水解酶及后膜受体超微结构，直接决定传出递质**ACh酶解**与**NA摄取1回收**的药理消除靶点。"
+    },
+    {
+      "id": "e_aud_c_shuttles_to_coq_pool",
+      "source": "biochem_cytosolic_nadh_shuttles",
+      "target": "biochem_ox_complex_i_ii_entry",
+      "relation_type": "causal_next",
+      "strength": 0.87,
+      "bridge_text": "**苹果酸-天冬氨酸穿梭**将胞质NADH送入**复合体Ⅰ**产2.5 ATP，而α-磷酸甘油穿梭经FAD直汇CoQ代谢池产1.5 ATP。"
+    },
+    {
+      "id": "e_aud_d_osteoclast_to_fracture",
+      "source": "histo_bone_osteoclast_resorption",
+      "target": "patho_fracture_healing_and_factors",
+      "relation_type": "structural_basis",
+      "strength": 0.87,
+      "bridge_text": "**破骨细胞**借亮区封闭微环境与皱褶缘泌H⁺和蛋白酶吸收骨折端死骨及多余骨痂，并偶联成骨细胞按应力**改建板层骨**与重通骨髓腔。"
+    },
+    {
+      "id": "e_aud_a_bony_labyrinth_to_histo_ear",
+      "source": "anat_sens_ear_bony_labyrinth",
+      "target": "histo_ear_outer_middle_labyrinth",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "骨螺旋板隔出的**前庭阶与鼓阶**充盈高Na⁺外淋巴，与膜蜗管**血管纹**借Na⁺-K⁺泵分泌的高K⁺内淋巴(+80 mV)严格隔离。"
+    },
+    {
+      "id": "e_aud_a_carpal_arch_to_tunnel",
+      "source": "anat_upper_carpal_bones_order",
+      "target": "anat_musc_limb_forearm_anterior",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "手舟骨、大多角骨与豌豆骨、钩骨钩围成掌面凹陷**腕沟**，与屈肌支持带共筑**腕管**，卡压穿行的9条屈肌腱与正中神经。"
+    },
+    {
+      "id": "e_aud_b_liver_lobule_to_apr_app",
+      "source": "histo_liver_lobule",
+      "target": "pathophys_stress_apr_app",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "**肝血窦**使血流中IL-1/TNF/IL-6直达肝细胞膜受体，重编程**肝小叶**蛋白合成谱——暴增CRP等正急性期蛋白并下调白蛋白。"
+    },
+    {
+      "id": "e_aud_b_rbc_anemia_to_tigroid_heart",
+      "source": "histo_blood_erythrocyte",
+      "target": "patho_fatty_change",
+      "relation_type": "cross_discipline",
+      "strength": 0.86,
+      "bridge_text": "重度贫血时**红细胞**与Hb携氧骤降引发持续心肌缺氧，左心室内膜下及乳头肌脂肪酸**β-氧化**受阻蓄积甘油三酯，形成红黄相间“虎斑心”。"
+    },
+    {
+      "id": "e_aud_c_pfk2_contrast_acc",
+      "source": "biochem_pfk1_pfk2_switch",
+      "target": "biochem_lipid_acc_cpt1_reciprocal_switch",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "糖脂互反调控共享胰岛素/胰高血糖素磷酸化开关：糖侧凭**F-2,6-BP**控PFK-1，脂侧凭**丙二酰CoA**锁CPT1并控ACC。"
+    },
+    {
+      "id": "e_aud_c_ros_to_ferroptosis_autophagy",
+      "source": "patho_injury_ros_er_stress_targets",
+      "target": "patho_autophagy_and_regulated_death",
+      "relation_type": "causal_next",
+      "strength": 0.86,
+      "bridge_text": "Fe²⁺**Fenton反应**产·OH叠加GSH耗竭致**GPX4失活**引爆铁死亡，同时损伤线粒体激活Atg/LC3-II自噬清除。"
+    },
+    {
+      "id": "e_aud_d_pancreas_to_celiac_lymph",
+      "source": "anat_visc_dig2_pancreas_parts_relations",
+      "target": "anat_vasc_lymph_celiac_perigastric_nodes",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "胰各部淋巴先汇胰十二指肠与脾淋巴结，继总汇腹腔干根部的**腹腔淋巴结**并经**肠干**入乳糜池，构成胰腺癌早期腹膜后及胸导管播散主轴。"
+    },
+    {
+      "id": "e_aud_d_pharynx_to_head_neck_lymph",
+      "source": "anat_visc_pharynx_divisions_comms",
+      "target": "anat_vasc_lymph_head_neck_nodes",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "鼻咽**咽隐窝**（鼻咽癌好发处）及咽后壁淋巴直接经咽后隙汇入**咽后淋巴结**，继入颈外侧上深淋巴结，解释鼻咽癌早期颈上深淋巴结肿大。"
+    },
+    {
+      "id": "e_aud_d_tongue_to_head_neck_lymph",
+      "source": "anat_visc_tongue_mucosa_papillae",
+      "target": "anat_vasc_lymph_head_neck_nodes",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "**舌尖**淋巴汇入颏下淋巴结，舌体两侧与舌下区经**下颌下淋巴结**注入颈外侧深淋巴结（舌根近扁桃体入二腹肌结），决定舌癌分区颈清扫。"
+    },
+    {
+      "id": "e_aud_e_chains_vs_uncouplers",
+      "source": "biochem_ox_two_respiratory_chains",
+      "target": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "正常呼吸链靠10H⁺/6H⁺泵梯度偶联合成ATP；**DNP与UCP1解偶联**使质子漏回基质，导致耗氧飙升而ATP归零、能量全化热。"
+    },
+    {
+      "id": "e_aud_e_eye_wall_vs_lens",
+      "source": "anat_sens_eye_wall_fibrous_vascular",
+      "target": "anat_sens_eye_lens_vitreous_refraction",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "眼球前门**角膜**与虹膜提供固定屈光和光阑调节，而眼内容**晶状体**借睫状肌改变曲度实现可变焦调视、玻璃体支撑视网膜。"
+    },
+    {
+      "id": "e_aud_e_eyeball_to_extraocular",
+      "source": "anat_sens_eye_eyeball_overview",
+      "target": "anat_sens_eye_extraocular_actions",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "确立**眼轴、视轴与约23°外偏眶轴**的几何夹角关系，才能推导出上下直肌兼内收而赤道后止点的**上下斜肌转外**的力学协同。"
+    },
+    {
+      "id": "e_aud_e_fasn_to_efa",
+      "source": "biochem_fa_synthesis_citrate_fasn",
+      "target": "biochem_lipid_classification_efa",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "人体**FASN从头合成**止步于16碳软脂酸且内质网只含≤Δ⁹去饱和酶，从而决定了植物来源**亚油酸与α-亚麻酸**的必需性。"
+    },
+    {
+      "id": "e_aud_e_osteogenesis_vs_cartilage",
+      "source": "histo_osteogenesis_mechanisms",
+      "target": "histo_cartilage_general_growth",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "**软骨**无血管靠分子筛弥散行间质+外加双轨生长；**成骨**则伴随血管侵入、钙化软骨基质置换与内外表面改建（无间质生长）。"
+    },
+    {
+      "id": "e_aud_e_pleura_vs_pericardium",
+      "source": "anat_visc_resp_pleura_cavity_recesses",
+      "target": "anat_vasc_heart_pericardium_sinuses",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "左右独立负压**胸膜腔**积液聚于肋膈隐窝行第8–9肋间穿刺；**浆膜心包腔**借横斜前下三窦定位，积液则行剑突左肋弓下穿刺。"
+    },
+    {
+      "id": "e_aud_e_pulm_trunk_vs_pulm_veins",
+      "source": "anat_vasc_art_pulmonary_trunk_pda",
+      "target": "anat_vasc_vein_pulmonary_veins",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "肺循环出现动静脉血性质反转：**肺动脉干**起自右心室输送低氧静脉血，而4条**肺静脉**汇入左心房输送富氧动脉血。"
+    },
+    {
+      "id": "e_aud_e_wound_vs_regen_potential",
+      "source": "patho_wound_healing_first_vs_second",
+      "target": "patho_repair_regeneration_potential",
+      "relation_type": "contrast_with",
+      "strength": 0.86,
+      "bridge_text": "一期/二期创伤愈合本质受制于**稳定与永久细胞再生潜能**，表皮缺损较大或基膜受损即由**肉芽瘢痕修复**取代完全再生。"
+    },
+    {
+      "id": "e_aud_a_corti_to_mechano_channel",
+      "source": "histo_ear_vestibular_corti_receptors",
+      "target": "physio_signaling_receptor_matrix",
+      "relation_type": "structural_basis",
+      "strength": 0.85,
+      "bridge_text": "壶腹嵴、位觉斑与螺旋器毛细胞静纤毛受剪切偏转时直接牵开**机械门控阳离子通道**，实现毫秒级**机械能-膜电位**跨膜信号转导。"
+    },
+    {
+      "id": "e_aud_a_diaphragm_to_venous_return",
+      "source": "anat_musc_ax_diaphragm_hiatuses",
+      "target": "anat_vasc_vein_venous_return_factors",
+      "relation_type": "structural_basis",
+      "strength": 0.85,
+      "bridge_text": "吸气时膈穹窿下降既拉阔中心腱**腔静脉孔**，又压迫腹腔抬高**腹内压**并加深胸腔负压，双压梯度将腹血泵回右心房。"
+    },
+    {
+      "id": "e_aud_a_eye_reflex_to_regulation",
+      "source": "anat_sens_eye_wall_fibrous_vascular",
+      "target": "physio_regulation_modes_body_fluid",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "角膜富三叉神经末梢(CN V₁)司**角膜反射**传入，虹膜肌群司**瞳孔对光反射**传出，为神经调节“快速精确、定位局限”的典型范例。"
+    },
+    {
+      "id": "e_aud_a_hip_sciatic_to_atrophy",
+      "source": "anat_musc_limb_hip_core",
+      "target": "patho_atrophy_metaplasia_morphology",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "梨状肌下孔卡压或误伤**坐骨神经**切断运动冲动与神经营养传入，使所支配小腿及足肌纤维体积缩小并发生典型**去神经性萎缩**。"
+    },
+    {
+      "id": "e_aud_a_retina_to_local_ap",
+      "source": "histo_eye_retina_relay_fovea",
+      "target": "physio_local_vs_action_potential",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "视网膜三级神经元链中，视细胞与双极细胞依赖**分级局部电位**跨突触总和，唯**视网膜节细胞**轴突触发全或无动作电位聚成视神经。"
+    },
+    {
+      "id": "e_aud_b_ijv_distension_to_congestion",
+      "source": "anat_vasc_vein_head_neck_ijv_ejv",
+      "target": "patho_hyperemia_types_decompression",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.85,
+      "bridge_text": "**颈内/外静脉**近心段缺乏瓣膜阻挡，右心衰或心包压塞阻滞体循环回流时压力直传颈部，外化为特征性**颈静脉怒张**与体静脉淤血。"
+    },
+    {
+      "id": "e_aud_b_plasma_proteins_to_exudate",
+      "source": "histo_blood_composition_plasma",
+      "target": "patho_inflam_exudate_vs_transudate",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "血浆中**白蛋白**主司胶体渗透压而**纤维蛋白原**决定凝固性：血管壁轻损压力失衡只漏出白蛋白，内皮间隙大增方渗出纤维蛋白原并自凝。"
+    },
+    {
+      "id": "e_aud_b_right_bronchus_to_lung_abscess",
+      "source": "anat_visc_resp_main_bronchi_aspiration",
+      "target": "patho_inflam_suppurative_subtypes",
+      "relation_type": "structural_basis",
+      "strength": 0.85,
+      "bridge_text": "**右主支气管**粗短陡直（嵴下角仅20°–30°），口腔坏死物或脓栓误吸时优先顺重力坠入右肺，构筑吸入性**肺脓肿**右肺高发的解剖基础。"
+    },
+    {
+      "id": "e_aud_b_spleen_notch_to_septic_spleen",
+      "source": "anat_vasc_lymph_spleen_anatomy",
+      "target": "patho_inflam_hematogenous_spread",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "脓毒败血症时大量血行病原与炎细胞滞留脾内诱发**“败血脾”**急性肿大，质软易破的脾下移出左肋弓可凭上缘**脾切迹**触诊鉴别。"
+    },
+    {
+      "id": "e_aud_b_ureter_stone_to_renal_atrophy",
+      "source": "anat_visc_uro_ureter_three_constrictions",
+      "target": "patho_cellular_adaptation",
+      "relation_type": "cross_discipline",
+      "strength": 0.85,
+      "bridge_text": "结石嵌顿于**输尿管三狭窄**（尤以壁内部最窄）阻滞排尿引发**肾盂积水**，持续升高的肾盂内压长期压迫肾实质导致压迫性萎缩。"
+    },
+    {
+      "id": "e_aud_c_fa_beta_to_coq_pool",
+      "source": "biochem_fa_beta_oxidation_shuttle",
+      "target": "biochem_ox_complex_i_ii_entry",
+      "relation_type": "causal_next",
+      "strength": 0.85,
+      "bridge_text": "β-氧化首步**脂酰CoA脱氢酶**经FAD与ETF跳过复合体Ⅱ直入**CoQ代谢池**，第3步β-羟脂酰CoA脱氢酶则产NADH入复合体Ⅰ。"
+    },
+    {
+      "id": "e_aud_c_glycogen_contrast_lipolysis",
+      "source": "biochem_glycogen_covalent_allosteric",
+      "target": "biochem_lipolysis_glycerol_fate",
+      "relation_type": "contrast_with",
+      "strength": 0.85,
+      "bridge_text": "禁食应激激素借同一**cAMP-PKA**级联，在肝肌磷酸化激活糖原磷酸化酶抑合酶，在脂肪解锁Perilipin与**ATGL/HSL**动员TG。"
+    },
+    {
+      "id": "e_aud_c_lipid_efa_to_phospholipid",
+      "source": "biochem_lipid_classification_efa",
+      "target": "biochem_phospholipid_sphingolipid_metabolism",
+      "relation_type": "causal_next",
+      "strength": 0.85,
+      "bridge_text": "亚油酸衍生的**花生四烯酸**嵌于膜甘油磷脂sn-2位，经**PLA₂**水解释放后既产溶血磷脂又衍生PG、TXA₂与LT。"
+    },
+    {
+      "id": "e_aud_d_dense_ct_to_scar",
+      "source": "histo_dense_ct",
+      "target": "patho_fibrous_scar_remodeling",
+      "relation_type": "structural_basis",
+      "strength": 0.85,
+      "bridge_text": "肉芽组织血管闭塞后转化为类似**不规则致密结缔组织**的粗大交错Ⅰ型胶原束而缺**弹性纤维**，决定成熟瘢痕质硬韧、抗拉力强却失去弹性。"
+    },
+    {
+      "id": "e_aud_d_prostate_to_batson",
+      "source": "anat_visc_uro_prostate_anatomy_clinical",
+      "target": "anat_vasc_vein_vertebral_plexus",
+      "relation_type": "structural_basis",
+      "strength": 0.85,
+      "bridge_text": "前列腺真假被膜间的**前列腺静脉丛**与膀胱/髂内静脉吻合，并向后上直接交通无瓣**椎静脉丛**，构成前列腺癌高发腰骶椎骨转移的解剖通道。"
+    },
+    {
+      "id": "e_aud_e_acc_switch_vs_hormones",
+      "source": "biochem_lipid_acc_cpt1_reciprocal_switch",
+      "target": "biochem_blood_glucose_hormones_dm",
+      "relation_type": "contrast_with",
+      "strength": 0.85,
+      "bridge_text": "餐后**胰岛素**激活ACC增丙二酰CoA抑CPT1促脂合成；饥饿/DM时**胰高血糖素**经PKA磷酸化关闭ACC并解锁脂肪动员β-氧化。"
+    },
+    {
+      "id": "e_aud_a_antagonism_contrast_shivering",
+      "source": "anat_musc_ax_origin_antagonism",
+      "target": "physio_heat_production_organs_ucp",
+      "relation_type": "contrast_with",
+      "strength": 0.84,
+      "bridge_text": "随意运动依原动肌收缩、**拮抗肌同步松弛**输出机械外功；寒冷战栗时脊髓前角同时兴奋**屈肌与伸肌**节律共缩，不做功全转为热能。"
+    },
+    {
+      "id": "e_aud_a_humerus_to_hand_ulnar",
+      "source": "anat_upper_humerus_nerve_grooves",
+      "target": "anat_musc_limb_hand_muscles_nerves",
+      "relation_type": "clinical_manifestation",
+      "strength": 0.84,
+      "bridge_text": "肱骨内上髁后下**尺神经沟**受撞或骨折卡压尺神经，瘫痪小鱼际、全部**骨间肌**及第3–4蚓状肌，出现夹纸不能与爪形手畸形。"
+    },
+    {
+      "id": "e_aud_b_sa_node_to_fever_tachycardia",
+      "source": "anat_vasc_heart_conduction_system",
+      "target": "pathophys_fever_organ_dysfunction",
+      "relation_type": "cross_discipline",
+      "strength": 0.84,
+      "bridge_text": "高热时温热血液直接刺激右房界沟上端**窦房结**加快起搏（每℃↑18次/分），心率过快压缩心室**舒张充盈期**反致心输出量下降。"
+    },
+    {
+      "id": "e_aud_c_mb_hb_to_complex_iv",
+      "source": "biochem_mb_vs_hb_oxygen_binding",
+      "target": "biochem_ox_complex_iv_oxygen",
+      "relation_type": "causal_next",
+      "strength": 0.84,
+      "bridge_text": "Mb/Hb借**血红素Fe²⁺**不变价可逆储运O₂至线粒体，交由**复合体Ⅳ**Cyt a₃-CuB双核中心变价四步单电子还原为水。"
+    },
+    {
+      "id": "e_aud_e_pterion_vs_dural_sinus",
+      "source": "anat_skull_lateral_pterion_hematoma",
+      "target": "anat_vasc_vein_special_veins",
+      "relation_type": "contrast_with",
+      "strength": 0.84,
+      "bridge_text": "**翼点**骨折撕裂脑膜中动脉引发高压急性硬膜外动脉血肿；而无肌无瓣的**硬脑膜窦与导静脉**则诱发低压静脉渗血及逆流感染。"
+    },
+    {
+      "id": "e_aud_a_orbit_blowout_to_diplopia",
+      "source": "anat_skull_orbit_walls_openings",
+      "target": "anat_sens_eye_extraocular_actions",
+      "relation_type": "cross_discipline",
+      "strength": 0.83,
+      "bridge_text": "眶底**上颌骨眶板**薄弱且邻上颌窦，眶击爆裂骨折易嵌顿下直肌与下斜肌限制眼球上转，引发垂直复视并伴**眶下神经**麻木。"
+    },
+    {
+      "id": "e_aud_c_aa_pool_to_stress_neg_n",
+      "source": "biochem_aa_pool",
+      "target": "pathophys_stress_ptsd_metabolic",
+      "relation_type": "cross_discipline",
+      "strength": 0.83,
+      "bridge_text": "慢性应激高糖皮质激素持续拆解占**氨基酸代谢库>50%**的骨骼肌蛋白供糖异生与APP合成，导致长期**负氮平衡**与肌萎缩消瘦。"
+    },
+    {
+      "id": "e_aud_c_homeostasis_to_blood_glucose",
+      "source": "physio_homeostasis_feedback",
+      "target": "biochem_blood_glucose_hormones_dm",
+      "relation_type": "cross_discipline",
+      "strength": 0.83,
+      "bridge_text": "生理**负反馈**借胰岛素与升糖激素拮抗将血糖稳在3.89–6.11 mmol/L，反馈断裂即演变为**糖尿病**或低血糖休克。"
+    },
+    {
+      "id": "e_aud_d_bone_plasticity_to_atrophy",
+      "source": "anat_bone_ossification_plasticity",
+      "target": "patho_atrophy_metaplasia_morphology",
+      "relation_type": "cross_discipline",
+      "strength": 0.83,
+      "bridge_text": "骨小梁顺应力重排的**Wolff机械塑形**规律决定了骨折石膏长期固定或失重时成骨减弱、吸收占优，直接引发病理**失用性萎缩**（废用骨疏松）。"
+    },
+    {
+      "id": "e_aud_d_hilar_n1_to_staging",
+      "source": "anat_vasc_lymph_thoracic_wall_hilar_ext",
+      "target": "patho_tumor_grading_staging_diagnosis",
+      "relation_type": "cross_discipline",
+      "strength": 0.83,
+      "bridge_text": "肺根周**支气管肺门淋巴结**构成肺癌N1首发站，继向**气管支气管与纵隔结**（N2）跃迁；纵隔后结则主导食管胸段癌TNM分期判读。"
+    },
+    {
+      "id": "e_aud_c_uncouplers_to_hyperthermia",
+      "source": "biochem_ox_inhibitors_uncouplers_ucp1",
+      "target": "pathophys_fever_vs_hyperthermia",
+      "relation_type": "cross_discipline",
+      "strength": 0.82,
+      "bridge_text": "**DNP**与过量水杨酸消散线粒体ΔpH质子梯度使氧化能全数化热，因未通过EP上移POAH调定点而属于典型的解偶联**过热**。"
+    },
+    {
+      "id": "e_gov_edema_raas_to_hyperemia_types",
+      "source": "patho_edema_raas_and_organ_lesions",
+      "target": "patho_hyperemia_types_decompression",
+      "relation_type": "contrast_with",
+      "strength": 0.8,
+      "bridge_text": "全身与器官水肿以微血管静水压升高及**RAAS钠水潴留**为核心，须与动脉主动扩张充血（含腹水骤放后的**减压后充血**）及单纯静脉受阻淤血鉴别。"
+    },
+    {
+      "id": "e_gov_load_to_pharma_tx",
+      "source": "physio_muscle_load_factors",
+      "target": "pharma_efferent_transmitters",
+      "relation_type": "cross_discipline",
+      "strength": 0.8,
+      "bridge_text": "骨骼肌前/后负荷与收缩能力受运动神经及交感神经支配调控，进一步延伸至**传出神经递质（ACh与NA）**的合成、释放与药理消除靶点。"
+    },
+    {
+      "id": "e_gov_curves_to_fever_metab",
+      "source": "pathophys_fever_curve_types",
+      "target": "pathophys_fever_metabolism_bat",
+      "relation_type": "causal_next",
+      "strength": 0.84,
+      "bridge_text": "稽留热、弛张热与间歇热等**典型热型曲线**反映高热持续期与骤降期的波动，高热持续期伴随显著分解代谢亢进与**棕色脂肪产热**消耗。"
+    },
+    {
+      "id": "e_gov_platelet_to_plasma_serum",
+      "source": "histo_blood_platelet",
+      "target": "histo_blood_composition_plasma",
+      "relation_type": "causal_next",
+      "strength": 0.84,
+      "bridge_text": "血小板激活凝血瀑布使离体血液凝固析出不含**纤维蛋白原**的淡黄色血清，借此与抗凝离心所得含纤维蛋白原的**血浆**严格鉴别。"
+    },
+    {
+      "id": "e_gov_plasma_to_reticulocyte",
+      "source": "histo_blood_composition_plasma",
+      "target": "histo_blood_reticulocyte",
+      "relation_type": "causal_next",
+      "strength": 0.84,
+      "bridge_text": "除血浆蛋白与成熟血细胞常规染色外，煌焦油蓝活体染色检出外周血**网织红细胞**比例（0.5%–1.5%）可直接评估骨髓红系造血活力。"
+    },
+    {
+      "id": "e_gov_sinuses_to_external_nose",
+      "source": "anat_visc_resp_paranasal_sinuses_drainage",
+      "target": "anat_visc_resp_external_nose_landmarks",
+      "relation_type": "causal_next",
+      "strength": 0.82,
+      "bridge_text": "骨性鼻腔与鼻旁窦借前外方的**外鼻骨与软骨支架**维持气道通畅，外鼻与上唇围成的**危险三角**因面静脉少瓣易逆流感染。"
+    },
+    {
+      "id": "e_gov_external_nose_to_larynx_cart",
+      "source": "anat_visc_resp_external_nose_landmarks",
+      "target": "anat_visc_resp_larynx_cartilages_membranes",
+      "relation_type": "causal_next",
+      "strength": 0.82,
+      "bridge_text": "呼吸气体经外鼻、固有鼻腔加温湿润并穿过咽腔后，即进入由**会厌、甲状、环状及杓状软骨**构筑支架的下呼吸道门户——喉。"
+    },
+    {
+      "id": "e_gov_sys_pulm_to_heart_chambers",
+      "source": "anat_vasc_heart_systemic_pulmonary",
+      "target": "anat_heart_chambers",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "**体循环与肺循环**双路径及动静脉血性质反转的总规律，直接决定了心脏左、右各腔室单一出口的泵血分工。"
+    },
+    {
+      "id": "e_gov_portal_to_lobule",
+      "source": "anat_portal_vein_system",
+      "target": "histo_liver_lobule",
+      "relation_type": "structural_basis",
+      "strength": 0.86,
+      "bridge_text": "消化道回流的**肝门静脉**主干入肝门逐级分支终成门管区小叶间静脉，与肝动脉血共汇**肝血窦**向心注入中央静脉。"
+    },
+    {
+      "id": "e_gov_vein_char_to_portal",
+      "source": "anat_vein_characteristics",
+      "target": "anat_portal_vein_system",
+      "relation_type": "prerequisite",
+      "strength": 0.88,
+      "bridge_text": "掌握体循环静脉壁薄腔大与**静脉瓣防逆流**规律后，才能深刻理解两端连毛细血管且无瓣的**肝门静脉**易高压逆流的特例。"
+    },
+    {
+      "id": "e_gov_cv_vessels_to_vein_char",
+      "source": "anat_vasc_heart_cv_vessels",
+      "target": "anat_vein_characteristics",
+      "relation_type": "structural_basis",
+      "strength": 0.88,
+      "bridge_text": "心血管系统中动脉、毛细血管与静脉的三级管壁构造差异，直接决定了**体循环静脉**薄壁大腔及深浅分布与静脉瓣发育特性。"
     }
   ],
   "threads": [
@@ -45508,7 +46912,8 @@
           "node_id": "patho_edema_mechanisms",
           "incoming_edge_id": "e_portal_to_edema"
         }
-      ]
+      ],
+      "subject": "pathology"
     },
     {
       "id": "thread_ammonia_encephalopathy",
@@ -45544,7 +46949,8 @@
           "node_id": "biochem_hyperammonemia_he",
           "incoming_edge_id": "e_urea_to_he"
         }
-      ]
+      ],
+      "subject": "biochem"
     },
     {
       "id": "thread_excitation_contraction",
@@ -45581,8 +46987,12 @@
           "incoming_edge_id": "e_nmj_to_triad"
         },
         {
+          "node_id": "histo_skeletal_sliding_filament",
+          "incoming_edge_id": "e_triad_to_sliding_histo"
+        },
+        {
           "node_id": "physio_ec_coupling_sliding",
-          "incoming_edge_id": "e_triad_to_sliding"
+          "incoming_edge_id": "e_sliding_histo_to_physio"
         },
         {
           "node_id": "physio_skeletal_vs_smooth",
@@ -45591,8 +47001,13 @@
         {
           "node_id": "physio_muscle_load_factors",
           "incoming_edge_id": "e_smooth_to_load"
+        },
+        {
+          "node_id": "pharma_efferent_transmitters",
+          "incoming_edge_id": "e_gov_load_to_pharma_tx"
         }
-      ]
+      ],
+      "subject": "physiology"
     },
     {
       "id": "thread_cell_injury_necrosis",
@@ -45626,7 +47041,8 @@
           "node_id": "patho_calcification_types",
           "incoming_edge_id": "e_outcomes_to_calcification"
         }
-      ]
+      ],
+      "subject": "pathology"
     },
     {
       "id": "thread_veins_and_stress",
@@ -45652,7 +47068,8 @@
           "node_id": "anat_lower_limb_veins",
           "incoming_edge_id": "e_upper_to_lower"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_connective_tissue",
@@ -45703,7 +47120,8 @@
           "node_id": "histo_adipose_tissue",
           "incoming_edge_id": "e_reticular_to_adipose"
         }
-      ]
+      ],
+      "subject": "histology"
     },
     {
       "id": "thread_thermoregulation_fever",
@@ -45753,14 +47171,19 @@
           "incoming_edge_id": "e_neg_to_phases"
         },
         {
+          "node_id": "pathophys_fever_curve_types",
+          "incoming_edge_id": "e_phases_to_curves"
+        },
+        {
           "node_id": "pathophys_fever_metabolism_bat",
-          "incoming_edge_id": "e_phases_to_metabolism"
+          "incoming_edge_id": "e_gov_curves_to_fever_metab"
         },
         {
           "node_id": "pathophys_fever_organ_dysfunction",
           "incoming_edge_id": "e_metabolism_to_organs"
         }
-      ]
+      ],
+      "subject": "pathophys"
     },
     {
       "id": "thread_glucose_metabolism",
@@ -45818,7 +47241,8 @@
           "node_id": "biochem_cori_cycle_physiological",
           "incoming_edge_id": "e_gluconeogenesis_to_cori"
         }
-      ]
+      ],
+      "subject": "biochem"
     },
     {
       "id": "thread_protein_structure_function",
@@ -45869,7 +47293,8 @@
           "node_id": "biochem_protein_denaturation_coagulation",
           "incoming_edge_id": "e_ch1_colloid_to_denat"
         }
-      ]
+      ],
+      "subject": "biochem"
     },
     {
       "id": "thread_enzymology",
@@ -45915,7 +47340,8 @@
           "node_id": "biochem_enzyme_isoenzymes_ldh_ck",
           "incoming_edge_id": "e_enz_reg_to_isoenzymes"
         }
-      ]
+      ],
+      "subject": "biochem"
     },
     {
       "id": "thread_lipid_metabolism",
@@ -46140,7 +47566,8 @@
           "node_id": "pathophys_brain_death_criteria_ethics",
           "incoming_edge_id": "e_outcomes_to_brain_death"
         }
-      ]
+      ],
+      "subject": "pathophys"
     },
     {
       "id": "thread_pathophys_stress",
@@ -46190,7 +47617,8 @@
           "node_id": "pathophys_stress_prevention_principles",
           "incoming_edge_id": "e_ptsd_metabolic_to_prevention"
         }
-      ]
+      ],
+      "subject": "pathophys"
     },
     {
       "id": "thread_patho_degeneration_injury_mechanisms",
@@ -46236,7 +47664,8 @@
           "node_id": "patho_autophagy_and_regulated_death",
           "incoming_edge_id": "e_patho_v2_apoptosis_to_autophagy"
         }
-      ]
+      ],
+      "subject": "pathology"
     },
     {
       "id": "thread_patho_repair_healing",
@@ -46274,7 +47703,8 @@
           "node_id": "patho_fracture_healing_and_factors",
           "incoming_edge_id": "e_repair_wound_to_fracture"
         }
-      ]
+      ],
+      "subject": "pathology"
     },
     {
       "id": "thread_patho_inflammation",
@@ -46341,7 +47771,8 @@
           "node_id": "patho_inflam_hematogenous_spread",
           "incoming_edge_id": "e_outcomes_to_hematogenous"
         }
-      ]
+      ],
+      "subject": "pathology"
     },
     {
       "id": "thread_patho_tumor_biology",
@@ -46379,7 +47810,8 @@
           "node_id": "patho_tumor_grading_staging_diagnosis",
           "incoming_edge_id": "e_invasion_to_grading_diagnosis"
         }
-      ]
+      ],
+      "subject": "pathology"
     },
     {
       "id": "thread_patho_tumor_molecular",
@@ -46417,7 +47849,8 @@
           "node_id": "patho_tumor_special_systems_blastomas",
           "incoming_edge_id": "e_epithelial_mesenchymal_to_special"
         }
-      ]
+      ],
+      "subject": "pathology"
     },
     {
       "id": "thread_epithelium_architecture",
@@ -46455,7 +47888,8 @@
           "node_id": "histo_epith_renewal_regeneration",
           "incoming_edge_id": "e_epith_gland_cells_to_renewal"
         }
-      ]
+      ],
+      "subject": "histology"
     },
     {
       "id": "thread_cartilage_bone",
@@ -46503,7 +47937,8 @@
           "node_id": "histo_bone_growth_regulation",
           "incoming_edge_id": "e_flat_bone_to_regulation"
         }
-      ]
+      ],
+      "subject": "histology"
     },
     {
       "id": "thread_hematology_blood",
@@ -46531,8 +47966,17 @@
         {
           "node_id": "histo_blood_platelet",
           "incoming_edge_id": "e_agranulocytes_to_platelet"
+        },
+        {
+          "node_id": "histo_blood_composition_plasma",
+          "incoming_edge_id": "e_gov_platelet_to_plasma_serum"
+        },
+        {
+          "node_id": "histo_blood_reticulocyte",
+          "incoming_edge_id": "e_gov_plasma_to_reticulocyte"
         }
-      ]
+      ],
+      "subject": "histology"
     },
     {
       "id": "thread_muscle_tissues",
@@ -46564,7 +48008,8 @@
           "node_id": "histo_muscle_histogenesis_regeneration",
           "incoming_edge_id": "e_smooth_to_muscle_regen"
         }
-      ]
+      ],
+      "subject": "histology"
     },
     {
       "id": "thread_nervous_tissue",
@@ -46907,7 +48352,8 @@
           "node_id": "anat_skull_surface_bony_landmarks",
           "incoming_edge_id": "e_neonatal_to_landmarks"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_myology_axial",
@@ -46969,7 +48415,8 @@
           "node_id": "anat_musc_ax_inguinal_canal",
           "incoming_edge_id": "e_anat_musc_ax_sheath_to_inguinal"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_myology_limbs",
@@ -47043,8 +48490,12 @@
           "incoming_edge_id": "e_resp_nasal_to_sinuses"
         },
         {
+          "node_id": "anat_visc_resp_external_nose_landmarks",
+          "incoming_edge_id": "e_gov_sinuses_to_external_nose"
+        },
+        {
           "node_id": "anat_visc_resp_larynx_cartilages_membranes",
-          "incoming_edge_id": "e_resp_sinuses_to_larynx_cart"
+          "incoming_edge_id": "e_gov_external_nose_to_larynx_cart"
         },
         {
           "node_id": "anat_visc_resp_larynx_muscles_glottis",
@@ -47078,7 +48529,8 @@
           "node_id": "anat_visc_resp_mediastinum_divisions",
           "incoming_edge_id": "e_resp_projections_to_mediastinum"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_digestive_upper",
@@ -47148,7 +48600,8 @@
           "node_id": "anat_visc_jejunum_ileum_diff",
           "incoming_edge_id": "e_visc_duodenum_to_jejunum_ileum"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_digestive_lower_glands",
@@ -47194,7 +48647,8 @@
           "node_id": "anat_visc_dig2_pancreas_endo_exocrine",
           "incoming_edge_id": "e_dig2_pancreas_to_endoexo"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_urinary_male",
@@ -47260,7 +48714,8 @@
           "node_id": "anat_visc_uro_male_urethra_curvatures",
           "incoming_edge_id": "e_uro_male_urethra_lm_to_curvatures"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_gyn_perineum_peritoneum",
@@ -47326,7 +48781,8 @@
           "node_id": "anat_visc_gyn_pouches_recesses_drainage",
           "incoming_edge_id": "e_gyn_mesenteries_to_pouches"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_sensory_eye",
@@ -47411,7 +48867,8 @@
           "node_id": "anat_sens_ear_membranous_labyrinth",
           "incoming_edge_id": "e_ear_bony_to_membranous"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_vasc_heart",
@@ -47473,7 +48930,8 @@
           "node_id": "anat_vasc_heart_surface_projection",
           "incoming_edge_id": "e_pericardium_to_projection"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_vasc_arteries",
@@ -47547,7 +49005,8 @@
           "node_id": "anat_vasc_art_tibial_dorsalis_pedis",
           "incoming_edge_id": "e_femoral_popliteal_to_tibial_dorsalis"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_vasc_veins",
@@ -47605,7 +49064,8 @@
           "node_id": "anat_vasc_vein_portal_hypertension_cascade",
           "incoming_edge_id": "e_vasc_vein_anast_to_phtn"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_anat_vasc_lymphatics",
@@ -47651,7 +49111,8 @@
           "node_id": "anat_vasc_lymph_lumbar_intestinal_trunks",
           "incoming_edge_id": "e_lymph_celiac_to_trunks_bottom"
         }
-      ]
+      ],
+      "subject": "anatomy"
     },
     {
       "id": "thread_biological_oxidation",
@@ -47693,6 +49154,36 @@
         {
           "node_id": "biochem_ox_coupling_sites_po_ratio",
           "incoming_edge_id": "e_ox_atp_synthase_to_coupling_po"
+        }
+      ]
+    },
+    {
+      "id": "thread_histo_microscopy_methods",
+      "title": "组胚技术导论：显微尺度与HE判读 → 组化与免疫组化原位杂交",
+      "subject": "histology",
+      "ordered_steps": [
+        {
+          "node_id": "histo_intro_lm_em_he_methods",
+          "incoming_edge_id": null
+        },
+        {
+          "node_id": "histo_histochem_ihc_ish_comparison",
+          "incoming_edge_id": "e_intro_methods_to_histochem"
+        }
+      ]
+    },
+    {
+      "id": "thread_patho_edema_hyperemia",
+      "title": "水肿放大与充血鉴别：RAAS器官水肿病变 → 动脉性充血与减压后充血",
+      "subject": "pathology",
+      "ordered_steps": [
+        {
+          "node_id": "patho_edema_raas_and_organ_lesions",
+          "incoming_edge_id": null
+        },
+        {
+          "node_id": "patho_hyperemia_types_decompression",
+          "incoming_edge_id": "e_gov_edema_raas_to_hyperemia_types"
         }
       ]
     }
